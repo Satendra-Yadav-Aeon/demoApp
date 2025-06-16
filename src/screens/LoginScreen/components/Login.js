@@ -27,15 +27,17 @@ const Login = () => {
       <Controller
         control={control}
         rules={{
-         required: MOBILE_CONSTANT.REQUIRED_ERROR,
-         maxLength: {
-            value: 10,
-            message: MOBILE_CONSTANT.MAX_LENGTH_ERROR
-          }
+          required: MOBILE_CONSTANT.REQUIRED_ERROR,
+          pattern: {
+            value: MOBILE_CONSTANT.PATTERN_1,
+            message: MOBILE_CONSTANT.PATTERN_ERROR,
+          },
         }}
         render={({ field: { onChange, value } }) => (
           <TextInput
             placeholder={MOBILE_CONSTANT.PLACEHOLDER}
+            placeholderTextColor={Colors.black}
+            maxLength={10}
             onChangeText={onChange}
             value={value}
             style={styles.inputText}
@@ -55,6 +57,7 @@ const Login = () => {
           <View style={styles.passwordContainer}>
           <TextInput
             placeholder={PASSWORD_CONSTANT.PLACEHOLDER}
+            placeholderTextColor={Colors.black}
             onChangeText={onChange}
             value={value}
             secureTextEntry={!showPassword}
@@ -113,6 +116,7 @@ const styles = StyleSheet.create({
       height: screenHeight * 0.06,
       borderRadius:4,
       fontSize: 18,
+      color: Colors.black
     },
     errorText: {
       color: Colors.red,

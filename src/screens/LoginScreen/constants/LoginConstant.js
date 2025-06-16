@@ -4,7 +4,8 @@ export const MOBILE_CONSTANT = {
     PLACEHOLDER: 'Enter Mobile No',
     NAME: 'mobileNumber',
     REQUIRED_ERROR: 'Mobile Number is required',
-    MAX_LENGTH_ERROR: 'Mobile Number cannot be more than 10 characters'
+    PATTERN_1: /^[0-9]{10}$/,
+    PATTERN_ERROR: 'Invalid mobile number'
 };
 export const PASSWORD_CONSTANT = {
     PLACEHOLDER: 'Enter Password',
