@@ -1,0 +1,21 @@
+import { View, Text, StyleSheet } from 'react-native'
+import React from 'react'
+
+const Dashboard = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.textStyle}>DashboardScreen</Text>
+    </View>
+  )
+}
+
+export default Dashboard
+
+const styles = StyleSheet.create({
+    container: {
+        flex:1
+    },
+    textStyle: {
+        fontSize: 30
+    }
+})
