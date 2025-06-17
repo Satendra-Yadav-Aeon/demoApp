@@ -6,7 +6,7 @@ import MyImages from '../../../utils/MyImages'
 import { PROFILE_SCREEN, SETTING_SCREEN } from '../../../constants/MainConstant'
 import EmployeeAttendance from './EmployeeAttendance'
 
-const Dashboard = () => {
+const EmployeeDashboard = () => {
   const navigation = useNavigation()
   const[employeeData] = useState({
     name: 'Lionel Messi',
@@ -35,7 +35,7 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default EmployeeDashboard
 
 const styles = StyleSheet.create({
     container: {
