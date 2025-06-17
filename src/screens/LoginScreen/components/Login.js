@@ -1,12 +1,13 @@
-import { View, Text, StyleSheet, Image, Dimensions, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MyImages from '../../../utils/MyImages'
 import { LOGIN_HEADER, MOBILE_CONSTANT, NUMBER_KEYPAD, PASSWORD_CONSTANT, SUBMIT_BUTTON_TEXT } from '../constants/LoginConstant';
 import Colors from '../../../assets/colors/colors';
+import ScreenDimensions from '../../../utils/DimensionUtils';
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const { screenWidth, screenHeight } = ScreenDimensions;
 const Login = () => {
   const[showPassword, setShowPassword] = useState(false);
   const {control, handleSubmit, formState: {errors}} = useForm({

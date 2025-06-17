@@ -1,11 +1,12 @@
-import { View, Text, StyleSheet, Dimensions, Platform, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Platform, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages';
 import { CHECK_IN_LABEL, CHECK_OUT_LABEL, NO_TIME } from '../constants/DashboardConstant';
 import { AM_TIME_LABEL, PM_TIME_LABEL } from '../../../constants/MainConstant';
+import ScreenDimensions from '../../../utils/DimensionUtils';
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const { screenWidth, screenHeight } = ScreenDimensions;
 
 const EmployeeAttendance = () => {
   const [isCheckIn, setIsCheckIn] = useState(true);
