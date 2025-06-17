@@ -3,33 +3,36 @@ import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages'
-import { PROFILE_SCREEN, SETTING_SCREEN } from '../../../constants/MainConstant'
-import EmployeeAttendance from './EmployeeAttendance'
+import EmployeeCategory from './EmployeeCategory'
+import EmployeeShowAttendance from './EmployeeShowAttendance'
+import { ROLES, SCREENS } from '../../../constants/MainConstant'
 
 const EmployeeDashboard = () => {
   const navigation = useNavigation()
   const[employeeData] = useState({
     name: 'Lionel Messi',
-    email: 'lionelMessi68@gmail.com'
+    email: 'lionelMessi68@gmail.com',
+    role: 'Employee'
 
   })
   return (
     <View style={styles.container}>
       <View style={styles.firstHalf}>
-        <TouchableOpacity onPress={() => navigation.navigate(SETTING_SCREEN)} style={styles.settingContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate(SCREENS.SETTING)} style={styles.settingContainer}>
           <Image source={MyImages.setting} style={styles.settingIcon}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate(PROFILE_SCREEN)} style={styles.profileContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate(SCREENS.PROFILE)} style={styles.profileContainer}>
           <Image source={MyImages.profile} style={styles.profileIcon}/>
         </TouchableOpacity>
         <View style={styles.employeeDataContainer}>
           <Text style={styles.employeeName}>{employeeData?.name}</Text>
           <Text style={styles.employeeEmail}>{employeeData?.email}</Text>
+          <Text style={styles.employeeEmail}>{employeeData?.role}</Text>
         </View>
-        <EmployeeAttendance/>
+        <EmployeeShowAttendance/>
       </View>
       <View style={styles.secondHalf}>
-        {/* <Text style={styles.textStyle}>second half</Text> */}
+        <EmployeeCategory role={ROLES.EMPLOYEE}/>
       </View>
     </View>
   )
@@ -74,13 +77,16 @@ const styles = StyleSheet.create({
       left: 30,
     },
     profileIcon: {
-      width: 60, 
-      height: 60, 
+      width: 70, 
+      height: 70,
+      marginTop: 10 
     },
     employeeDataContainer: {
       position: 'absolute',
       top: 83,
       left: 100,
+      width: '70%',
+      marginLeft: 10
     },
     employeeName: {
       fontSize: 25,

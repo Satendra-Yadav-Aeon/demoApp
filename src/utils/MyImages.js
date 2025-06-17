@@ -9,7 +9,9 @@ const MyImages = {
     checkOut: require('../assets/images/exit.png'),
     transparent_logo: require('../assets/images/logo-transparent.png'),
     attendance: require('../assets/images/attendance.png'),
-    profile: require('../assets/images/profile.png')
+    profile: require('../assets/images/profile.png'),
+    task: require('../assets/images/task.png'),
+    report: require('../assets/images/report.png')
 }
 
 export default MyImages;

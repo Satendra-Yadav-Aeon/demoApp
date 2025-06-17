@@ -8,7 +8,7 @@ import ScreenDimensions from '../../../utils/DimensionUtils';
 
 const { screenWidth, screenHeight } = ScreenDimensions;
 
-const EmployeeAttendance = () => {
+const EmployeeShowAttendance = () => {
   const [isCheckIn, setIsCheckIn] = useState(true);
   const [checkInList, setCheckInList] = useState([]);
   const [checkOutList, setCheckOutList] = useState([]);
@@ -68,7 +68,7 @@ const EmployeeAttendance = () => {
   )
 }
 
-export default EmployeeAttendance
+export default EmployeeShowAttendance
 
 const styles = StyleSheet.create({
   overlay: {
