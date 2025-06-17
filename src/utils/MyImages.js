@@ -10,7 +10,8 @@ const MyImages = {
     attendance: require('../assets/images/attendance.png'),
     profile: require('../assets/images/profile.png'),
     task: require('../assets/images/task.png'),
-    report: require('../assets/images/report.png')
+    report: require('../assets/images/report.png'),
+    employee: require('../assets/images/team.png')
 }
 
 export default MyImages;

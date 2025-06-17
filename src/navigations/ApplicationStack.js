@@ -11,6 +11,7 @@ import EmployeeTask from '../screens/TaskScreen/components/EmployeeTask'
 import Report from '../screens/ReportScreen/components/Report'
 import SupervisorAttendance from '../screens/AttendanceScreen/components/SupervisorAttendance'
 import AdminAttendance from '../screens/AttendanceScreen/components/AdminAttendance'
+import ManageEmployee from '../screens/EmployeeScreen/components/ManageEmployee'
 
 const Stack = createNativeStackNavigator()
 const ApplicationStack = () => {
@@ -41,6 +42,7 @@ const ApplicationStack = () => {
         <Stack.Screen name={SCREENS.REPORT} component={Report}/>
         <Stack.Screen name={SCREENS.SUPERVISOR_ATTENDANCE} component={SupervisorAttendance}/>
         <Stack.Screen name={SCREENS.ADMIN_ATTENDANCE} component={AdminAttendance}/>
+        <Stack.Screen name={SCREENS.MANAGE_EMPLOYEE} component={ManageEmployee}/>
       </Stack.Navigator>
   )
 }

@@ -7,7 +7,8 @@ export const SCREENS = {
     EMPLOYEE_TASK : 'EmployeeTask',
     SUPERVISOR_ATTENDANCE: 'SupervisorAttendance',
     REPORT: 'Report',
-    ADMIN_ATTENDANCE: 'AdminAttendance'
+    ADMIN_ATTENDANCE: 'AdminAttendance',
+    MANAGE_EMPLOYEE: 'ManageEmployees'
 }
 export const AM_TIME_LABEL = 'AM';
 export const PM_TIME_LABEL = 'PM';

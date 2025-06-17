@@ -16,8 +16,9 @@ const getCategoriesByRole = (role) => {
   switch (role) {
     case 'admin':
       return [
-        { id: '1', title: 'Employee Attendance', screen: 'AdminAttendance', icon: MyImages.attendance },
+        { id: '1', title: 'Attendance', screen: 'AdminAttendance', icon: MyImages.attendance },
         { id: '2', title: 'Reports', screen: 'Report', icon: MyImages.report },
+        { id: '3', title: 'Employees', screen: 'ManageEmployees', icon: MyImages.employee },
       ];
     case 'supervisor':
       return [
@@ -98,7 +99,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '800',
     color: Colors.black,
-    marginTop: 15
+    marginTop: 10,
+    width: '100%',
+    textAlign: 'center'
   },
   icon: {
     width: 60, 
