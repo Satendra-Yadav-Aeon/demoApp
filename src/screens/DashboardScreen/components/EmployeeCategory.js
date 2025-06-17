@@ -49,7 +49,7 @@ const EmployeeCategory = ({ role }) => {
 
 
   return (
-    <View style={[styles.container, role === ROLES.EMPLOYEE && {top: screenHeight * 0.15}]}>
+    <View style={[styles.container, (role === ROLES.EMPLOYEE || role === ROLES.SUPERVISOR) && { top: screenHeight * 0.15 }]}>
       <Text style={styles.title}>{CATEGORY_TITLE}</Text>
       <FlatList
         data={categories}

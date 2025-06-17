@@ -5,6 +5,7 @@ import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages'
 import EmployeeCategory from './EmployeeCategory'
 import { ROLES, SCREENS } from '../../../constants/MainConstant'
+import EmployeeShowAttendance from './EmployeeShowAttendance'
 
 const SupervisorDashboard = () => {
   const navigation = useNavigation()
@@ -27,6 +28,7 @@ const SupervisorDashboard = () => {
           <Text style={styles.employeeEmail}>{employeeData?.email}</Text>
           <Text style={styles.employeeEmail}>{employeeData?.role}</Text>
         </View>
+        <EmployeeShowAttendance/>
       </View>
       <View style={styles.secondHalf}>
         <EmployeeCategory role={ROLES.SUPERVISOR}/>
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.red,
     },
     secondHalf: {
-      flex:5,
+      flex:3,
       backgroundColor: Colors.bgColor
     },
     textStyle: {
