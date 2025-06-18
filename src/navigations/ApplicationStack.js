@@ -6,12 +6,12 @@ import EmployeeDashboard from '../screens/DashboardScreen/components/EmployeeDas
 import SupervisorDashboard from '../screens/DashboardScreen/components/SupervisorDashboard'
 import AdminDashboard from '../screens/DashboardScreen/components/AdminDashboard'
 import { ROLES, SCREEN_ANIMATION, SCREENS } from '../constants/MainConstant'
-import EmployeeAttendance from '../screens/AttendanceScreen/components/EmployeeAttendance'
 import EmployeeTask from '../screens/TaskScreen/components/EmployeeTask'
 import Report from '../screens/ReportScreen/components/Report'
 import SupervisorAttendance from '../screens/AttendanceScreen/components/SupervisorAttendance'
-import AdminAttendance from '../screens/AttendanceScreen/components/AdminAttendance'
 import ManageEmployee from '../screens/EmployeeScreen/components/ManageEmployee'
+import EmployeeAttendanceStack from '../components/EmployeeAttendanceStack'
+import AdminAttendance from '../screens/AttendanceScreen/components/AdminAttendance'
 
 const Stack = createNativeStackNavigator()
 const ApplicationStack = () => {
@@ -37,7 +37,7 @@ const ApplicationStack = () => {
         <Stack.Screen name={SCREENS.DASHBOARD} component={DashboardComponent}/>
         <Stack.Screen name={SCREENS.SETTING} component={Setting}/>
         <Stack.Screen name={SCREENS.PROFILE} component={Profile}/>
-        <Stack.Screen name={SCREENS.EMPLOYEE_ATTENDANCE} component={EmployeeAttendance}/>
+        <Stack.Screen name={SCREENS.EMPLOYEE_ATTENDANCE} component={EmployeeAttendanceStack}/>
         <Stack.Screen name={SCREENS.EMPLOYEE_TASK} component={EmployeeTask}/>
         <Stack.Screen name={SCREENS.REPORT} component={Report}/>
         <Stack.Screen name={SCREENS.SUPERVISOR_ATTENDANCE} component={SupervisorAttendance}/>

@@ -46,7 +46,7 @@ const EmployeeCategory = ({ role }) => {
       <Text style={styles.cardText}>{item?.title}</Text>
     </TouchableOpacity>
   );
-};
+  };
 
 
   return (

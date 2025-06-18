@@ -18,3 +18,9 @@ export const ROLES = {
     SUPERVISOR: 'supervisor',
     EMPLOYEE: 'employee'
 }
+export const TAB_SCREENS = {
+    DAY_ATTENDANCE: 'Day',
+    WEEK_ATTENDANCE: 'Week',
+    MONTH_ATTENDANCE: 'Month'
+}
+export const ELLIPSIZE_MODE = 'tail'
