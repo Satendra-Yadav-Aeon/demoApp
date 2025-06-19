@@ -12,6 +12,7 @@ import SupervisorAttendance from '../screens/AttendanceScreen/components/Supervi
 import ManageEmployee from '../screens/EmployeeScreen/components/ManageEmployee'
 import EmployeeAttendance from '../screens/AttendanceScreen/components/EmployeeAttendance'
 import AdminAttendance from '../screens/AttendanceScreen/components/AdminAttendance'
+import { AdminAttendanceProvider } from '../screens/AttendanceScreen/context/AdminAttendanceContext'
 
 const Stack = createNativeStackNavigator()
 const ApplicationStack = () => {
@@ -41,8 +42,14 @@ const ApplicationStack = () => {
         <Stack.Screen name={SCREENS.EMPLOYEE_TASK} component={EmployeeTask}/>
         <Stack.Screen name={SCREENS.REPORT} component={Report}/>
         <Stack.Screen name={SCREENS.SUPERVISOR_ATTENDANCE} component={SupervisorAttendance}/>
-        <Stack.Screen name={SCREENS.ADMIN_ATTENDANCE} component={AdminAttendance}/>
         <Stack.Screen name={SCREENS.MANAGE_EMPLOYEE} component={ManageEmployee}/>
+        <Stack.Screen name={SCREENS.ADMIN_ATTENDANCE}>
+          {() => (
+            <AdminAttendanceProvider>
+              <AdminAttendance />
+            </AdminAttendanceProvider>
+          )}
+        </Stack.Screen>
       </Stack.Navigator>
   )
 }

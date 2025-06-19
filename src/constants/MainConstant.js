@@ -21,6 +21,10 @@ export const ROLES = {
 export const TAB_SCREENS = {
     DAY_ATTENDANCE: 'Day',
     WEEK_ATTENDANCE: 'Week',
-    MONTH_ATTENDANCE: 'Month'
+    MONTH_ATTENDANCE: 'Month',
+    ALL_EMPLOYEES: 'All',
+    PRESENT_EMPLOYEES: 'Present',
+    ABSENT_EMPLOYEES: 'Absent'
 }
 export const ELLIPSIZE_MODE = 'tail'
+export const DATE_FORMAT_A = 'YYYY-MM-DD'

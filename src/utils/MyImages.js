@@ -15,7 +15,8 @@ const MyImages = {
     totalEmployees: require('../assets/images/totalEmployees.png'),
     presentEmployees: require('../assets/images/presentEmployees.png'),
     absentEmployees: require('../assets/images/absentEmployees.png'),
-    noData: require('../assets/images/no-data.png')
+    noData: require('../assets/images/no-data.png'),
+    calendar: require('../assets/images/calendar.png')
 }
 
 export default MyImages;
