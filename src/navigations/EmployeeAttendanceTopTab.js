@@ -5,11 +5,13 @@ import { TAB_SCREENS } from '../constants/MainConstant';
 import DayAttendance from '../screens/AttendanceScreen/components/DayAttendance';
 import WeekAttendance from '../screens/AttendanceScreen/components/WeekAttendance';
 import MonthAttendance from '../screens/AttendanceScreen/components/MonthAttendance';
+import { AttendanceProvider } from '../screens/AttendanceScreen/context/EmployeeAttendanceContext';
 
 const Tab = createMaterialTopTabNavigator();
 
 const EmployeeAttendanceTopTab = () => {
   return (
+    <AttendanceProvider>
     <Tab.Navigator 
       screenOptions={{
         tabBarStyle: {
@@ -47,6 +49,7 @@ const EmployeeAttendanceTopTab = () => {
       <Tab.Screen name={TAB_SCREENS.WEEK_ATTENDANCE} component={WeekAttendance} />
       <Tab.Screen name={TAB_SCREENS.MONTH_ATTENDANCE} component={MonthAttendance} />
     </Tab.Navigator>
+    </AttendanceProvider>
   );
 };
 
