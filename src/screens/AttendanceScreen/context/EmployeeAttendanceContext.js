@@ -4,46 +4,55 @@ import { EmployeeAttendanceData } from '../constants/EmployeeAttendanceData';
 
 const AttendanceContext = createContext(null);
 
-const getFilteredData = () => {
+export const AttendanceProvider = ({ children }) => {
   const today = new Date();
-  const todayStr = today.toISOString().split('T')[0];
+
   const getDaysDiff = (inputDateStr) => {
     const inputDate = new Date(inputDateStr);
     const timeDiff = today.getTime() - inputDate.getTime();
     return timeDiff / (1000 * 3600 * 24);
   };
 
-  const dayData = EmployeeAttendanceData?.filter((item) => item.date === todayStr);
+  const getFilteredData = () => {
+    const todayStr = today.toISOString().split('T')[0];
 
-  const weekData = EmployeeAttendanceData?.filter((item) => {
-    const diff = getDaysDiff(item.date);
-    return diff <= 7;
-  });
+    const dayData = EmployeeAttendanceData?.filter((item) => item.date === todayStr);
 
-  const monthData = EmployeeAttendanceData?.filter((item) => {
-    const diff = getDaysDiff(item.date);
-    return diff <= 30;
-  });
+    const weekData = EmployeeAttendanceData?.filter((item) => {
+      const diff = getDaysDiff(item.date);
+      return diff <= 7;
+    });
 
-  return { dayData, weekData, monthData };
-};
+    const monthData = EmployeeAttendanceData?.filter((item) => {
+      const diff = getDaysDiff(item.date);
+      return diff <= 30;
+    });
 
-export const AttendanceProvider = ({ children }) => {
+    return { dayData, weekData, monthData };
+  };
+
+  // Initial filtered data
   const { dayData, weekData, monthData } = getFilteredData();
 
   const [dayState, setDayState] = useState(dayData);
   const [weekState, setWeekState] = useState(weekData);
   const [monthState, setMonthState] = useState(monthData);
 
+  // Refresh function
+  const refreshData = () => {
+    const { dayData, weekData, monthData } = getFilteredData();
+    setDayState(dayData);
+    setWeekState(weekData);
+    setMonthState(monthData);
+  };
+
   return (
     <AttendanceContext.Provider
       value={{
         dayData: dayState,
-        setDayData: setDayState,
         weekData: weekState,
-        setWeekData: setWeekState,
         monthData: monthState,
-        setMonthData: setMonthState,
+        refreshData,
       }}
     >
       {children}

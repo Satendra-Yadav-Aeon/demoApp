@@ -9,7 +9,7 @@ const { screenWidth } = ScreenDimensions
 
 const cardWidth = screenWidth * 0.95;
 
-const RenderEmployeeAttendanceData = ({data}) => {
+const RenderEmployeeAttendanceData = ({data, refreshControl}) => {
 
 	const renderDayAttendace = ({ item }) => {
   return (
@@ -49,6 +49,7 @@ const RenderEmployeeAttendanceData = ({data}) => {
         data={data}
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderDayAttendace}
+        refreshControl={refreshControl}
       />
     );
 }

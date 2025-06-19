@@ -40,6 +40,7 @@ const EmployeeAttendanceTopTab = () => {
         },
         tabBarActiveTintColor: Colors.white,
         tabBarInactiveTintColor: Colors.black,
+        swipeEnabled: false,
       }}
     >
       <Tab.Screen name={TAB_SCREENS.DAY_ATTENDANCE} component={DayAttendance} />
