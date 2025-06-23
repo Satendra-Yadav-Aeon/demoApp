@@ -8,7 +8,9 @@ export const ATTENDANCE_CONSTANT = {
     NAME: 'Name',
     ROLE: 'Role',
     STATUS: 'Status',
-    NO_DATA: '--'
+    NO_DATA: '--',
+    SET_LOCATION: 'Set Location',
+    SUPERVISOR_ROLE: 'Supervisor'
 }
 export const MY_ATTENDANCE_TITLE = 'My Attendance'
 export const EMPLOYEE_ATTENDANCE_TITLE = 'Employee Attendance'

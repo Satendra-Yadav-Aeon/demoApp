@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Colors from '../../../assets/colors/colors';
 import { ATTENDANCE_CONSTANT } from '../constants/AttendanceConstant';
+import { SCREENS } from '../../../constants/MainConstant';
 
 
 const AdminAttendanceCard = ({ employee, selectedDate }) => {
-
+  const navigation = useNavigation()
   const attendanceRecord = employee?.attendance?.find(a => a.date === selectedDate);
   
   return (
@@ -52,6 +54,19 @@ const AdminAttendanceCard = ({ employee, selectedDate }) => {
         </View>
         <View style={styles.flex1}/>
       </View>
+      {employee?.role === ATTENDANCE_CONSTANT.SUPERVISOR_ROLE && (
+          <TouchableOpacity 
+            style={[styles.flex1, styles.setLocationButton]}
+            onPress={() =>
+              navigation.navigate(SCREENS.GEOFENCE_MAP, {
+                employeeId: employee?.id,
+                name: employee?.name,
+              })
+          }
+        >
+          <Text style={styles.setLocationText}>{ATTENDANCE_CONSTANT.SET_LOCATION}</Text>
+          </TouchableOpacity>
+        )}
     </View>
   )
 };
@@ -105,4 +120,15 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: Colors.black,
   },
+  setLocationButton: {
+    backgroundColor: Colors.red,
+    margin: 20,
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  setLocationText: {
+    color: Colors.white,
+    fontWeight: 'bold',
+  }
 });

@@ -8,7 +8,8 @@ export const SCREENS = {
     SUPERVISOR_ATTENDANCE: 'SupervisorAttendance',
     REPORT: 'Report',
     ADMIN_ATTENDANCE: 'AdminAttendance',
-    MANAGE_EMPLOYEE: 'ManageEmployees'
+    MANAGE_EMPLOYEE: 'ManageEmployees',
+    GEOFENCE_MAP: 'GeofenceMapScreen'
 }
 export const AM_TIME_LABEL = 'AM';
 export const PM_TIME_LABEL = 'PM';
@@ -28,3 +29,14 @@ export const TAB_SCREENS = {
 }
 export const ELLIPSIZE_MODE = 'tail'
 export const DATE_FORMAT_A = 'YYYY-MM-DD'
+export const ANDROID_PLATFORM = 'android'
+export const MAP_CONSTANT = {
+    LOCATION_NOT_AVAILABLE: 'User location not available',
+    INSIDE_GEOFENCE: 'Inside Geofence',
+    OUTSIDE_GEOFENCE: 'Outside Geofence',
+    PLACEHOLDER: 'Enter Location',
+    SET_LOCATION: 'Set Location',
+    WORKING_LOCATION: 'Working Location',
+    USER_LOCATION: 'User Location',
+    LOCATION_PERMISSSION_DENIED: 'Location permission not granted'
+}
