@@ -10,6 +10,7 @@ export const MANAGE_EMPLOYEE_CONSTANT = {
     ROLE: 'Role:',
     JOINING_DATE: 'Joining Date:',
     ADDRESS: 'Address:',
+    SET_ATTENDANCE: 'Set Attendance'
 }
 export const NAME_CONSTANT = {
     LABEL: 'Name',

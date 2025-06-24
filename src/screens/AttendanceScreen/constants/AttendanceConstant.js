@@ -10,7 +10,8 @@ export const ATTENDANCE_CONSTANT = {
     STATUS: 'Status',
     NO_DATA: '--',
     SET_LOCATION: 'Set Location',
-    SUPERVISOR_ROLE: 'Supervisor'
+    SUPERVISOR_ROLE: 'Supervisor',
+    EMPLOYEE_ROLE: 'Employee'
 }
 export const MY_ATTENDANCE_TITLE = 'My Attendance'
 export const EMPLOYEE_ATTENDANCE_TITLE = 'Employee Attendance'
@@ -26,3 +27,4 @@ export const ATTENDANCE_STATUS = {
     PRESENT: 'present',
     ABSENT: 'absent'
 }
+export const MARK_ATTENDANCE_TITLE = 'Mark Attendance'

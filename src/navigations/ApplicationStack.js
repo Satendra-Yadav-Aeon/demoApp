@@ -16,6 +16,7 @@ import { AdminAttendanceProvider } from '../screens/AttendanceScreen/context/Adm
 import GeofenceMap from '../components/GeofenceMap'
 import ManageEmployeeList from '../screens/EmployeeScreen/components/ManageEmployeeList'
 import ManageEmployeeForm from '../screens/EmployeeScreen/components/ManageEmployeeForm'
+import SetEmployeeAttendance from '../screens/AttendanceScreen/components/SetEmployeeAttendance'
 
 const Stack = createNativeStackNavigator()
 const ApplicationStack = () => {
@@ -56,6 +57,7 @@ const ApplicationStack = () => {
         </Stack.Screen>
         <Stack.Screen name={SCREENS.MANAGE_EMPLOYEE_LIST} component={ManageEmployeeList}/>
         <Stack.Screen name={SCREENS.MANAGE_EMPLOYEE_FORM} component={ManageEmployeeForm}/>
+        <Stack.Screen name={SCREENS.SET_EMPLOYEE_ATTENDANCE} component={SetEmployeeAttendance}/>
       </Stack.Navigator>
   )
 }
