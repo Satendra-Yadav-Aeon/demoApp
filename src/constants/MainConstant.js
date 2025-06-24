@@ -9,7 +9,9 @@ export const SCREENS = {
     REPORT: 'Report',
     ADMIN_ATTENDANCE: 'AdminAttendance',
     MANAGE_EMPLOYEE: 'ManageEmployees',
-    GEOFENCE_MAP: 'GeofenceMapScreen'
+    GEOFENCE_MAP: 'GeofenceMapScreen',
+    MANAGE_EMPLOYEE_LIST: 'ManageEmployeeList',
+    MANAGE_EMPLOYEE_FORM: 'ManageEmployeeForm'
 }
 export const AM_TIME_LABEL = 'AM';
 export const PM_TIME_LABEL = 'PM';
@@ -40,3 +42,8 @@ export const MAP_CONSTANT = {
     USER_LOCATION: 'User Location',
     LOCATION_PERMISSSION_DENIED: 'Location permission not granted'
 }
+export const DATE_MODE = 'date'
+export const IOS_PLATFORM = 'ios'
+export const DISPLAY_SPINNER = 'spinner'
+export const DISPLAY_DEFAULT = 'default'
+export const DEFAULT_KEYBOARD_TYPE = 'default'

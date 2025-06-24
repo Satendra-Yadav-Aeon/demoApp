@@ -17,7 +17,9 @@ const MyImages = {
     absentEmployees: require('../assets/images/absentEmployees.png'),
     noData: require('../assets/images/no-data.png'),
     calendar: require('../assets/images/calendar.png'),
-    cancel: require('../assets/images/cancel.png')
+    cancel: require('../assets/images/cancel.png'),
+    add: require('../assets/images/add.png'),
+    edit: require('../assets/images/edit.png')
 }
 
 export default MyImages;
