@@ -19,7 +19,8 @@ const MyImages = {
     calendar: require('../assets/images/calendar.png'),
     cancel: require('../assets/images/cancel.png'),
     add: require('../assets/images/add.png'),
-    edit: require('../assets/images/edit.png')
+    edit: require('../assets/images/edit.png'),
+    flip: require('../assets/images/flip.png')
 }
 
 export default MyImages;

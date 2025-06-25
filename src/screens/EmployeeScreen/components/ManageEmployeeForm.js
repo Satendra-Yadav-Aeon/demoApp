@@ -195,7 +195,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },  
   scrollContainer: {
-    paddin: 100,
+    marginTop: 20,
+    marginBottom: 20
   },
   label: {
     fontSize: 18,

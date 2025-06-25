@@ -1,14 +1,16 @@
 import { View, Text, StyleSheet, Platform, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native';
 import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages';
 import { CHECK_IN_LABEL, CHECK_OUT_LABEL, NO_TIME } from '../constants/DashboardConstant';
-import { AM_TIME_LABEL, PM_TIME_LABEL } from '../../../constants/MainConstant';
+import { AM_TIME_LABEL, PM_TIME_LABEL, SCREENS } from '../../../constants/MainConstant';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 
 const { screenWidth, screenHeight } = ScreenDimensions;
 
 const EmployeeShowAttendance = () => {
+  const navigation = useNavigation()
   const [isCheckIn, setIsCheckIn] = useState(true);
   const [checkInList, setCheckInList] = useState([]);
   const [checkOutList, setCheckOutList] = useState([]);
@@ -24,6 +26,7 @@ const EmployeeShowAttendance = () => {
   };
 
   const handleCheckPress = () => {
+    navigation.navigate(SCREENS.SET_EMPLOYEE_ATTENDANCE,{isCheckIn: isCheckIn})
     const time = getCurrentTime();
 
     if (isCheckIn) {

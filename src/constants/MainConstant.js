@@ -48,3 +48,8 @@ export const IOS_PLATFORM = 'ios'
 export const DISPLAY_SPINNER = 'spinner'
 export const DISPLAY_DEFAULT = 'default'
 export const DEFAULT_KEYBOARD_TYPE = 'default'
+export const TIME_FORMAT_A = 'HH:mm:ss'
+export const TOAST_MESSAGE = {
+    SUCCESS: 'success',
+    ERROR: 'error'
+}

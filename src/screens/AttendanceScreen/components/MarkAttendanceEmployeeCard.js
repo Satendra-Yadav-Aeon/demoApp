@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ScreenDimensions from '../../../utils/DimensionUtils';
@@ -12,6 +12,7 @@ const { screenWidth } = ScreenDimensions
 const cardWidth = screenWidth * 0.95;
 
 const MarkAttendanceEmployeeCard = ({ employee }) => {
+  const [isCheckIn, setIsCheckIn] = useState(true);
   const navigation = useNavigation()
   return (
     <View style={styles.card}>
@@ -39,7 +40,7 @@ const MarkAttendanceEmployeeCard = ({ employee }) => {
         <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.ADDRESS}</Text>
         <Text style={styles.dataText}>{employee?.address}</Text>
       </View>
-      <TouchableOpacity style={styles.setLocationButton} onPress={() => navigation.navigate(SCREENS.SET_EMPLOYEE_ATTENDANCE)}>
+      <TouchableOpacity style={styles.setLocationButton} onPress={() => navigation.navigate(SCREENS.SET_EMPLOYEE_ATTENDANCE,{isCheckIn: isCheckIn})}>
         <Text style={styles.setLocationText}>{MANAGE_EMPLOYEE_CONSTANT.SET_ATTENDANCE}</Text>
       </TouchableOpacity>
     </View>

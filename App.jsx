@@ -2,6 +2,7 @@ import { StyleSheet, SafeAreaView, Platform, PermissionsAndroid, Alert } from 'r
 import React, { useEffect } from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 import Routes from './src/navigations/Routes';
 import { ANDROID_PLATFORM, MAP_CONSTANT } from './src/constants/MainConstant';
 
@@ -42,6 +43,7 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Routes/>
+      <Toast/>
     </SafeAreaView>
   )
 }
