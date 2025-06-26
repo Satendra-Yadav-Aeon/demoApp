@@ -1,10 +1,12 @@
-import { StyleSheet, SafeAreaView, Platform, PermissionsAndroid, Alert } from 'react-native';
+import { StyleSheet, SafeAreaView, Platform, PermissionsAndroid, Alert, View } from 'react-native';
 import React, { useEffect } from 'react';
 import Geolocation from '@react-native-community/geolocation';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
-import Routes from './src/navigations/Routes';
+import { Provider } from 'react-redux';
 import { ANDROID_PLATFORM, MAP_CONSTANT } from './src/constants/MainConstant';
+import store from './src/redux/store';
+import { setAsyncItem } from './src/utils/AsyncStorage';
+import Routes from './src/navigations/Routes';
 
 
 const App = () => {
@@ -24,8 +26,8 @@ const App = () => {
         Geolocation.getCurrentPosition(
           async position => {
             const { latitude, longitude } = position.coords;
-            await AsyncStorage.setItem('userLat', latitude.toString());
-            await AsyncStorage.setItem('userLong', longitude.toString());
+            await setAsyncItem('userLat', latitude);
+            await setAsyncItem('userLong', longitude);
           },
           error => {
             console.error('Geolocation error:', error);
@@ -42,8 +44,10 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Routes/>
-      <Toast/>
+      <Provider store={store}>
+        <Routes/>
+        <Toast/>
+      </Provider> 
     </SafeAreaView>
   )
 }

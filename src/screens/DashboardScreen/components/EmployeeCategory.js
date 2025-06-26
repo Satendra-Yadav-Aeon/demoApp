@@ -14,18 +14,18 @@ const cardHeight = screenHeight * 0.15;
 
 const getCategoriesByRole = (role) => {
   switch (role) {
-    case 'admin':
+    case ROLES.ADMIN:
       return [
         { id: '1', title: 'Attendance', screen: 'AdminAttendance', icon: MyImages.attendance },
         { id: '2', title: 'Reports', screen: 'Report', icon: MyImages.report },
         { id: '3', title: 'Employees', screen: 'ManageEmployees', icon: MyImages.employee },
       ];
-    case 'supervisor':
+    case ROLES.SUPERVISOR:
       return [
         { id: '1', title: 'Mark Attendance', screen: 'SupervisorAttendance', icon: MyImages.attendance },
         { id: '2', title: 'Reports', screen: 'Report', icon: MyImages.report },
       ];  
-    case 'employee':
+    case ROLES.EMPLOYEE:
       return [
         { id: '1', title: 'My Attendance', screen: 'EmployeeAttendance', icon: MyImages.attendance },
         { id: '2', title: 'My Task', screen: 'EmployeeTask', icon: MyImages.task },

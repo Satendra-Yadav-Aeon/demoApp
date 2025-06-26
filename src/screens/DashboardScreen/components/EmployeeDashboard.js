@@ -1,20 +1,27 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages'
 import EmployeeCategory from './EmployeeCategory'
 import EmployeeShowAttendance from './EmployeeShowAttendance'
 import { ROLES, SCREENS } from '../../../constants/MainConstant'
+import { getAsyncItem } from '../../../utils/AsyncStorage'
+import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant'
 
 const EmployeeDashboard = () => {
   const navigation = useNavigation()
-  const[employeeData] = useState({
-    name: 'Lionel Messi',
-    email: 'lionelMessi68@gmail.com',
-    role: 'Employee'
+  const[employeeData, setEmployeeData] = useState({})
+    
+  useEffect(() => {
+    fetchAsyncData();
+  },[])
 
-  })
+  const fetchAsyncData = async() => {
+    const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+    setEmployeeData(data)
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.firstHalf}>
@@ -26,8 +33,7 @@ const EmployeeDashboard = () => {
         </TouchableOpacity>
         <View style={styles.employeeDataContainer}>
           <Text style={styles.employeeName}>{employeeData?.name}</Text>
-          <Text style={styles.employeeEmail}>{employeeData?.email}</Text>
-          <Text style={styles.employeeEmail}>{employeeData?.role}</Text>
+          <Text style={styles.employeeEmail}>{employeeData?.rolename}</Text>
         </View>
         <EmployeeShowAttendance/>
       </View>
@@ -83,7 +89,7 @@ const styles = StyleSheet.create({
     },
     employeeDataContainer: {
       position: 'absolute',
-      top: 83,
+      top: 95,
       left: 100,
       width: '70%',
       marginLeft: 10

@@ -18,9 +18,9 @@ export const AM_TIME_LABEL = 'AM';
 export const PM_TIME_LABEL = 'PM';
 export const SCREEN_ANIMATION = 'slide_from_right'
 export const ROLES = {
-    ADMIN: 'admin',
-    SUPERVISOR: 'supervisor',
-    EMPLOYEE: 'employee'
+    ADMIN: 'Admin',
+    SUPERVISOR: 'Supervisior',
+    EMPLOYEE: 'Employee'
 }
 export const TAB_SCREENS = {
     DAY_ATTENDANCE: 'Day',
@@ -53,3 +53,5 @@ export const TOAST_MESSAGE = {
     SUCCESS: 'success',
     ERROR: 'error'
 }
+export const SMALL_LOADER = 'small'
+export const LARGE_LOADER = 'large'

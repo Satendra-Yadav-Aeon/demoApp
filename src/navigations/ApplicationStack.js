@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Setting from '../screens/SettingScreen/components/Setting'
 import Profile from '../screens/ProfileScreen/components/Profile'
@@ -17,11 +17,21 @@ import GeofenceMap from '../components/GeofenceMap'
 import ManageEmployeeList from '../screens/EmployeeScreen/components/ManageEmployeeList'
 import ManageEmployeeForm from '../screens/EmployeeScreen/components/ManageEmployeeForm'
 import SetEmployeeAttendance from '../screens/AttendanceScreen/components/SetEmployeeAttendance'
+import { getAsyncItem } from '../utils/AsyncStorage'
+import { ASYNC_CONSTANT } from '../constants/AsyncConstant'
 
 const Stack = createNativeStackNavigator()
 const ApplicationStack = () => {
-  const userRole = ROLES.EMPLOYEE;
+  const [userRole, setUserRole] = useState(ROLES.EMPLOYEE)
+  useEffect(() => {
+    fetchAsyncData();
+  },[])
 
+  const fetchAsyncData = async() => {
+    const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+    setUserRole(data?.rolename)
+  }
+  
   const getDashboardComponent = (role) => {
     switch (role) {
       case ROLES.ADMIN:

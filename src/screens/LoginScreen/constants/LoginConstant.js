@@ -13,3 +13,8 @@ export const PASSWORD_CONSTANT = {
     REQUIRED_ERROR: 'Password is required',
 };
 export const SUBMIT_BUTTON_TEXT = 'Submit';
+export const LOGIN_MESSAGE = {
+    SUCCESS: 'Login Successful',
+    ERROR: 'Login Failed',
+    WELCOME: 'Welcome'
+}

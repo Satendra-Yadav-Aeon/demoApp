@@ -1,14 +1,19 @@
-import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useDispatch, useSelector } from 'react-redux';
 import MyImages from '../../../utils/MyImages'
 import { LOGIN_HEADER, MOBILE_CONSTANT, NUMBER_KEYPAD, PASSWORD_CONSTANT, SUBMIT_BUTTON_TEXT } from '../constants/LoginConstant';
 import Colors from '../../../assets/colors/colors';
 import ScreenDimensions from '../../../utils/DimensionUtils';
+import { loginRequest } from '../redux/loginAction';
+import { SMALL_LOADER } from '../../../constants/MainConstant';
 
 const { screenWidth, screenHeight } = ScreenDimensions;
 const Login = () => {
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector(state => state.login);
   const[showPassword, setShowPassword] = useState(false);
   const {control, handleSubmit, formState: {errors}} = useForm({
     defaultValues: {
@@ -18,7 +23,7 @@ const Login = () => {
   })
 
   const onSubmit = (data) => {
-    console.log('==onSubmit=>>>>>data>>>',data);
+    dispatch(loginRequest(data));
   }
   return (
     <View style={styles.container}>
@@ -76,8 +81,12 @@ const Login = () => {
       />
       {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
 
-      <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.submitButton}>
-        <Text style={styles.submitText}>{SUBMIT_BUTTON_TEXT}</Text>
+      <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.submitButton} disabled={isLoading}>
+        {isLoading ? (
+          <ActivityIndicator size={SMALL_LOADER} color={Colors.white}/>
+        ) : (
+          <Text style={styles.submitText}>{SUBMIT_BUTTON_TEXT}</Text>
+        )}     
       </TouchableOpacity>
       </KeyboardAwareScrollView>
     </View>
