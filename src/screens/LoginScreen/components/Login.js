@@ -67,9 +67,11 @@ const Login = () => {
             onChangeText={onChange}
             value={value}
             secureTextEntry={!showPassword}
-            style={styles.inputText}
+            style={styles.passwordInput}
+            autoCapitalize="none"
+            autoCorrect={false}
           />
-          <TouchableOpacity onPress={() => setShowPassword(prev => !prev)}>
+          <TouchableOpacity onPress={() => setShowPassword(prev => !prev)} style={styles.eyeButton} activeOpacity={0.7}>
             <Image
               source={showPassword ? MyImages.view : MyImages.hide}
               style={styles.eyeIcon}
@@ -122,7 +124,6 @@ const styles = StyleSheet.create({
       borderWidth:1,
       width: screenWidth * 0.90,
       margin: 20,
-      padding:10,
       height: screenHeight * 0.06,
       borderRadius:4,
       fontSize: 18,
@@ -149,12 +150,24 @@ const styles = StyleSheet.create({
     passwordContainer: {
       flexDirection: 'row',
       alignItems: 'center',
+      borderWidth: 1,
+      borderRadius: 4,
+      marginHorizontal: 20,
+      marginBottom: 10,
+      height: screenHeight * 0.06,
+    },
+    passwordInput: {
+      flex: 1,
+      fontSize: 18,
+      color: Colors.black,
+    },
+
+    eyeButton: {
+      paddingRight: 20,
     },
     eyeIcon: {
-      position: 'absolute',
-      right: 30,
-      transform: [{ translateY: -15 }],
-      width: 30,
-      height: 30,
+      width: 24,
+      height: 24,
+      tintColor: Colors.black,
     }
 })
