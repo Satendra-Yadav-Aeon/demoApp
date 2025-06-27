@@ -1,0 +1,69 @@
+import { Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import Colors from '../../../assets/colors/colors'
+import ScreenDimensions from '../../../utils/DimensionUtils'
+import { removeAsyncItem } from '../../../utils/AsyncStorage'
+import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant'
+import { logoutSuccess } from '../../LoginScreen/redux/loginAction'
+import { LOGOUT_CONSTANT } from '../constants/ProfileConstant'
+
+const {screenWidth, screenHeight} = ScreenDimensions
+const Logout = () => {
+  const dispatch = useDispatch(); 
+
+  const handleLogout = () => {
+  Alert.alert(
+    LOGOUT_CONSTANT.CONFIRM_LABEL,
+    LOGOUT_CONSTANT.LOGOUT_LABEL,
+    [
+      {
+        text: LOGOUT_CONSTANT.CANCEL_TEXT,
+        style: LOGOUT_CONSTANT.CANCEL_STYLE
+      },
+      {
+        text: LOGOUT_CONSTANT.YES_TEXT,
+        onPress: () => confirmLogout()
+      }
+    ],
+    { cancelable: true }
+  );
+};
+
+const confirmLogout = async () => {
+  try {
+    await removeAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+    dispatch(logoutSuccess());
+  } catch (err) {
+    // console.error('===Logout===>>failed>>>>>', err);
+  }
+};
+
+  return (
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Text style={styles.logoutText}>{LOGOUT_CONSTANT.LOG_OUT_TEXT}</Text>
+      </TouchableOpacity>
+  )
+}
+
+export default Logout
+
+const styles = StyleSheet.create({
+  logoutButton: {
+    width: screenWidth*0.4,
+    height: screenHeight* 0.06,
+    position: 'absolute',
+    bottom: 20,
+    backgroundColor: Colors.red,
+    marginLeft: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 7
+
+  },
+  logoutText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.white
+  }
+})
