@@ -51,7 +51,11 @@ export const DEFAULT_KEYBOARD_TYPE = 'default'
 export const TIME_FORMAT_A = 'HH:mm:ss'
 export const TOAST_MESSAGE = {
     SUCCESS: 'success',
-    ERROR: 'error'
+    ERROR: 'error',
+    SUCCESS_TEXT: 'Success',
+    ERROR_TEXT: 'Error',
+    SUCCESS_MSG: 'Saved successfully',
+    ERROR_MSG: 'Something went wrong'
 }
 export const SMALL_LOADER = 'small'
 export const LARGE_LOADER = 'large'

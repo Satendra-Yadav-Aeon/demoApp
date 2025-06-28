@@ -1,44 +1,120 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, Image } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
+import { StyleSheet, TouchableOpacity, Text, View, Image, ActivityIndicator } from 'react-native';
+import { useForm, Controller, useWatch } from 'react-hook-form';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Colors from '../../../assets/colors/colors';
 import MyImages from '../../../utils/MyImages';
-import { ADD_EMPLOYEE_TITLE, ADDRESS_CONSTANT, DEPARTMENT_CONSTANT, JOINIG_DATE_CONSTANT, MANAGE_EMPLOYEE_CONSTANT, MOBILE_CONSTANT, NAME_CONSTANT, NUMBER_KEYPAD, ROLE_CONSTANT, UPDATE_EMPLOYEE_TITLE } from '../constants/ManageEmployeeConstant';
+import { ADD_EMPLOYEE_TITLE, ADDRESS_CONSTANT, JOINIG_DATE_CONSTANT, LEAVING_DATE_CONSTANT, MANAGE_EMPLOYEE_CONSTANT, MOBILE_CONSTANT, NAME_CONSTANT, NUMBER_KEYPAD, REPORTING_MANAGER_CONSTANT, ROLE_CONSTANT, UPDATE_EMPLOYEE_TITLE } from '../constants/ManageEmployeeConstant';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import CustomTextInput from '../../../common/CustomTextInput';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomDropdown from '../../../common/CustomDropdown';
 import CustomDatePicker from '../../../common/CustomDatePicker';
+import useEmployeeRole from '../hooks/useEmployeeRole';
+import useAdminRoleLists from '../hooks/useAdminRoleLists';
+import useSupervisorRoleLists from '../hooks/useSupervisorRoleLists';
+import { useSaveEmployee } from '../hooks/useSaveEmployee';
+import { ROLES, SMALL_LOADER } from '../../../constants/MainConstant';
+import { SUBMIT_BUTTON_TEXT } from '../../LoginScreen/constants/LoginConstant';
 
 const { screenWidth, screenHeight } = ScreenDimensions;
 const ManageEmployeeForm = () => {
   const navigation = useNavigation()
-  const { control, handleSubmit, setValue, formState: {errors} } = useForm();
+  const { employeeRole } = useEmployeeRole();
+  const { adminList } = useAdminRoleLists();
+  const { supervisorList } = useSupervisorRoleLists();
+  const { saveEmployee, isLoading } = useSaveEmployee();
+  const { control, handleSubmit, setValue, reset, formState: { errors } } = useForm({
+    defaultValues: {
+      [NAME_CONSTANT.NAME]: '',
+      [MOBILE_CONSTANT.NAME]: '',
+      [ROLE_CONSTANT.NAME]: '',
+      [REPORTING_MANAGER_CONSTANT.NAME]: '',
+      [JOINIG_DATE_CONSTANT.NAME]: '',
+      [LEAVING_DATE_CONSTANT.NAME]: '',
+      [ADDRESS_CONSTANT.NAME]: '',
+    }
+  });
+
   const route = useRoute();
   const { mode, employee } = route.params || {};
-  const departmentOptions = [
+
+  const [selectedRoleName, setSelectedRoleName] = React.useState('');
+  const selectedRoleId = useWatch({
+    control,
+    name: ROLE_CONSTANT.NAME,
+  });
+
+  const adminListOptions = [
     { label: 'Sales', value: 'Sales' },
     { label: 'HR', value: 'HR' },
     { label: 'Electrical', value: 'Electrical' },
   ];
-  const roleOptions = [
-    { label: 'Supervisor', value: 'Supervisor' },
-    { label: 'Admin', value: 'Admin' },
-    { label: 'Employee', value: 'Employee' },
+
+  const supervisorListOptions = [
+    { label: 'Mechanical', value: 'Mechanical' },
+    { label: 'Maintenance', value: 'Maintenance' },
+    { label: 'Megawork', value: 'Megawork' },
   ];
+  
+  const roleOptions = employeeRole?.map(role => ({
+    label: role.rolename, 
+    value: role.roleid,
+  }));
+
+  // const adminListOptions = adminList?.map(a => ({ label: a.name, value: a.id }));
+  // const supervisorListOptions = supervisorList?.map(s => ({ label: s.name, value: s.id }));
+
+  useEffect(() => {
+    if (
+      mode === MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE && 
+      employee &&
+      employeeRole?.length
+    ) {
+      // Match by role name, not roleid
+      const matchedRole = employeeRole?.find(role => role.rolename === employee.role);
+      const roleId = matchedRole?.roleid;
+
+      // Reset the form with correct roleId
+      reset({
+        [NAME_CONSTANT.NAME]: employee?.name || '',
+        [MOBILE_CONSTANT.NAME]: employee?.mobile || '',
+        [ROLE_CONSTANT.NAME]: roleId || '',
+        [REPORTING_MANAGER_CONSTANT.NAME]: employee?.reportingManager || '',
+        [JOINIG_DATE_CONSTANT.NAME]: employee?.joiningDate || '',
+        [LEAVING_DATE_CONSTANT.NAME]: employee?.leavingDate || '',
+        [ADDRESS_CONSTANT.NAME]: employee?.address || '',
+      });
+
+      // Set role name for conditional rendering
+      setSelectedRoleName(employee.role);
+    }
+  }, [mode, employee, employeeRole, reset]);
+
+
 
 
   useEffect(() => {
-    if (mode === MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE && employee) {
-      Object.entries(employee).forEach(([key, value]) => {
-        setValue(key, value);
-      });
+    const selectedRole = employeeRole?.find(role => role.roleid === selectedRoleId);
+    if (selectedRole) {
+      setSelectedRoleName(selectedRole.rolename);
     }
-  }, [employee]);
+  }, [selectedRoleId, employeeRole]);
 
   const onSubmit = (data) => {
-    console.log('Employee Form Data:', data);
+    const saveData = {
+      empname: data?.name,
+      mobile: data?.mobile,  
+      role: data?.role,
+      repomanager: data?.reportingManager,
+      joiningdate: data?.joiningDate,
+      leavingdate: data?.leavingDate,
+      address: data?.address
+    }
+    const response = saveEmployee(saveData);
+    if(response){
+      navigation.goBack();
+    }
   };
 
   return (
@@ -94,20 +170,6 @@ const ManageEmployeeForm = () => {
         />
         <Controller
           control={control}
-          name={DEPARTMENT_CONSTANT.NAME}
-          rules={{ required: DEPARTMENT_CONSTANT.REQUIRED_ERROR }}
-          render={({ field: { value, onChange }, fieldState: { error } }) => (
-            <CustomDropdown
-              label={DEPARTMENT_CONSTANT.LABEL}
-              value={value}
-              onChange={onChange}
-              options={departmentOptions}
-              error={error?.message}
-            />
-          )}
-        />
-        <Controller
-          control={control}
           name={ROLE_CONSTANT.NAME}
           rules={{ required: ROLE_CONSTANT.REQUIRED_ERROR }}
           render={({ field: { value, onChange }, fieldState: { error } }) => (
@@ -120,6 +182,32 @@ const ManageEmployeeForm = () => {
             />
           )}
         />
+        {(selectedRoleName === ROLES.EMPLOYEE || selectedRoleName === ROLES.SUPERVISOR) && (
+          <Controller
+            control={control}
+            name={REPORTING_MANAGER_CONSTANT.NAME}
+            rules={{ required: REPORTING_MANAGER_CONSTANT.REQUIRED_ERROR }}
+            render={({ field: { value, onChange }, fieldState: { error } }) => {
+              const options =
+                selectedRoleName === ROLES.EMPLOYEE
+                  ? supervisorListOptions
+                  : selectedRoleName === ROLES.SUPERVISOR
+                  ? adminListOptions
+                  : [];
+
+              return (
+                <CustomDropdown
+                  label={REPORTING_MANAGER_CONSTANT.LABEL}
+                  value={value}
+                  onChange={onChange}
+                  options={options}
+                  error={error?.message}
+                />
+              );
+            }}
+          />
+        )}
+
         <Controller
           control={control}
           name={JOINIG_DATE_CONSTANT.NAME}
@@ -134,6 +222,20 @@ const ManageEmployeeForm = () => {
             />
           )}
         />
+        {mode === MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE && (
+          <Controller
+          control={control}
+          name={LEAVING_DATE_CONSTANT.NAME}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <CustomDatePicker
+              label={LEAVING_DATE_CONSTANT.LABEL}
+              value={value}
+              onChange={onChange}
+              error={error?.message}
+            />
+          )}
+        />
+        )}
         <Controller
           control={control}
           name={ADDRESS_CONSTANT.NAME}
@@ -153,8 +255,12 @@ const ManageEmployeeForm = () => {
           )}
         />
         </KeyboardAwareScrollView>
-        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit(onSubmit)}>
-            <Text style={styles.submitText}>Submit</Text>
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit(onSubmit)} disabled={isLoading}>
+            {isLoading ? (
+              <ActivityIndicator size={SMALL_LOADER} color={Colors.white}/>
+            ) : (
+              <Text style={styles.submitText}>{SUBMIT_BUTTON_TEXT}</Text>
+            )}
         </TouchableOpacity>
       </View>
     </View>

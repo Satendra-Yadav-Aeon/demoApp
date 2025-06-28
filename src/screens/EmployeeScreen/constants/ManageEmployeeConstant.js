@@ -26,11 +26,11 @@ export const MOBILE_CONSTANT = {
     PATTERN_1: /^[0-9]{10}$/,
     PATTERN_ERROR: 'Invalid mobile number'
 };
-export const DEPARTMENT_CONSTANT = {
-    LABEL: 'Department',
-    PLACEHOLDER: 'Select Department',
-    NAME: 'department',
-    REQUIRED_ERROR: 'Department is required',
+export const REPORTING_MANAGER_CONSTANT = {
+    LABEL: 'Reporting Manager',
+    PLACEHOLDER: 'Select Reporting Manager',
+    NAME: 'reportingManager',
+    REQUIRED_ERROR: 'Reporting Manager is required',
 };
 export const ROLE_CONSTANT = {
     LABEL: 'Role',
@@ -48,4 +48,8 @@ export const ADDRESS_CONSTANT = {
     PLACEHOLDER: 'Enter Address',
     NAME: 'address',
     REQUIRED_ERROR: 'Address is required',
+};
+export const LEAVING_DATE_CONSTANT = {
+    LABEL: 'Leaving Date',
+    NAME: 'leavingDate',
 };
