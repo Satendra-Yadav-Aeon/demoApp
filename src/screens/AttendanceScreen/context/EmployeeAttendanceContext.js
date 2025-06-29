@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useState } from 'react';
 import { EmployeeAttendanceData } from '../constants/EmployeeAttendanceData';
+import useEmployeeAttendanceAPI from '../hooks/useEmployeeAttendanceAPI';
 
 
 const AttendanceContext = createContext(null);
 
 export const AttendanceProvider = ({ children }) => {
   const today = new Date();
+  const {employeeAttendanceData} = useEmployeeAttendanceAPI();
 
   const getDaysDiff = (inputDateStr) => {
     const inputDate = new Date(inputDateStr);

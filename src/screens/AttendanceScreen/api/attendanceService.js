@@ -6,3 +6,9 @@ export const getAdminAttendanceData = async () => {
   // console.log('==getAllEmployeeList==>response>>>>',response);
   return response.data;
 };
+
+export const getEmployeeAttendanceData = async () => {
+  const response = await axiosInstance.get(Endpoints.GET_EMPLOYEE_ATTENDANCE);
+  // console.log('==getAllEmployeeList==>response>>>>',response);
+  return response.data;
+};
