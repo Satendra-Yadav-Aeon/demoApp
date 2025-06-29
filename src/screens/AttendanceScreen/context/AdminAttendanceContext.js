@@ -3,6 +3,7 @@ import moment from 'moment';
 import { AdminAttendanceData } from '../constants/AdminAttendanceData';
 import { DATE_FORMAT_A } from '../../../constants/MainConstant';
 import { ATTENDANCE_STATUS } from '../constants/AttendanceConstant';
+import useAdminAttendanceAPI from '../hooks/useAdminAttendanceAPI';
 
 const AdminAttendanceContext = createContext();
 
@@ -12,11 +13,14 @@ export const AdminAttendanceProvider = ({ children }) => {
   const [presentEmployees, setPresentEmployees] = useState([]);
   const [absentEmployees, setAbsentEmployees] = useState([]);
 
+  const {adminAttendanceData} = useAdminAttendanceAPI()
+
   useEffect(() => {
     filterDataByDate(selectedDate);
-  }, [selectedDate]);
+  }, [selectedDate,adminAttendanceData]);
 
   const filterDataByDate = (date) => {
+    // const total = adminAttendanceData;
     const total = AdminAttendanceData;
 
     const present = total?.filter(emp =>

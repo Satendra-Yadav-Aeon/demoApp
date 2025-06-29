@@ -4,5 +4,6 @@ export const Endpoints = {
     ADMIN_LIST_ROLE_API: '/Employee/GetAdminList',
     SUPERVISOR_LIST_ROLE_API: '/Employee/GetSupervisiorList',
     SAVE_EMPLOYEE: '/Employee/InsertEmployee',
-    GET_ALL_EMPLOYEE: 'Employee/GetEmployeeList'
+    GET_ALL_EMPLOYEE: 'Employee/GetEmployeeList',
+    GET_ADMIN_ATTENDANCE: '/Attendance/GetAdminAttendance'
 }

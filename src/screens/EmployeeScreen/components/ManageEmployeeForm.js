@@ -77,7 +77,7 @@ const ManageEmployeeForm = () => {
 
       // Reset the form with correct roleId
       reset({
-        [NAME_CONSTANT.NAME]: employee?.name || '',
+        [NAME_CONSTANT.NAME]: employee?.empname || '',
         [MOBILE_CONSTANT.NAME]: employee?.mobile || '',
         [ROLE_CONSTANT.NAME]: roleId || '',
         [REPORTING_MANAGER_CONSTANT.NAME]: employee?.reportingManager || '',
