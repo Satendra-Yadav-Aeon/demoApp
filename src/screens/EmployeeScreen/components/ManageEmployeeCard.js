@@ -13,7 +13,7 @@ const ManageEmployeeCard = ({ employee, onEdit }) => {
   return (
     <View style={styles.card}>
       <View style={styles.row}>
-        <Text style={styles.name}>{employee?.name}</Text>
+        <Text style={styles.name}>{employee?.empname}</Text>
         <TouchableOpacity onPress={() => onEdit(employee)}>
           <Image source={MyImages.edit} style={styles.editIcon}/>
         </TouchableOpacity>
@@ -23,12 +23,12 @@ const ManageEmployeeCard = ({ employee, onEdit }) => {
         <Text style={styles.dataText}>{employee?.mobile}</Text>
       </View>
       <View style={styles.dataRow}>
-        <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.DEPARTMENT}</Text>
-        <Text style={styles.dataText}>{employee?.department}</Text>
-      </View>
-      <View style={styles.dataRow}>
         <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.ROLE}</Text>
         <Text style={styles.dataText}>{employee?.role}</Text>
+      </View>
+      <View style={styles.dataRow}>
+        <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.REPORTING_MANAGER}</Text>
+        <Text style={styles.dataText}>{employee?.repomanager}</Text>
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.JOINING_DATE}</Text>

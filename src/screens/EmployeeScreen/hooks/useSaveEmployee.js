@@ -6,10 +6,10 @@ import { TOAST_MESSAGE } from '../../../constants/MainConstant';
 export const useSaveEmployee = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const saveEmployee = (payload) => {
+  const saveEmployee = async (payload) => {
     setIsLoading(true);
     try {
-      const response = saveEmployeeData(payload);
+      const response = await saveEmployeeData(payload);
       if(response){
         Toast.show({
           type: TOAST_MESSAGE.SUCCESS,
