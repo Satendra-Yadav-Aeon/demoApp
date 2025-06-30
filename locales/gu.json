@@ -1,0 +1,17 @@
+{
+    "LOGIN_HEADER": "લૉગિન",
+    "MOBILE_PLACEHOLDER": "મોબાઇલ નંબર દાખલ કરો",
+    "PASSWORD_PLACEHOLDER": "પાસવર્ડ દાખલ કરો",
+    "SUBMIT_BUTTON_TEXT": "સબમિટ કરો",
+    "LOGIN_SUCCESS": "લૉગિન સફળ થયું",
+    "LOGIN_FAILED": "લૉગિન નિષ્ફળ ગયું",
+    "LOGIN_WELCOME": "સ્વાગત છે",
+    "MOBILE_REQUIRED_ERROR": "મોબાઇલ નંબર આવશ્યક છે",
+    "MOBILE_PATTERN_ERROR": "અમાન્ય મોબાઇલ નંબર",
+    "PASSWORD_REQUIRED_ERROR": "પાસવર્ડ જરૂરી છે",
+    "CONFIRM_LOGOUT": "લૉગઆઉટની ખાતરી કરો",
+    "LOGOUT_MESSAGE": "શું તમે ખરેખર લૉગઆઉટ કરવા માંગો છો?",
+    "CANCEL_TEXT": "રદ કરો",
+    "YES_TEXT": "હા",
+    "LOG_OUT_TEXT": "લૉગ આઉટ"
+}

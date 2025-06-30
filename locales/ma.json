@@ -1,0 +1,17 @@
+{
+    "LOGIN_HEADER": "लॉगिन",
+    "MOBILE_PLACEHOLDER": "मोबाईल क्रमांक टाका",
+    "PASSWORD_PLACEHOLDER": "पासवर्ड टाका",
+    "SUBMIT_BUTTON_TEXT": "सबमिट करा",
+    "LOGIN_SUCCESS": "लॉगिन यशस्वी",
+    "LOGIN_FAILED": "लॉगिन अयशस्वी",
+    "LOGIN_WELCOME": "स्वागत आहे",
+    "MOBILE_REQUIRED_ERROR": "मोबाईल क्रमांक आवश्यक आहे",
+    "MOBILE_PATTERN_ERROR": "अवैध मोबाईल क्रमांक",
+    "PASSWORD_REQUIRED_ERROR": "पासवर्ड आवश्यक आहे",
+    "CONFIRM_LOGOUT": "लॉगआउटची पुष्टी करा",
+    "LOGOUT_MESSAGE": "आपण निश्चितपणे लॉगआउट करू इच्छिता?",
+    "CANCEL_TEXT": "रद्द करा",
+    "YES_TEXT": "होय",
+    "LOG_OUT_TEXT": "लॉग आउट"
+}

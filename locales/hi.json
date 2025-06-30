@@ -1,0 +1,17 @@
+{
+    "LOGIN_HEADER": "लॉगिन",
+    "MOBILE_PLACEHOLDER": "मोबाइल नंबर दर्ज करें",
+    "PASSWORD_PLACEHOLDER": "पासवर्ड दर्ज करें",
+    "SUBMIT_BUTTON_TEXT": "जमा करें",
+    "LOGIN_SUCCESS": "लॉगिन सफल",
+    "LOGIN_FAILED": "लॉगिन विफल",
+    "LOGIN_WELCOME": "स्वागत है",
+    "MOBILE_REQUIRED_ERROR": "मोबाइल नंबर आवश्यक है",
+    "MOBILE_PATTERN_ERROR": "अमान्य मोबाइल नंबर",
+    "PASSWORD_REQUIRED_ERROR": "पासवर्ड आवश्यक है",
+    "CONFIRM_LOGOUT": "लॉगआउट की पुष्टि करें",
+    "LOGOUT_MESSAGE": "क्या आप वाकई लॉगआउट करना चाहते हैं?",
+    "CANCEL_TEXT": "रद्द करें",
+    "YES_TEXT": "हाँ",
+    "LOG_OUT_TEXT": "लॉग आउट"
+}

@@ -7,22 +7,24 @@ import { removeAsyncItem } from '../../../utils/AsyncStorage'
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant'
 import { logoutSuccess } from '../../LoginScreen/redux/loginAction'
 import { LOGOUT_CONSTANT } from '../constants/ProfileConstant'
+import { useTranslation } from 'react-i18next'
 
 const {screenWidth, screenHeight} = ScreenDimensions
 const Logout = () => {
   const dispatch = useDispatch(); 
+  const { t } = useTranslation();
 
   const handleLogout = () => {
   Alert.alert(
-    LOGOUT_CONSTANT.CONFIRM_LABEL,
-    LOGOUT_CONSTANT.LOGOUT_LABEL,
+    t(LOGOUT_CONSTANT.CONFIRM_LABEL),
+    t(LOGOUT_CONSTANT.LOGOUT_LABEL),
     [
       {
-        text: LOGOUT_CONSTANT.CANCEL_TEXT,
+        text: t(LOGOUT_CONSTANT.CANCEL_TEXT),
         style: LOGOUT_CONSTANT.CANCEL_STYLE
       },
       {
-        text: LOGOUT_CONSTANT.YES_TEXT,
+        text: t(LOGOUT_CONSTANT.YES_TEXT),
         onPress: () => confirmLogout()
       }
     ],
@@ -41,7 +43,7 @@ const confirmLogout = async () => {
 
   return (
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutText}>{LOGOUT_CONSTANT.LOG_OUT_TEXT}</Text>
+        <Text style={styles.logoutText}>{t(LOGOUT_CONSTANT.LOG_OUT_TEXT)}</Text>
       </TouchableOpacity>
   )
 }

@@ -7,6 +7,8 @@ import { ANDROID_PLATFORM, MAP_CONSTANT } from './src/constants/MainConstant';
 import store from './src/redux/store';
 import { setAsyncItem } from './src/utils/AsyncStorage';
 import Routes from './src/navigations/Routes';
+import './i18n';
+import { loadSavedLanguage } from './src/utils/i18nLoader';
 
 
 const App = () => {
@@ -40,6 +42,7 @@ const App = () => {
     };
 
     requestPermission();
+    loadSavedLanguage();
   }, []);
 
   return (

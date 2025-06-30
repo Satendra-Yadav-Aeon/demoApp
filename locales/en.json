@@ -1,0 +1,17 @@
+{
+    "LOGIN_HEADER": "Login",
+    "MOBILE_PLACEHOLDER": "Enter Mobile No",
+    "PASSWORD_PLACEHOLDER": "Enter Password",
+    "SUBMIT_BUTTON_TEXT": "Submit",
+    "LOGIN_SUCCESS": "Login Successful",
+    "LOGIN_FAILED": "Login Failed",
+    "LOGIN_WELCOME": "Welcome",
+    "MOBILE_REQUIRED_ERROR": "Mobile Number is required",
+    "MOBILE_PATTERN_ERROR": "Invalid mobile number",
+    "PASSWORD_REQUIRED_ERROR": "Password is required",
+    "CONFIRM_LOGOUT": "Confirm Logout",
+    "LOGOUT_MESSAGE": "Are you sure you want to logout?",
+    "CANCEL_TEXT": "Cancel",
+    "YES_TEXT": "Yes",
+    "LOG_OUT_TEXT": "Log Out"
+}

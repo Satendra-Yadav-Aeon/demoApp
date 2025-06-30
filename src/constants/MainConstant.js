@@ -59,3 +59,4 @@ export const TOAST_MESSAGE = {
 }
 export const SMALL_LOADER = 'small'
 export const LARGE_LOADER = 'large'
+export const SLIDE_ANIMATION = 'slide'

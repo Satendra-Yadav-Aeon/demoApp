@@ -7,6 +7,7 @@ import { setAsyncItem } from "../../../utils/AsyncStorage";
 import { ASYNC_CONSTANT } from "../../../constants/AsyncConstant";
 import { TOAST_MESSAGE } from "../../../constants/MainConstant";
 import { LOGIN_MESSAGE } from "../constants/LoginConstant";
+import i18n from "../../../../i18n";
 
 function* loginWorkerSaga(action) {
   try {
@@ -15,16 +16,16 @@ function* loginWorkerSaga(action) {
 
     Toast.show({
       type: TOAST_MESSAGE.SUCCESS,
-      text1: LOGIN_MESSAGE.SUCCESS,
-      text2: `${LOGIN_MESSAGE.WELCOME}, ${response?.username}!`,  
+      text1: i18n.t(LOGIN_MESSAGE.SUCCESS),
+      text2: `${i18n.t(LOGIN_MESSAGE.WELCOME)}, ${response?.username}!`,  
     });
     yield put(loginSuccess(response));
   } catch (error) {
     Toast.show({
       type: TOAST_MESSAGE.ERROR,
-      text1: LOGIN_MESSAGE.ERROR,
+      text1: i18n.t(LOGIN_MESSAGE.ERROR),
     });
-    yield put(loginFailure(error.response?.data?.message || LOGIN_MESSAGE.ERROR));
+    yield put(loginFailure(error.response?.data?.message || i18n.t(LOGIN_MESSAGE.ERROR)));
   }
 }
 
