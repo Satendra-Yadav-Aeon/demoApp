@@ -81,5 +81,6 @@
 
     "LEAVING_DATE_LABEL": "लीविंग तिथि",
     "LEAVING_DATE_PLACEHOLDER": "लीविंग तिथि चुनें",
-    "SET_ATTENDANCE": "उपस्थिति सेट करें"
+    "SET_ATTENDANCE": "उपस्थिति सेट करें",
+    "SELECT_LANGUAGE": "भाषा चुनें"
 }

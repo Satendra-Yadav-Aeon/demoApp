@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
 import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages'
 import EmployeeCategory from './EmployeeCategory'
@@ -8,10 +9,14 @@ import EmployeeShowAttendance from './EmployeeShowAttendance'
 import { ROLES, SCREENS } from '../../../constants/MainConstant'
 import { getAsyncItem } from '../../../utils/AsyncStorage'
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant'
+import { getLanguageLabel } from '../../../utils/getLanguageLabel'
+import CustomChangeLanguage from '../../../common/CustomChangeLanguage'
 
 const EmployeeDashboard = () => {
   const navigation = useNavigation()
+  const {i18n} = useTranslation();
   const[employeeData, setEmployeeData] = useState({})
+  const [isLangModalVisible, setLangModalVisible] = useState(false);
     
   useEffect(() => {
     fetchAsyncData();
@@ -25,8 +30,8 @@ const EmployeeDashboard = () => {
   return (
     <View style={styles.container}>
       <View style={styles.firstHalf}>
-        <TouchableOpacity onPress={() => navigation.navigate(SCREENS.SETTING)} style={styles.settingContainer}>
-          <Image source={MyImages.setting} style={styles.settingIcon}/>
+        <TouchableOpacity onPress={() => setLangModalVisible(true)} style={styles.languageButton}>
+          <Text style={styles.languageText}>{getLanguageLabel(i18n.language)}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate(SCREENS.PROFILE)} style={styles.profileContainer}>
           <Image source={MyImages.profile} style={styles.profileIcon}/>
@@ -40,6 +45,7 @@ const EmployeeDashboard = () => {
       <View style={styles.secondHalf}>
         <EmployeeCategory role={ROLES.EMPLOYEE}/>
       </View>
+      <CustomChangeLanguage visible={isLangModalVisible} onClose={() => setLangModalVisible(false)} />
     </View>
   )
 }
@@ -102,5 +108,21 @@ const styles = StyleSheet.create({
     employeeEmail: {
       fontSize: 16,
       color: Colors.white
-    }
+    },
+    languageButton: {
+      position: 'absolute',
+      top: 40,
+      right: 20,
+      zIndex: 10,
+      backgroundColor: Colors.white,
+      paddingVertical: 5,
+      paddingHorizontal: 10,
+      borderRadius: 6,
+      elevation: 3
+    },
+    languageText: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      color: Colors.black,
+    },
 })
