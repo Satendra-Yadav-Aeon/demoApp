@@ -1,13 +1,13 @@
 import { Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import Colors from '../../../assets/colors/colors'
 import ScreenDimensions from '../../../utils/DimensionUtils'
 import { removeAsyncItem } from '../../../utils/AsyncStorage'
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant'
 import { logoutSuccess } from '../../LoginScreen/redux/loginAction'
 import { LOGOUT_CONSTANT } from '../constants/ProfileConstant'
-import { useTranslation } from 'react-i18next'
 
 const {screenWidth, screenHeight} = ScreenDimensions
 const Logout = () => {

@@ -1,4 +1,12 @@
-export const CHECK_IN_LABEL = 'Check In';
-export const CHECK_OUT_LABEL = 'Check Out';
+export const CHECK_IN_LABEL = 'CHECK_IN_LABEL';
+export const CHECK_OUT_LABEL = 'CHECK_OUT_LABEL';
 export const NO_TIME = '--/--';
-export const CATEGORY_TITLE = 'Category';
+export const CATEGORY_TITLE = 'CATEGORY_TITLE';
+export const CATERGORY_CONSTANT = {
+    ATTENDANCE: 'ATTENDANCE',
+    REPORTS: 'REPORTS',
+    EMPLOYEES: 'EMPLOYEES',
+    MARK_ATTENDANCE: 'Mark MARK_ATTENDANCE',
+    MY_ATTENDANCE: 'MY_ATTENDANCE',
+    MY_TASK: 'MY_TASK'
+}

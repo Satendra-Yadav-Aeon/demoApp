@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Platform, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages';
 import { CHECK_IN_LABEL, CHECK_OUT_LABEL, NO_TIME } from '../constants/DashboardConstant';
@@ -11,6 +12,7 @@ const { screenWidth, screenHeight } = ScreenDimensions;
 
 const EmployeeShowAttendance = () => {
   const navigation = useNavigation()
+  const {t} = useTranslation();
   const [isCheckIn, setIsCheckIn] = useState(true);
   const [checkInList, setCheckInList] = useState([]);
   const [checkOutList, setCheckOutList] = useState([]);
@@ -45,7 +47,7 @@ const EmployeeShowAttendance = () => {
         <View style={styles.checkSection}>
           <View style={styles.checkInContainer}>
           <Image source={MyImages.checkIn} style={styles.checkIcons} />
-          <Text style={styles.labelText}>{CHECK_IN_LABEL}</Text>
+          <Text style={styles.labelText}>{t(CHECK_IN_LABEL)}</Text>
           </View>
           <Text style={styles.timeText}>
             {checkInList?.length > 0 ? checkInList[checkInList.length - 1] : NO_TIME}
@@ -56,7 +58,7 @@ const EmployeeShowAttendance = () => {
         <View style={styles.checkSection}>
           <View style={styles.checkOutContainer}>
           <Image source={MyImages.checkOut} style={styles.checkIcons} />
-          <Text style={styles.labelText}>{CHECK_OUT_LABEL}</Text>
+          <Text style={styles.labelText}>{t(CHECK_OUT_LABEL)}</Text>
           </View>
           <Text style={styles.timeText}>
             {checkOutList?.length > 0 ? checkOutList[checkOutList.length - 1] : NO_TIME}
@@ -64,7 +66,7 @@ const EmployeeShowAttendance = () => {
         </View>
          {/* Center Button */}
         <TouchableOpacity style={styles.checkButtonContainer} onPress={handleCheckPress}>
-          <Text style={styles.buttonText}>{isCheckIn ? CHECK_IN_LABEL : CHECK_OUT_LABEL}</Text>
+          <Text style={styles.buttonText}>{isCheckIn ? t(CHECK_IN_LABEL) : t(CHECK_OUT_LABEL)}</Text>
         </TouchableOpacity>
       </View>
     </View>

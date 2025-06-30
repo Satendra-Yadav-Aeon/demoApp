@@ -13,5 +13,14 @@
     "LOGOUT_MESSAGE": "શું તમે ખરેખર લૉગઆઉટ કરવા માંગો છો?",
     "CANCEL_TEXT": "રદ કરો",
     "YES_TEXT": "હા",
-    "LOG_OUT_TEXT": "લૉગ આઉટ"
+    "LOG_OUT_TEXT": "લૉગ આઉટ",
+    "CHECK_IN_LABEL": "ચેક ઇન",
+    "CHECK_OUT_LABEL": "ચેક આઉટ",
+    "CATEGORY_TITLE": "વર્ગ",
+    "ATTENDANCE": "હાજરી",
+    "REPORTS": "રિપોર્ટ્સ",
+    "EMPLOYEES": "કર્મચારીઓ",
+    "MARK_ATTENDANCE": "હાજરી નોંધો",
+    "MY_ATTENDANCE": "મારી હાજરી",
+    "MY_TASK": "મારું કાર્ય"
 }

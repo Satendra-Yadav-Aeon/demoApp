@@ -1,42 +1,45 @@
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import ScreenDimensions from '../../../utils/DimensionUtils'
 import Colors from '../../../assets/colors/colors';
-import { CATEGORY_TITLE } from '../constants/DashboardConstant';
+import { CATEGORY_TITLE, CATERGORY_CONSTANT } from '../constants/DashboardConstant';
 import MyImages from '../../../utils/MyImages';
-import { ROLES } from '../../../constants/MainConstant';
+import { ROLES, SCREENS } from '../../../constants/MainConstant';
 
 const { screenHeight, screenWidth } = ScreenDimensions
 
 const cardWidth = screenWidth * 0.40;
 const cardHeight = screenHeight * 0.15;
 
-const getCategoriesByRole = (role) => {
-  switch (role) {
-    case ROLES.ADMIN:
-      return [
-        { id: '1', title: 'Attendance', screen: 'AdminAttendance', icon: MyImages.attendance },
-        { id: '2', title: 'Reports', screen: 'Report', icon: MyImages.report },
-        { id: '3', title: 'Employees', screen: 'ManageEmployees', icon: MyImages.employee },
-      ];
-    case ROLES.SUPERVISOR:
-      return [
-        { id: '1', title: 'Mark Attendance', screen: 'SupervisorAttendance', icon: MyImages.attendance },
-        { id: '2', title: 'Reports', screen: 'Report', icon: MyImages.report },
-      ];  
-    case ROLES.EMPLOYEE:
-      return [
-        { id: '1', title: 'My Attendance', screen: 'EmployeeAttendance', icon: MyImages.attendance },
-        { id: '2', title: 'My Task', screen: 'EmployeeTask', icon: MyImages.task },
-      ];
-    default:
-      return [];
-  }
-}
-
 const EmployeeCategory = ({ role }) => {
   const navigation = useNavigation()
+  const {t} = useTranslation()
+
+  const getCategoriesByRole = (role) => {
+    switch (role) {
+      case ROLES.ADMIN:
+        return [
+          { id: '1', title: t(CATERGORY_CONSTANT.ATTENDANCE), screen: SCREENS.ADMIN_ATTENDANCE, icon: MyImages.attendance },
+          { id: '2', title: t(CATERGORY_CONSTANT.REPORTS), screen: SCREENS.REPORT, icon: MyImages.report },
+          { id: '3', title: t(CATERGORY_CONSTANT.EMPLOYEES), screen: SCREENS.MANAGE_EMPLOYEE, icon: MyImages.employee },
+        ];
+      case ROLES.SUPERVISOR:
+        return [
+          { id: '1', title: t(CATERGORY_CONSTANT.MARK_ATTENDANCE), screen: SCREENS.SUPERVISOR_ATTENDANCE, icon: MyImages.attendance },
+          { id: '2', title: t(CATERGORY_CONSTANT.REPORTS), screen: SCREENS.REPORT, icon: MyImages.report },
+        ];  
+      case ROLES.EMPLOYEE:
+        return [
+          { id: '1', title: t(CATERGORY_CONSTANT.MY_ATTENDANCE), screen: SCREENS.EMPLOYEE_ATTENDANCE, icon: MyImages.attendance },
+          { id: '2', title: t(CATERGORY_CONSTANT.MY_TASK), screen: SCREENS.EMPLOYEE_TASK, icon: MyImages.task },
+        ];
+      default:
+        return [];
+    }
+  }
+
   const categories = getCategoriesByRole(role);
   
   const renderItem = ({ item }) => {
@@ -51,7 +54,7 @@ const EmployeeCategory = ({ role }) => {
 
   return (
     <View style={[styles.container, (role === ROLES.EMPLOYEE || role === ROLES.SUPERVISOR) && { top: screenHeight * 0.15 }]}>
-      <Text style={styles.title}>{CATEGORY_TITLE}</Text>
+      <Text style={styles.title}>{t(CATEGORY_TITLE)}</Text>
       <FlatList
         data={categories}
         renderItem={renderItem}

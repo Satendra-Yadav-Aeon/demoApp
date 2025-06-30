@@ -13,5 +13,14 @@
     "LOGOUT_MESSAGE": "Are you sure you want to logout?",
     "CANCEL_TEXT": "Cancel",
     "YES_TEXT": "Yes",
-    "LOG_OUT_TEXT": "Log Out"
+    "LOG_OUT_TEXT": "Log Out",
+    "CHECK_IN_LABEL": "Check In",
+    "CHECK_OUT_LABEL": "Check Out",
+    "CATEGORY_TITLE": "Category",
+    "ATTENDANCE": "Attendance",
+    "REPORTS": "Reports",
+    "EMPLOYEES": "Employees",
+    "MARK_ATTENDANCE": "Mark Attendance",
+    "MY_ATTENDANCE": "My Attendance",
+    "MY_TASK": "My Task"
 }
