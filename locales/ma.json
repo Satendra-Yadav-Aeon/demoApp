@@ -80,5 +80,6 @@
     "ADDRESS_REQUIRED_ERROR": "पत्ता आवश्यक आहे",
 
     "LEAVING_DATE_LABEL": "लीव्हिंग तारीख",
-    "LEAVING_DATE_PLACEHOLDER": "लीव्हिंग तारीख निवडा"
+    "LEAVING_DATE_PLACEHOLDER": "लीव्हिंग तारीख निवडा",
+    "SET_ATTENDANCE": "हजेरी सेट करा"
 }

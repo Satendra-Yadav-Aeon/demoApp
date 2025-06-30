@@ -80,5 +80,6 @@
     "ADDRESS_REQUIRED_ERROR": "Address is required",
 
     "LEAVING_DATE_LABEL": "Leaving Date",
-    "LEAVING_DATE_PLACEHOLDER": "Select Leaving Date"
+    "LEAVING_DATE_PLACEHOLDER": "Select Leaving Date",
+    "SET_ATTENDANCE": "Set Attendance"
 }

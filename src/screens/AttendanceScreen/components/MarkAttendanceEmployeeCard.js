@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import { MANAGE_EMPLOYEE_CONSTANT } from '../../EmployeeScreen/constants/ManageEmployeeConstant';
 import Colors from '../../../assets/colors/colors';
@@ -14,6 +15,7 @@ const cardWidth = screenWidth * 0.95;
 const MarkAttendanceEmployeeCard = ({ employee }) => {
   const [isCheckIn, setIsCheckIn] = useState(true);
   const navigation = useNavigation()
+  const {t} = useTranslation()
   return (
     <View style={styles.card}>
       <View style={styles.row}>
@@ -21,27 +23,27 @@ const MarkAttendanceEmployeeCard = ({ employee }) => {
         <Image source={MyImages.profile} style={styles.profileIcon}/>
       </View>
       <View style={styles.dataRow}>
-        <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.MOBILE}</Text>
+        <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.MOBILE)}</Text>
         <Text style={styles.dataText}>{employee?.mobile}</Text>
       </View>
       <View style={styles.dataRow}>
-        <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.DEPARTMENT}</Text>
-        <Text style={styles.dataText}>{employee?.department}</Text>
-      </View>
-      <View style={styles.dataRow}>
-        <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.ROLE}</Text>
+        <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.ROLES)}</Text>
         <Text style={styles.dataText}>{employee?.role}</Text>
       </View>
       <View style={styles.dataRow}>
-        <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.JOINING_DATE}</Text>
+        <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.REPORTING_MANAGER)}</Text>
+        <Text style={styles.dataText}>{employee?.repomanager}</Text>
+      </View>
+      <View style={styles.dataRow}>
+        <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.JOINING_DATE)}</Text>
         <Text style={styles.dataText}>{employee?.joiningDate}</Text>
       </View>
       <View style={styles.dataRow}>
-        <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.ADDRESS}</Text>
+        <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.ADDRESS)}</Text>
         <Text style={styles.dataText}>{employee?.address}</Text>
       </View>
       <TouchableOpacity style={styles.setLocationButton} onPress={() => navigation.navigate(SCREENS.SET_EMPLOYEE_ATTENDANCE,{isCheckIn: isCheckIn})}>
-        <Text style={styles.setLocationText}>{MANAGE_EMPLOYEE_CONSTANT.SET_ATTENDANCE}</Text>
+        <Text style={styles.setLocationText}>{t(MANAGE_EMPLOYEE_CONSTANT.SET_ATTENDANCE)}</Text>
       </TouchableOpacity>
     </View>
   );

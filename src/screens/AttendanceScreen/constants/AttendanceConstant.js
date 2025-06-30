@@ -26,7 +26,7 @@ export const ATTENDANCE_STATUS = {
     PRESENT: 'present',
     ABSENT: 'absent'
 }
-export const MARK_ATTENDANCE_TITLE = 'Mark Attendance'
+export const MARK_ATTENDANCE_TITLE = 'MARK_ATTENDANCE'
 export const SET_EMPLOYEE_ATTENDANCE = {
     FRONT_CAMERA: 'front',
     BACK_CAMERA: 'back',
