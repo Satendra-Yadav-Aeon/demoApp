@@ -44,5 +44,41 @@
     "NAME": "નામ",
     "ROLE": "ભૂમિકા",
     "STATUS": "સ્થિતિ",
-    "CHECK_LOCATION": "સ્થાન તપાસો"
+    "CHECK_LOCATION": "સ્થાન તપાસો",
+    "MANAGE_EMPLOYEE_TITLE": "કર્મચારીઓનું વ્યવસ્થાપન",
+    "MOBILE": "મોબાઇલ:",
+    "ROLES": "ભૂમિકા:",
+    "JOINING_DATE": "જોઈનિંગ તારીખ:",
+    "ADDRESS": "સરનામું:",
+    "CHECK_ATTENDANCE": "હાજરી તપાસો",
+    "REPORTING_MANAGER": "રિપોર્ટિંગ મેનેજર:",
+    "ADD_EMPLOYEE_TITLE": "કર્મચારી ઉમેરો",
+    "UPDATE_EMPLOYEE_TITLE": "કર્મચારી સુધારો",
+    "NAME_LABEL": "नाव",
+    "NAME_PLACEHOLDER": "नाव प्रविष्ट करा",
+    "NAME_REQUIRED_ERROR": "नाव आवश्यक आहे",
+
+    "MOBILE_LABELS": "मोबाईल",
+    "MOBILE_PLACEHOLDERS": "मोबाईल नंबर प्रविष्ट करा",
+    "MOBILE_REQUIRED_ERRORS": "मोबाईल नंबर आवश्यक आहे",
+    "MOBILE_PATTERN_ERRORS": "अवैध मोबाईल नंबर",
+
+    "REPORTING_MANAGER_LABEL": "अहवाल व्यवस्थापक",
+    "REPORTING_MANAGER_PLACEHOLDER": "अहवाल व्यवस्थापक निवडा",
+    "REPORTING_MANAGER_REQUIRED_ERROR": "अहवाल व्यवस्थापक आवश्यक आहे",
+
+    "ROLE_LABEL": "भूमिका",
+    "ROLE_PLACEHOLDER": "भूमिका निवडा",
+    "ROLE_REQUIRED_ERROR": "भूमिका आवश्यक आहे",
+
+    "JOINING_DATE_LABEL": "जॉइनिंग तारीख",
+    "JOINING_DATE_PLACEHOLDER": "जॉइनिंग तारीख निवडा",
+    "JOINING_DATE_REQUIRED_ERROR": "जॉइनिंग तारीख आवश्यक आहे",
+
+    "ADDRESS_LABEL": "पत्ता",
+    "ADDRESS_PLACEHOLDER": "पत्ता प्रविष्ट करा",
+    "ADDRESS_REQUIRED_ERROR": "पत्ता आवश्यक आहे",
+
+    "LEAVING_DATE_LABEL": "लीव्हिंग तारीख",
+    "LEAVING_DATE_PLACEHOLDER": "लीव्हिंग तारीख निवडा"
 }

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import Colors from '../assets/colors/colors';
 
-const CustomDropdown = ({ label, value, onChange, options, error }) => {
+const CustomDropdown = ({ label, value, onChange, options, error, placeholder }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
@@ -12,7 +12,7 @@ const CustomDropdown = ({ label, value, onChange, options, error }) => {
         value={value}
         items={options}
         useNativeAndroidPickerStyle={false}
-        placeholder={{ label: `Select ${label}`, value: null }}
+        placeholder={{ label: placeholder, value: null }}
         style={{
           inputIOS: {
             color: Colors.black,
@@ -32,7 +32,7 @@ const CustomDropdown = ({ label, value, onChange, options, error }) => {
           },
           placeholder: {
             fontSize: 16,
-            color: Colors.black
+            color: Colors.grey
           }
         }}
       />

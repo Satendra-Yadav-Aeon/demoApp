@@ -44,5 +44,41 @@
     "NAME": "नाम",
     "ROLE": "भूमिका",
     "STATUS": "स्थिति",
-    "CHECK_LOCATION": "स्थान जांचें"
+    "CHECK_LOCATION": "स्थान जांचें",
+    "MANAGE_EMPLOYEE_TITLE": "कर्मचारियों का प्रबंधन",
+    "MOBILE": "मोबाइल:",
+    "ROLES": "भूमिका:",
+    "JOINING_DATE": "जॉइनिंग तिथि:",
+    "ADDRESS": "पता:",
+    "CHECK_ATTENDANCE": "उपस्थिति देखें",
+    "REPORTING_MANAGER": "रिपोर्टिंग मैनेजर:",
+    "ADD_EMPLOYEE_TITLE": "कर्मचारी जोड़ें",
+    "UPDATE_EMPLOYEE_TITLE": "कर्मचारी अपडेट करें",
+    "NAME_LABEL": "नाम",
+    "NAME_PLACEHOLDER": "नाम दर्ज करें",
+    "NAME_REQUIRED_ERROR": "नाम आवश्यक है",
+
+    "MOBILE_LABELS": "मोबाइल",
+    "MOBILE_PLACEHOLDERS": "मोबाइल नंबर दर्ज करें",
+    "MOBILE_REQUIRED_ERRORS": "मोबाइल नंबर आवश्यक है",
+    "MOBILE_PATTERN_ERRORS": "अमान्य मोबाइल नंबर",
+
+    "REPORTING_MANAGER_LABEL": "रिपोर्टिंग मैनेजर",
+    "REPORTING_MANAGER_PLACEHOLDER": "रिपोर्टिंग मैनेजर चुनें",
+    "REPORTING_MANAGER_REQUIRED_ERROR": "रिपोर्टिंग मैनेजर आवश्यक है",
+
+    "ROLE_LABEL": "भूमिका",
+    "ROLE_PLACEHOLDER": "भूमिका चुनें",
+    "ROLE_REQUIRED_ERROR": "भूमिका आवश्यक है",
+
+    "JOINING_DATE_LABEL": "जॉइनिंग तिथि",
+    "JOINING_DATE_PLACEHOLDER": "जॉइनिंग तिथि चुनें",
+    "JOINING_DATE_REQUIRED_ERROR": "जॉइनिंग तिथि आवश्यक है",
+
+    "ADDRESS_LABEL": "पता",
+    "ADDRESS_PLACEHOLDER": "पता दर्ज करें",
+    "ADDRESS_REQUIRED_ERROR": "पता आवश्यक है",
+
+    "LEAVING_DATE_LABEL": "लीविंग तिथि",
+    "LEAVING_DATE_PLACEHOLDER": "लीविंग तिथि चुनें"
 }

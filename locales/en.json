@@ -44,5 +44,41 @@
     "NAME": "Name",
     "ROLE": "Role",
     "STATUS": "Status",
-    "CHECK_LOCATION": "Check Location"
+    "CHECK_LOCATION": "Check Location",
+    "MANAGE_EMPLOYEE_TITLE": "Manage Employees",
+    "MOBILE": "Mobile:",
+    "ROLES": "Role:",
+    "JOINING_DATE": "Joining Date:",
+    "ADDRESS": "Address:",
+    "CHECK_ATTENDANCE": "Check Attendance",
+    "REPORTING_MANAGER": "Reporting Manager:",
+    "ADD_EMPLOYEE_TITLE": "Add Employee",
+    "UPDATE_EMPLOYEE_TITLE": "Update Employee",
+    "NAME_LABEL": "Name",
+    "NAME_PLACEHOLDER": "Enter Name",
+    "NAME_REQUIRED_ERROR": "Name is required",
+
+    "MOBILE_LABELS": "Mobile",
+    "MOBILE_PLACEHOLDERS": "Enter Mobile Number",
+    "MOBILE_REQUIRED_ERRORS": "Mobile Number is required",
+    "MOBILE_PATTERN_ERRORS": "Invalid mobile number",
+
+    "REPORTING_MANAGER_LABEL": "Reporting Manager",
+    "REPORTING_MANAGER_PLACEHOLDER": "Select Reporting Manager",
+    "REPORTING_MANAGER_REQUIRED_ERROR": "Reporting Manager is required",
+
+    "ROLE_LABEL": "Role",
+    "ROLE_PLACEHOLDER": "Select Role",
+    "ROLE_REQUIRED_ERROR": "Role is required",
+
+    "JOINING_DATE_LABEL": "Joining Date",
+    "JOINING_DATE_PLACEHOLDER": "Select Joining Date",
+    "JOINING_DATE_REQUIRED_ERROR": "Joining Date is required",
+
+    "ADDRESS_LABEL": "Address",
+    "ADDRESS_PLACEHOLDER": "Enter Address",
+    "ADDRESS_REQUIRED_ERROR": "Address is required",
+
+    "LEAVING_DATE_LABEL": "Leaving Date",
+    "LEAVING_DATE_PLACEHOLDER": "Select Leaving Date"
 }

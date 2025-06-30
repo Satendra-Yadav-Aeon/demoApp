@@ -1,56 +1,57 @@
-export const MANAGE_EMPLOYEE_TITLE = 'Manage Employees'
-export const ADD_EMPLOYEE_TITLE = 'Add Employee'
-export const UPDATE_EMPLOYEE_TITLE = 'Update Employee'
+export const MANAGE_EMPLOYEE_TITLE = 'MANAGE_EMPLOYEE_TITLE'
+export const ADD_EMPLOYEE_TITLE = 'ADD_EMPLOYEE_TITLE'
+export const UPDATE_EMPLOYEE_TITLE = 'UPDATE_EMPLOYEE_TITLE'
 export const NUMBER_KEYPAD = 'numeric'
 export const MANAGE_EMPLOYEE_CONSTANT = {
     ADD_MODE: 'add',
     UPDATE_MODE: 'update',
-    MOBILE: 'Mobile:',
-    DEPARTMENT: 'Department:',
-    ROLE: 'Role:',
-    JOINING_DATE: 'Joining Date:',
-    ADDRESS: 'Address:',
-    SET_ATTENDANCE: 'Set Attendance',
-    REPORTING_MANAGER: 'Reporting Manager'
+    MOBILE: 'MOBILE',
+    ROLES: 'ROLES',
+    JOINING_DATE: 'JOINING_DATE',
+    ADDRESS: 'ADDRESS',
+    CHECK_ATTENDANCE: 'CHECK_ATTENDANCE',
+    REPORTING_MANAGER: 'REPORTING_MANAGER'
 }
 export const NAME_CONSTANT = {
-    LABEL: 'Name',
-    PLACEHOLDER: 'Enter Name',
+    LABEL: 'NAME_LABEL',
+    PLACEHOLDER: 'NAME_PLACEHOLDER',
     NAME: 'name',
-    REQUIRED_ERROR: 'Name is required',
+    REQUIRED_ERROR: 'NAME_REQUIRED_ERROR',
 };
 export const MOBILE_CONSTANT = {
-    LABEL: 'Mobile',
-    PLACEHOLDER: 'Enter Mobile Number',
+    LABEL: 'MOBILE_LABELS',
+    PLACEHOLDER: 'MOBILE_PLACEHOLDERS',
     NAME: 'mobile',
-    REQUIRED_ERROR: 'Mobile Number is required',
+    REQUIRED_ERROR: 'MOBILE_REQUIRED_ERRORS',
     PATTERN_1: /^[0-9]{10}$/,
-    PATTERN_ERROR: 'Invalid mobile number'
+    PATTERN_ERROR: 'MOBILE_PATTERN_ERRORS'
 };
 export const REPORTING_MANAGER_CONSTANT = {
-    LABEL: 'Reporting Manager',
-    PLACEHOLDER: 'Select Reporting Manager',
+    LABEL: 'REPORTING_MANAGER_LABEL',
+    PLACEHOLDER: 'REPORTING_MANAGER_PLACEHOLDER',
     NAME: 'reportingManager',
-    REQUIRED_ERROR: 'Reporting Manager is required',
+    REQUIRED_ERROR: 'REPORTING_MANAGER_REQUIRED_ERROR',
 };
 export const ROLE_CONSTANT = {
-    LABEL: 'Role',
-    PLACEHOLDER: 'Select Role',
+    LABEL: 'ROLE_LABEL',
+    PLACEHOLDER: 'ROLE_PLACEHOLDER',
     NAME: 'role',
-    REQUIRED_ERROR: 'Role is required',
+    REQUIRED_ERROR: 'ROLE_REQUIRED_ERROR',
 };
 export const JOINIG_DATE_CONSTANT = {
-    LABEL: 'Joining Date',
+    LABEL: 'JOINING_DATE_LABEL',
     NAME: 'joiningDate',
-    REQUIRED_ERROR: 'Joining Date is required',
+    PLACEHOLDER: 'JOINING_DATE_PLACEHOLDER',
+    REQUIRED_ERROR: 'JOINING_DATE_REQUIRED_ERROR',
 };
 export const ADDRESS_CONSTANT = {
-    LABEL: 'Address',
-    PLACEHOLDER: 'Enter Address',
+    LABEL: 'ADDRESS_LABEL',
+    PLACEHOLDER: 'ADDRESS_PLACEHOLDER',
     NAME: 'address',
-    REQUIRED_ERROR: 'Address is required',
+    REQUIRED_ERROR: 'ADDRESS_REQUIRED_ERROR',
 };
 export const LEAVING_DATE_CONSTANT = {
-    LABEL: 'Leaving Date',
+    LABEL: 'LEAVING_DATE_LABEL',
     NAME: 'leavingDate',
+    PLACEHOLDER: 'LEAVING_DATE_PLACEHOLDER',
 };

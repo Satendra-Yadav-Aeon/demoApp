@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, Text, View, Image, ActivityIndicator } fr
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useTranslation } from 'react-i18next';
 import Colors from '../../../assets/colors/colors';
 import MyImages from '../../../utils/MyImages';
 import { ADD_EMPLOYEE_TITLE, ADDRESS_CONSTANT, JOINIG_DATE_CONSTANT, LEAVING_DATE_CONSTANT, MANAGE_EMPLOYEE_CONSTANT, MOBILE_CONSTANT, NAME_CONSTANT, NUMBER_KEYPAD, REPORTING_MANAGER_CONSTANT, ROLE_CONSTANT, UPDATE_EMPLOYEE_TITLE } from '../constants/ManageEmployeeConstant';
@@ -20,6 +21,7 @@ import { SUBMIT_BUTTON_TEXT } from '../../LoginScreen/constants/LoginConstant';
 const { screenWidth, screenHeight } = ScreenDimensions;
 const ManageEmployeeForm = () => {
   const navigation = useNavigation()
+  const {t} = useTranslation()
   const { employeeRole } = useEmployeeRole();
   const { adminList } = useAdminRoleLists();
   const { supervisorList } = useSupervisorRoleLists();
@@ -123,7 +125,7 @@ const ManageEmployeeForm = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon}/>
         </TouchableOpacity>
-        <Text style={styles.title}>{mode === MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE ? UPDATE_EMPLOYEE_TITLE : ADD_EMPLOYEE_TITLE}</Text>
+        <Text style={styles.title}>{mode === MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE ? t(UPDATE_EMPLOYEE_TITLE) : t(ADD_EMPLOYEE_TITLE)}</Text>
       </View>
       <View style={styles.secondHalf}>
         <KeyboardAwareScrollView style={styles.scrollContainer}>
@@ -131,12 +133,12 @@ const ManageEmployeeForm = () => {
           control={control}
           name={NAME_CONSTANT.NAME}
           rules={{
-            required: NAME_CONSTANT.REQUIRED_ERROR,
+            required: t(NAME_CONSTANT.REQUIRED_ERROR),
           }}
           render={({ field: { onChange, value }, fieldState: {error} }) => (
             <CustomTextInput
-              placeholder={NAME_CONSTANT.PLACEHOLDER}
-              label={NAME_CONSTANT.LABEL}
+              placeholder={t(NAME_CONSTANT.PLACEHOLDER)}
+              label={t(NAME_CONSTANT.LABEL)}
               maxLength={60}
               onChange={onChange}
               value={value}
@@ -149,16 +151,16 @@ const ManageEmployeeForm = () => {
           control={control}
           name={MOBILE_CONSTANT.NAME}
           rules={{
-            required: MOBILE_CONSTANT.REQUIRED_ERROR,
+            required: t(MOBILE_CONSTANT.REQUIRED_ERROR),
             pattern: {
               value: MOBILE_CONSTANT.PATTERN_1,
-              message: MOBILE_CONSTANT.PATTERN_ERROR,
+              message: t(MOBILE_CONSTANT.PATTERN_ERROR),
             },
           }}
           render={({ field: { onChange, value }, fieldState: {error} }) => (
             <CustomTextInput
-              placeholder={MOBILE_CONSTANT.PLACEHOLDER}
-              label={MOBILE_CONSTANT.LABEL}
+              placeholder={t(MOBILE_CONSTANT.PLACEHOLDER)}
+              label={t(MOBILE_CONSTANT.LABEL)}
               maxLength={10}
               onChange={onChange}
               value={value}
@@ -171,14 +173,15 @@ const ManageEmployeeForm = () => {
         <Controller
           control={control}
           name={ROLE_CONSTANT.NAME}
-          rules={{ required: ROLE_CONSTANT.REQUIRED_ERROR }}
+          rules={{ required: t(ROLE_CONSTANT.REQUIRED_ERROR) }}
           render={({ field: { value, onChange }, fieldState: { error } }) => (
             <CustomDropdown
-              label={ROLE_CONSTANT.LABEL}
+              label={t(ROLE_CONSTANT.LABEL)}
               value={value}
               onChange={onChange}
               options={roleOptions}
               error={error?.message}
+              placeholder={t(ROLE_CONSTANT.PLACEHOLDER)}
             />
           )}
         />
@@ -186,7 +189,7 @@ const ManageEmployeeForm = () => {
           <Controller
             control={control}
             name={REPORTING_MANAGER_CONSTANT.NAME}
-            rules={{ required: REPORTING_MANAGER_CONSTANT.REQUIRED_ERROR }}
+            rules={{ required: t(REPORTING_MANAGER_CONSTANT.REQUIRED_ERROR) }}
             render={({ field: { value, onChange }, fieldState: { error } }) => {
               const options =
                 selectedRoleName === ROLES.EMPLOYEE
@@ -197,11 +200,12 @@ const ManageEmployeeForm = () => {
 
               return (
                 <CustomDropdown
-                  label={REPORTING_MANAGER_CONSTANT.LABEL}
+                  label={t(REPORTING_MANAGER_CONSTANT.LABEL)}
                   value={value}
                   onChange={onChange}
                   options={options}
                   error={error?.message}
+                  placeholder={t(REPORTING_MANAGER_CONSTANT.PLACEHOLDER)}
                 />
               );
             }}
@@ -211,14 +215,15 @@ const ManageEmployeeForm = () => {
         <Controller
           control={control}
           name={JOINIG_DATE_CONSTANT.NAME}
-          rules={{ required: JOINIG_DATE_CONSTANT.REQUIRED_ERROR }}
+          rules={{ required: t(JOINIG_DATE_CONSTANT.REQUIRED_ERROR) }}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <CustomDatePicker
-              label={JOINIG_DATE_CONSTANT.LABEL}
+              label={t(JOINIG_DATE_CONSTANT.LABEL)}
               value={value}
               onChange={onChange}
               error={error?.message}
               minimumDate={new Date()}
+              placeholder={t(JOINIG_DATE_CONSTANT.PLACEHOLDER)}
             />
           )}
         />
@@ -228,10 +233,11 @@ const ManageEmployeeForm = () => {
           name={LEAVING_DATE_CONSTANT.NAME}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <CustomDatePicker
-              label={LEAVING_DATE_CONSTANT.LABEL}
+              label={t(LEAVING_DATE_CONSTANT.LABEL)}
               value={value}
               onChange={onChange}
               error={error?.message}
+              placeholder={t(LEAVING_DATE_CONSTANT.PLACEHOLDER)}
             />
           )}
         />
@@ -240,12 +246,12 @@ const ManageEmployeeForm = () => {
           control={control}
           name={ADDRESS_CONSTANT.NAME}
           rules={{
-            required: ADDRESS_CONSTANT.REQUIRED_ERROR,
+            required: t(ADDRESS_CONSTANT.REQUIRED_ERROR),
           }}
           render={({ field: { onChange, value }, fieldState: {error} }) => (
             <CustomTextInput
-              placeholder={ADDRESS_CONSTANT.PLACEHOLDER}
-              label={ADDRESS_CONSTANT.LABEL}
+              placeholder={t(ADDRESS_CONSTANT.PLACEHOLDER)}
+              label={t(ADDRESS_CONSTANT.LABEL)}
               maxLength={250}
               onChange={onChange}
               value={value}
@@ -259,7 +265,7 @@ const ManageEmployeeForm = () => {
             {isLoading ? (
               <ActivityIndicator size={SMALL_LOADER} color={Colors.white}/>
             ) : (
-              <Text style={styles.submitText}>{SUBMIT_BUTTON_TEXT}</Text>
+              <Text style={styles.submitText}>{t(SUBMIT_BUTTON_TEXT)}</Text>
             )}
         </TouchableOpacity>
       </View>

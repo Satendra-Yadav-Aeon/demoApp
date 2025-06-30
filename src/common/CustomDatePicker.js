@@ -4,7 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '../assets/colors/colors';
 import { DATE_MODE, DISPLAY_DEFAULT, DISPLAY_SPINNER, IOS_PLATFORM } from '../constants/MainConstant';
 
-const CustomDatePicker = ({ label, value, onChange, error,minimumDate }) => {
+const CustomDatePicker = ({ label, value, onChange, error,minimumDate, placeholder }) => {
   const [show, setShow] = useState(false);
 
   const onDateChange = (event, selectedDate) => {
@@ -18,7 +18,7 @@ const CustomDatePicker = ({ label, value, onChange, error,minimumDate }) => {
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <TouchableOpacity style={styles.input} onPress={() => setShow(true)}>
-        <Text style={{ color: Colors.black, fontSize: 16}}>{value || `Select ${label}`}</Text>
+        <Text style={value ? styles.valueText : styles.placeholderText}>{value || placeholder}</Text>
       </TouchableOpacity>
       {show && (
         <DateTimePicker
@@ -57,5 +57,13 @@ const styles = StyleSheet.create({
     color: Colors.red, 
     marginTop: 4, 
     fontSize: 14 
+  },
+  valueText: {
+    color: Colors.black,
+    fontSize: 16,
+  },
+  placeholderText: {
+    color: Colors.grey,
+    fontSize: 16,
   },
 });

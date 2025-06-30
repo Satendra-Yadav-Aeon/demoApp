@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import MyImages from '../../../utils/MyImages';
 import Colors from '../../../assets/colors/colors';
 import ScreenDimensions from '../../../utils/DimensionUtils';
@@ -10,6 +11,7 @@ const { screenWidth } = ScreenDimensions
 const cardWidth = screenWidth * 0.95;
 
 const ManageEmployeeCard = ({ employee, onEdit }) => {
+  const {t} = useTranslation()
   return (
     <View style={styles.card}>
       <View style={styles.row}>
@@ -19,23 +21,23 @@ const ManageEmployeeCard = ({ employee, onEdit }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.dataRow}>
-        <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.MOBILE}</Text>
+        <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.MOBILE)}</Text>
         <Text style={styles.dataText}>{employee?.mobile}</Text>
       </View>
       <View style={styles.dataRow}>
-        <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.ROLE}</Text>
+        <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.ROLES)}</Text>
         <Text style={styles.dataText}>{employee?.role}</Text>
       </View>
       <View style={styles.dataRow}>
-        <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.REPORTING_MANAGER}</Text>
+        <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.REPORTING_MANAGER)}</Text>
         <Text style={styles.dataText}>{employee?.repomanager}</Text>
       </View>
       <View style={styles.dataRow}>
-        <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.JOINING_DATE}</Text>
+        <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.JOINING_DATE)}</Text>
         <Text style={styles.dataText}>{employee?.joiningDate}</Text>
       </View>
       <View style={styles.dataRow}>
-        <Text style={styles.headerText}>{MANAGE_EMPLOYEE_CONSTANT.ADDRESS}</Text>
+        <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.ADDRESS)}</Text>
         <Text style={styles.dataText}>{employee?.address}</Text>
       </View>
     </View>
