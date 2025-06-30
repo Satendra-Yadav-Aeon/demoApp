@@ -23,12 +23,12 @@ export const ROLES = {
     EMPLOYEE: 'Employee'
 }
 export const TAB_SCREENS = {
-    DAY_ATTENDANCE: 'Day',
-    WEEK_ATTENDANCE: 'Week',
-    MONTH_ATTENDANCE: 'Month',
-    ALL_EMPLOYEES: 'All',
-    PRESENT_EMPLOYEES: 'Present',
-    ABSENT_EMPLOYEES: 'Absent'
+    DAY_ATTENDANCE: 'DAY_ATTENDANCE',
+    WEEK_ATTENDANCE: 'WEEK_ATTENDANCE',
+    MONTH_ATTENDANCE: 'MONTH_ATTENDANCE',
+    ALL_EMPLOYEES: 'ALL_EMPLOYEES',
+    PRESENT_EMPLOYEES: 'PRESENT_EMPLOYEES',
+    ABSENT_EMPLOYEES: 'ABSENT_EMPLOYEES'
 }
 export const ELLIPSIZE_MODE = 'tail'
 export const DATE_FORMAT_A = 'YYYY-MM-DD'
@@ -60,3 +60,4 @@ export const TOAST_MESSAGE = {
 export const SMALL_LOADER = 'small'
 export const LARGE_LOADER = 'large'
 export const SLIDE_ANIMATION = 'slide'
+export const LAUNCHING_SOON = 'LAUNCHING_SOON'

@@ -1,27 +1,26 @@
 export const ATTENDANCE_CONSTANT = {
-    DAY: 'Day',
-    CHECK_IN: 'Check In',
-    CHECK_OUT: 'Check Out',
-    TOTAL_HOUR: 'Total Hour',
-    LOCATION: 'Location',
-    DATE: 'Date',
-    NAME: 'Name',
-    ROLE: 'Role',
-    STATUS: 'Status',
+    DAY: 'DAY',
+    CHECK_IN: 'CHECK_IN',
+    CHECK_OUT: 'CHECK_OUT',
+    TOTAL_HOUR: 'TOTAL_HOUR',
+    LOCATION: 'LOCATION',
+    DATE: 'DATE',
+    NAME: 'NAME',
+    ROLE: 'ROLE',
+    STATUS: 'STATUS',
     NO_DATA: '--',
-    SET_LOCATION: 'Set Location',
+    CHECK_LOCATION: 'CHECK_LOCATION',
     SUPERVISOR_ROLE: 'Supervisor',
     EMPLOYEE_ROLE: 'Employee'
 }
-export const MY_ATTENDANCE_TITLE = 'My Attendance'
-export const EMPLOYEE_ATTENDANCE_TITLE = 'Employee Attendance'
+export const MY_ATTENDANCE_TITLE = 'MY_ATTENDANCE_TITLE'
+export const EMPLOYEE_ATTENDANCE_TITLE = 'EMPLOYEE_ATTENDANCE_TITLE'
 export const ATTENDANCE_COUNT_CARD_CONSTANT = {
     DATE_MODE: 'date',
     DEFAULT: 'default',
-    TOTAL: 'Total',
-    PRESENT: 'Present',
-    ABSENT: 'Absent'
-
+    TOTAL: 'TOTAL',
+    PRESENT: 'PRESENT',
+    ABSENT: 'ABSENT'
 }
 export const ATTENDANCE_STATUS = {
     PRESENT: 'present',

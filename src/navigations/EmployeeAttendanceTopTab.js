@@ -1,5 +1,6 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Colors from '../assets/colors/colors';
 import { TAB_SCREENS } from '../constants/MainConstant';
 import DayAttendance from '../screens/AttendanceScreen/components/DayAttendance';
@@ -10,6 +11,7 @@ import { AttendanceProvider } from '../screens/AttendanceScreen/context/Employee
 const Tab = createMaterialTopTabNavigator();
 
 const EmployeeAttendanceTopTab = () => {
+  const {t} = useTranslation()
   return (
     <AttendanceProvider>
     <Tab.Navigator 
@@ -45,9 +47,9 @@ const EmployeeAttendanceTopTab = () => {
         swipeEnabled: false,
       }}
     >
-      <Tab.Screen name={TAB_SCREENS.DAY_ATTENDANCE} component={DayAttendance} />
-      <Tab.Screen name={TAB_SCREENS.WEEK_ATTENDANCE} component={WeekAttendance} />
-      <Tab.Screen name={TAB_SCREENS.MONTH_ATTENDANCE} component={MonthAttendance} />
+      <Tab.Screen name={t(TAB_SCREENS.DAY_ATTENDANCE)} component={DayAttendance} />
+      <Tab.Screen name={t(TAB_SCREENS.WEEK_ATTENDANCE)} component={WeekAttendance} />
+      <Tab.Screen name={t(TAB_SCREENS.MONTH_ATTENDANCE)} component={MonthAttendance} />
     </Tab.Navigator>
     </AttendanceProvider>
   );

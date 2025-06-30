@@ -1,5 +1,6 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TAB_SCREENS } from '../constants/MainConstant';
 import AllEmployees from '../screens/AttendanceScreen/components/AllEmployees';
 import PresentEmployees from '../screens/AttendanceScreen/components/PresentEmployees';
@@ -9,6 +10,7 @@ import Colors from '../assets/colors/colors';
 const Tab = createMaterialTopTabNavigator();
 
 const AdminAttendanceTopTab = () => {
+  const {t} = useTranslation()
   return (
     <Tab.Navigator 
       screenOptions={{
@@ -41,9 +43,9 @@ const AdminAttendanceTopTab = () => {
         swipeEnabled: false,
       }}
     >
-      <Tab.Screen name={TAB_SCREENS.ALL_EMPLOYEES} component={AllEmployees} />
-      <Tab.Screen name={TAB_SCREENS.PRESENT_EMPLOYEES} component={PresentEmployees} />
-      <Tab.Screen name={TAB_SCREENS.ABSENT_EMPLOYEES} component={AbsentEmployees} />
+      <Tab.Screen name={t(TAB_SCREENS.ALL_EMPLOYEES)} component={AllEmployees} />
+      <Tab.Screen name={t(TAB_SCREENS.PRESENT_EMPLOYEES)} component={PresentEmployees} />
+      <Tab.Screen name={t(TAB_SCREENS.ABSENT_EMPLOYEES)} component={AbsentEmployees} />
     </Tab.Navigator>
   );
 };

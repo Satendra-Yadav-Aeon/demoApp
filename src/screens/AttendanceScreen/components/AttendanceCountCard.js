@@ -2,6 +2,7 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useTranslation } from 'react-i18next';
 import { useAdminAttendance } from '../context/AdminAttendanceContext';
 import Colors from '../../../assets/colors/colors';
 import MyImages from '../../../utils/MyImages';
@@ -22,6 +23,7 @@ const AttendanceCountCard = () => {
     selectedDate,
     setSelectedDate,
   } = useAdminAttendance();
+  const {t} = useTranslation()
 
   const [showPicker, setShowPicker] = useState(false);
 
@@ -49,17 +51,17 @@ const AttendanceCountCard = () => {
         <View style={styles.cardContainer}>
         <View style={styles.card}>
             <Image source={MyImages.totalEmployees} style={styles.icon}/>
-            <Text style={styles.cardHeaderText}>{ATTENDANCE_COUNT_CARD_CONSTANT.TOTAL}</Text>
+            <Text style={styles.cardHeaderText}>{t(ATTENDANCE_COUNT_CARD_CONSTANT.TOTAL)}</Text>
             <Text style={styles.cardDataText}>{totalEmployees?.length}</Text>
         </View>
         <View style={styles.card}>
             <Image source={MyImages.presentEmployees} style={styles.icon}/>
-            <Text style={styles.cardHeaderText}>{ATTENDANCE_COUNT_CARD_CONSTANT.PRESENT}</Text>
+            <Text style={styles.cardHeaderText}>{t(ATTENDANCE_COUNT_CARD_CONSTANT.PRESENT)}</Text>
             <Text style={styles.cardDataText}>{presentEmployees?.length}</Text>
         </View>
         <View style={styles.card}>
             <Image source={MyImages.absentEmployees} style={styles.icon}/>
-            <Text style={styles.cardHeaderText}>{ATTENDANCE_COUNT_CARD_CONSTANT.ABSENT}</Text>
+            <Text style={styles.cardHeaderText}>{t(ATTENDANCE_COUNT_CARD_CONSTANT.ABSENT)}</Text>
             <Text style={styles.cardDataText}>{absentEmployees?.length}</Text>
         </View>
         </View>

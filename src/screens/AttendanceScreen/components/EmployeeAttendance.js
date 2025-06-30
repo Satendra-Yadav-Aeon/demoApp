@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
 import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages'
 import EmployeeAttendanceTopTab from '../../../navigations/EmployeeAttendanceTopTab'
@@ -8,13 +9,14 @@ import { MY_ATTENDANCE_TITLE } from '../constants/AttendanceConstant'
 
 const EmployeeAttendance = () => {
   const navigation = useNavigation()
+  const {t} = useTranslation()
   return (
     <View style={styles.container}>
       <View style={styles.firstHalf}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon}/>
         </TouchableOpacity>
-        <Text style={styles.title}>{MY_ATTENDANCE_TITLE}</Text>
+        <Text style={styles.title}>{t(MY_ATTENDANCE_TITLE)}</Text>
       </View>
       <View style={styles.secondHalf}>
         <EmployeeAttendanceTopTab/>

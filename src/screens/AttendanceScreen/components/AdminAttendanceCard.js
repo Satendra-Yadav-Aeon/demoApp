@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import Colors from '../../../assets/colors/colors';
 import { ATTENDANCE_CONSTANT } from '../constants/AttendanceConstant';
 import { SCREENS } from '../../../constants/MainConstant';
@@ -8,21 +9,22 @@ import { SCREENS } from '../../../constants/MainConstant';
 
 const AdminAttendanceCard = ({ employee, selectedDate }) => {
   const navigation = useNavigation()
+  const {t} = useTranslation()
   const attendanceRecord = employee?.attendance?.find(a => a.date === selectedDate);
   
   return (
     <View style={styles.card}>
       <View style={styles.row}>
         <View style={styles.flex1}>
-          <Text style={styles.headerText}>{ATTENDANCE_CONSTANT.NAME}</Text>
+          <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.NAME)}</Text>
           <Text style={styles.dataText}>{employee?.name || ATTENDANCE_CONSTANT.NO_DATA}</Text>
         </View>
         <View style={styles.flex1}>
-          <Text style={styles.headerText}>{ATTENDANCE_CONSTANT.ROLE}</Text>
+          <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.ROLE)}</Text>
           <Text style={styles.dataText}>{employee?.role || ATTENDANCE_CONSTANT.NO_DATA}</Text>
         </View>
         <View style={styles.flex1}>
-          <Text style={styles.headerText}>{ATTENDANCE_CONSTANT.STATUS}</Text>
+          <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.STATUS)}</Text>
           <Text style={styles.dataText}>{attendanceRecord?.status || ATTENDANCE_CONSTANT.NO_DATA}</Text>
         </View>
         
@@ -30,26 +32,26 @@ const AdminAttendanceCard = ({ employee, selectedDate }) => {
 
       <View style={styles.row}>
         <View style={styles.flex1}>
-          <Text style={styles.headerText}>{ATTENDANCE_CONSTANT.DATE}</Text>
+          <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.DATE)}</Text>
           <Text style={styles.dataText}>{selectedDate || ATTENDANCE_CONSTANT.NO_DATA}</Text>
         </View>
         <View style={styles.flex1}>
-          <Text style={styles.headerText}>{ATTENDANCE_CONSTANT.CHECK_IN}</Text>
+          <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.CHECK_IN)}</Text>
           <Text style={styles.dataText}>{attendanceRecord?.checkIn || ATTENDANCE_CONSTANT.NO_DATA}</Text>
         </View>
         <View style={styles.flex1}>
-          <Text style={styles.headerText}>{ATTENDANCE_CONSTANT.CHECK_OUT}</Text>
+          <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.CHECK_OUT)}</Text>
           <Text style={styles.dataText}>{attendanceRecord?.checkOut || ATTENDANCE_CONSTANT.NO_DATA}</Text>
         </View>
       </View>
 
       <View style={styles.row}>
         <View style={styles.flex1}>
-          <Text style={styles.headerText}>{ATTENDANCE_CONSTANT.TOTAL_HOUR}</Text>
+          <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.TOTAL_HOUR)}</Text>
           <Text style={styles.dataText}>{attendanceRecord?.totalHrs || ATTENDANCE_CONSTANT.NO_DATA}</Text>
         </View>
         <View style={styles.flex1}>
-          <Text style={styles.headerText}>{ATTENDANCE_CONSTANT.LOCATION}</Text>
+          <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.LOCATION)}</Text>
           <Text style={styles.dataText}>{attendanceRecord?.location || ATTENDANCE_CONSTANT.NO_DATA}</Text>
         </View>
         <View style={styles.flex1}/>
@@ -64,7 +66,7 @@ const AdminAttendanceCard = ({ employee, selectedDate }) => {
               })
           }
         >
-          <Text style={styles.setLocationText}>{ATTENDANCE_CONSTANT.SET_LOCATION}</Text>
+          <Text style={styles.setLocationText}>{t(ATTENDANCE_CONSTANT.CHECK_LOCATION)}</Text>
           </TouchableOpacity>
         )}
     </View>
