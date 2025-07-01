@@ -36,7 +36,7 @@ const AdminDashboard = () => {
           <Image source={MyImages.profile} style={styles.profileIcon}/>
         </TouchableOpacity>
         <View style={styles.employeeDataContainer}>
-          <Text style={styles.employeeName}>{employeeData?.name}</Text>
+          <Text style={styles.employeeName}>{employeeData?.empname}</Text>
           <Text style={styles.employeeEmail}>{employeeData?.rolename}</Text>
         </View>
       </View>

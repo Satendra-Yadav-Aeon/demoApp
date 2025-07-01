@@ -6,7 +6,7 @@ export const loginService = async (payload) => {
   const { mobileNumber, password } = payload;
 
   const data = {
-    mobile: mobileNumber,
+    mobileno: mobileNumber,
     password: password,
   };
 
