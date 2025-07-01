@@ -19,6 +19,8 @@ import ManageEmployeeForm from '../screens/EmployeeScreen/components/ManageEmplo
 import SetEmployeeAttendance from '../screens/AttendanceScreen/components/SetEmployeeAttendance'
 import { getAsyncItem } from '../utils/AsyncStorage'
 import { ASYNC_CONSTANT } from '../constants/AsyncConstant'
+import TermsAndConditions from '../screens/ProfileScreen/components/TermsAndConditions'
+import PrivacyPolicy from '../screens/ProfileScreen/components/PrivacyPolicy'
 
 const Stack = createNativeStackNavigator()
 const ApplicationStack = () => {
@@ -68,6 +70,8 @@ const ApplicationStack = () => {
         <Stack.Screen name={SCREENS.MANAGE_EMPLOYEE_LIST} component={ManageEmployeeList}/>
         <Stack.Screen name={SCREENS.MANAGE_EMPLOYEE_FORM} component={ManageEmployeeForm}/>
         <Stack.Screen name={SCREENS.SET_EMPLOYEE_ATTENDANCE} component={SetEmployeeAttendance}/>
+        <Stack.Screen name={SCREENS.TERMS_CONDITIONS} component={TermsAndConditions}/>
+        <Stack.Screen name={SCREENS.PRIVACY_POLICY} component={PrivacyPolicy}/>
       </Stack.Navigator>
   )
 }

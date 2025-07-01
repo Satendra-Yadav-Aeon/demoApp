@@ -1,4 +1,4 @@
-import { Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { Text, StyleSheet, TouchableOpacity, Alert, View } from 'react-native'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
@@ -42,15 +42,22 @@ const confirmLogout = async () => {
 };
 
   return (
+    <View style={styles.container}>
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
         <Text style={styles.logoutText}>{t(LOGOUT_CONSTANT.LOG_OUT_TEXT)}</Text>
       </TouchableOpacity>
+    </View>
   )
 }
 
 export default Logout
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   logoutButton: {
     width: screenWidth*0.4,
     height: screenHeight* 0.06,

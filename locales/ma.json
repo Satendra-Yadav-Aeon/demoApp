@@ -82,5 +82,8 @@
     "LEAVING_DATE_LABEL": "लीव्हिंग तारीख",
     "LEAVING_DATE_PLACEHOLDER": "लीव्हिंग तारीख निवडा",
     "SET_ATTENDANCE": "हजेरी सेट करा",
-    "SELECT_LANGUAGE": "भाषा निवडा"
+    "SELECT_LANGUAGE": "भाषा निवडा",
+    "CHANGE_PASSWORD": "पासवर्ड बदला",
+    "TERMS_CONDITIONS": "नियम व अटी",
+    "PRIVACY_POLICY": "गोपनीयता धोरण"
 }

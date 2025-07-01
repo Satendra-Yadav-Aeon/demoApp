@@ -20,7 +20,10 @@ const MyImages = {
     cancel: require('../assets/images/cancel.png'),
     add: require('../assets/images/add.png'),
     edit: require('../assets/images/edit.png'),
-    flip: require('../assets/images/flip.png')
+    flip: require('../assets/images/flip.png'),
+    rightArrow: require('../assets/images/right-arrow.png'),
+    termsConditions: require('../assets/html/attendrixTermsConditions.html'),
+    privacyPolicy: require('../assets/html/attendrixPrivacyPolicy.html')
 }
 
 export default MyImages;

@@ -12,7 +12,9 @@ export const SCREENS = {
     GEOFENCE_MAP: 'GeofenceMapScreen',
     MANAGE_EMPLOYEE_LIST: 'ManageEmployeeList',
     MANAGE_EMPLOYEE_FORM: 'ManageEmployeeForm',
-    SET_EMPLOYEE_ATTENDANCE: 'SetEmployeeAttendance'
+    SET_EMPLOYEE_ATTENDANCE: 'SetEmployeeAttendance',
+    TERMS_CONDITIONS: 'TermsAndConditions',
+    PRIVACY_POLICY: 'PrivacyPolicy'
 }
 export const AM_TIME_LABEL = 'AM';
 export const PM_TIME_LABEL = 'PM';

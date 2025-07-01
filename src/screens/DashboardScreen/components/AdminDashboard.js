@@ -32,7 +32,7 @@ const AdminDashboard = () => {
         <TouchableOpacity onPress={() => setLangModalVisible(true)} style={styles.languageButton}>
           <Text style={styles.languageText}>{getLanguageLabel(i18n.language)}</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate(SCREENS.PROFILE)} style={styles.profileContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate(SCREENS.PROFILE, {employee: employeeData})} style={styles.profileContainer}>
           <Image source={MyImages.profile} style={styles.profileIcon}/>
         </TouchableOpacity>
         <View style={styles.employeeDataContainer}>

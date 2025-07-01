@@ -5,11 +5,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
+import ImageResizer from 'react-native-image-resizer';
 import Colors from '../../../assets/colors/colors';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import MyImages from '../../../utils/MyImages';
 import { SET_EMPLOYEE_ATTENDANCE } from '../constants/AttendanceConstant';
 import { DATE_FORMAT_A, TIME_FORMAT_A, TOAST_MESSAGE } from '../../../constants/MainConstant';
+import { setAsyncItem } from '../../../utils/AsyncStorage';
 
 const {screenHeight,screenWidth} = ScreenDimensions;
 
@@ -60,12 +62,26 @@ const SetEmployeeAttendance = () => {
       const photo = await cameraRef.current.takePhoto({
         flash: SET_EMPLOYEE_ATTENDANCE.FLASH_OFF,
       });
+      const photoPath = `file://${photo.path}`;
       const now = moment();
-      setImageUri(`file://${photo.path}`);
+      // Compress the image to 80% quality
+      const compressedImage = await ImageResizer.createResizedImage(
+        photoPath,
+        800, // width (adjustable)
+        600, // height (adjustable)
+        'JPEG',
+        80, // quality in percentage
+        0,  // rotation
+        undefined,
+        false,
+        { mode: 'contain' }
+      );
+      setImageUri(compressedImage.uri);
+      setAsyncItem('checkInPhoto', compressedImage.uri)
       setCheckTime(now.format(TIME_FORMAT_A));
       setDate(now.format(DATE_FORMAT_A));
 
-      // console.log('Captured Image URI:', `file://${photo.path}`);
+      // console.log('Compressed Image URI:', compressedImage.uri, compressedImage.size);
       // console.log('Location:', lat, long);
       // console.log(isCheckIn ? 'Check In Time:' : 'Check Out Time:', now.format('HH:mm:ss'));
       // console.log('Date:', now.format('YYYY-MM-DD'));

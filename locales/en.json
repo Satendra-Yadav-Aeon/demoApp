@@ -82,5 +82,8 @@
     "LEAVING_DATE_LABEL": "Leaving Date",
     "LEAVING_DATE_PLACEHOLDER": "Select Leaving Date",
     "SET_ATTENDANCE": "Set Attendance",
-    "SELECT_LANGUAGE": "Select Language"
+    "SELECT_LANGUAGE": "Select Language",
+    "CHANGE_PASSWORD": "Change Password",
+    "TERMS_CONDITIONS": "Terms & Conditions",
+    "PRIVACY_POLICY": "Privacy Policy"
 }
