@@ -4,6 +4,7 @@ import { useRoute } from '@react-navigation/native'
 import Logout from './Logout'
 import ProfileCard from './ProfileCard'
 import Colors from '../../../assets/colors/colors'
+import VersionInfo from './VersionInfo'
 
 const Profile = () => {
   const route = useRoute();
@@ -11,6 +12,7 @@ const Profile = () => {
   return (
     <View style={styles.container}>
       <ProfileCard employee={employee}/>
+      <VersionInfo/>
       <Logout/>
     </View>
   )

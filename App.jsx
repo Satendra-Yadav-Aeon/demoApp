@@ -3,12 +3,14 @@ import React, { useEffect } from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import Toast from 'react-native-toast-message';
 import { Provider } from 'react-redux';
+import DeviceInfo from 'react-native-device-info';
 import { ANDROID_PLATFORM, MAP_CONSTANT } from './src/constants/MainConstant';
 import store from './src/redux/store';
 import { setAsyncItem } from './src/utils/AsyncStorage';
 import Routes from './src/navigations/Routes';
 import './i18n';
 import { loadSavedLanguage } from './src/utils/i18nLoader';
+import { ASYNC_CONSTANT } from './src/constants/AsyncConstant';
 
 
 const App = () => {
@@ -40,9 +42,16 @@ const App = () => {
         console.error('Unexpected geolocation error:', err);
       }
     };
+    // Store version name in AsyncStorage
+
+    const setAppVersion = async() => {
+      const version = DeviceInfo.getVersion();
+      await setAsyncItem(ASYNC_CONSTANT.APP_VERSION, version)
+    }
 
     requestPermission();
     loadSavedLanguage();
+    setAppVersion();
   }, []);
 
   return (
