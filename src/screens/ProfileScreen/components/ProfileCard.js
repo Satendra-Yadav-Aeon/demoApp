@@ -29,7 +29,7 @@ const ProfileCard = ({employee}) => {
           </TouchableOpacity>
 
           <View style={styles.nameRoleContainer}>
-            <Text style={styles.employeeName}>{employee?.name}</Text>
+            <Text style={styles.employeeName}>{employee?.empname}</Text>
             <Text style={styles.employeeRole}>{employee?.rolename}</Text>
           </View>
         </View>
