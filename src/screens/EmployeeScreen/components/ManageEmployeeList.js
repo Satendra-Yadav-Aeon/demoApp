@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { SCREENS } from '../../../constants/MainConstant';
 import MyImages from '../../../utils/MyImages';
 import Colors from '../../../assets/colors/colors';
@@ -12,7 +12,13 @@ import { isArrayLength } from '../../../utils/ValidationUtils';
 
 const ManageEmployeeList = () => {
   const navigation = useNavigation();
-  const {manageEmployeeData} = useGetAllEmployee()
+  const {manageEmployeeData, refetch} = useGetAllEmployee()
+
+  useFocusEffect(
+    React.useCallback(() => {
+      refetch();
+    }, [refetch])
+  );
 
   const handleAddEmployee = () => {
     navigation.navigate(SCREENS.MANAGE_EMPLOYEE_FORM, { mode: MANAGE_EMPLOYEE_CONSTANT.ADD_MODE });

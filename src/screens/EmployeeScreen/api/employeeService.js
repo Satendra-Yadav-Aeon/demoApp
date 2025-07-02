@@ -20,16 +20,18 @@ export const getSupervisorRoleList = async () => {
 };
 
 export const saveEmployeeData = async (payload) => {
-  const { empname, mobile, role, joiningdate, leavingdate, address, repomanager } = payload;
+  const { empid, empname, mobile, role, joiningdate, leavingdate, address, repomanager,photo } = payload;
 
   const data = {
+    empid: empid,
     empname: empname,
-    mobile: mobile,
+    mobileno: mobile,
     role: role,
     joiningdate: joiningdate,
     leavingdate: leavingdate,
     address: address,
     repomanager: repomanager,
+    photo: photo
   };
 
   const response = await axiosInstance.post(Endpoints.SAVE_EMPLOYEE, data);

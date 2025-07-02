@@ -16,14 +16,15 @@ export const useSaveEmployee = () => {
           text1: TOAST_MESSAGE.SUCCESS_TEXT,
           text2: TOAST_MESSAGE.SUCCESS_MSG,
         });
+        return true;
       }
-      return response;
     } catch (err) {
         Toast.show({
         type: TOAST_MESSAGE.ERROR,
         text1: TOAST_MESSAGE.ERROR_TEXT,
         text2: TOAST_MESSAGE.ERROR_MSG,
       });
+      return false;
     } finally {
       setIsLoading(false);
     }

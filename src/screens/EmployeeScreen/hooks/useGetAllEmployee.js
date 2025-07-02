@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getAllEmployeeList } from '../api/employeeService';
 
 const useGetAllEmployee = () => {
@@ -6,18 +6,18 @@ const useGetAllEmployee = () => {
 
   useEffect(() => {
     fetchAllEmployee();
-  }, []);
+  }, [fetchAllEmployee]);
 
-  const fetchAllEmployee = async () => {
+  const fetchAllEmployee = useCallback(async () => {
     try {
       const res = await getAllEmployeeList();
       setManageEmployeeData(res);
     } catch (err) {
     //   console.error('===fetchAllEmployee==error>>>>', err);
     }
-  };
+  },[]);
   
-  return { manageEmployeeData };
+  return { manageEmployeeData, refetch: fetchAllEmployee };
 };
 
 export default useGetAllEmployee;

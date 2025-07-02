@@ -74,17 +74,17 @@ const ManageEmployeeForm = () => {
       employeeRole?.length
     ) {
       // Match by role name, not roleid
-      const matchedRole = employeeRole?.find(role => role.rolename === employee.role);
+      const matchedRole = employeeRole?.find(role => role.rolename === employee.rolename);
       const roleId = matchedRole?.roleid;
 
       // Reset the form with correct roleId
       reset({
         [NAME_CONSTANT.NAME]: employee?.empname || '',
-        [MOBILE_CONSTANT.NAME]: employee?.mobile || '',
+        [MOBILE_CONSTANT.NAME]: employee?.mobileno || '',
         [ROLE_CONSTANT.NAME]: roleId || '',
-        [REPORTING_MANAGER_CONSTANT.NAME]: employee?.reportingManager || '',
-        [JOINIG_DATE_CONSTANT.NAME]: employee?.joiningDate || '',
-        [LEAVING_DATE_CONSTANT.NAME]: employee?.leavingDate || '',
+        [REPORTING_MANAGER_CONSTANT.NAME]: employee?.repomanager || '',
+        [JOINIG_DATE_CONSTANT.NAME]: employee?.joiningdate || '',
+        [LEAVING_DATE_CONSTANT.NAME]: employee?.leavingdate || '',
         [ADDRESS_CONSTANT.NAME]: employee?.address || '',
       });
 
@@ -105,14 +105,20 @@ const ManageEmployeeForm = () => {
 
   const onSubmit = (data) => {
     const saveData = {
+      empid: '',
       empname: data?.name,
       mobile: data?.mobile,  
       role: data?.role,
       repomanager: data?.reportingManager,
       joiningdate: data?.joiningDate,
       leavingdate: data?.leavingDate,
-      address: data?.address
+      address: data?.address,
+      photo: ''
     }
+     if (mode === MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE && employee?.empid) {
+      saveData.empid = employee?.empid;
+    }
+    // console.log('==onSubmit====ManageEmployeeForm==>saveData>>>>',saveData);
     const response = saveEmployee(saveData);
     if(response){
       navigation.goBack();
