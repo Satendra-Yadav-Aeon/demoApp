@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages'
@@ -17,15 +17,48 @@ const EmployeeDashboard = () => {
   const {i18n} = useTranslation();
   const[employeeData, setEmployeeData] = useState({})
   const [isLangModalVisible, setLangModalVisible] = useState(false);
+  const[capturedImageUri, setCapturedImageUri] = useState()
     
   useEffect(() => {
     fetchAsyncData();
   },[])
 
+  useFocusEffect(
+  React.useCallback(() => {
+      const loadProfileImage = async () => {
+        const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`
+        const uri = await getAsyncItem(key);
+        if (uri) {
+          setCapturedImageUri(uri);
+        }
+      };
+      if (employeeData?.empid) {
+        loadProfileImage();
+      }
+    }, [employeeData])
+  );
+
   const fetchAsyncData = async() => {
     const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
     setEmployeeData(data)
   }
+
+  useFocusEffect(
+  React.useCallback(() => {
+      const loadProfileImage = async () => {
+        const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`
+        const uri = await getAsyncItem(key);
+        if (uri) {
+          setCapturedImageUri(uri);
+        }
+      };
+      if (employeeData?.empid) {
+        loadProfileImage();
+      }
+    }, [employeeData])
+  );
+   
+    // console.log('====EmployeeDashboard===>>>capturedImageUri>>>>',capturedImageUri);
 
   return (
     <View style={styles.container}>
@@ -34,7 +67,11 @@ const EmployeeDashboard = () => {
           <Text style={styles.languageText}>{getLanguageLabel(i18n.language)}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate(SCREENS.PROFILE, {employee: employeeData})} style={styles.profileContainer}>
-          <Image source={MyImages.profile} style={styles.profileIcon}/>
+          {capturedImageUri ? (
+            <Image source={{uri: capturedImageUri}} style={styles.roundImage}/>
+          ) : (
+            <Image source={MyImages.profile} style={styles.profileIcon}/>
+          )}
         </TouchableOpacity>
         <View style={styles.employeeDataContainer}>
           <Text style={styles.employeeName}>{employeeData?.empname}</Text>
@@ -125,4 +162,12 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       color: Colors.black,
     },
+    roundImage: {
+      width: 70,
+      height: 70,
+      borderRadius: 35, // Half of width/height
+      borderWidth: 2,
+      borderColor: Colors.white,
+      marginTop: 10
+    }
 })

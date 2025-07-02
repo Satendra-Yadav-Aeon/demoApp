@@ -8,5 +8,6 @@ export const Endpoints = {
     GET_ADMIN_ATTENDANCE: '/Attendance/GetAdminAttendance',
     GET_EMPLOYEE_ATTENDANCE: '/Attendance/GetEmployeeAttendance',
     GET_EMPLOYEE_SUPERVISOR_ATTENDANCE: '/Attendance/GetEmployeeSupervisorAttendance',
-    SAVE_ATTENDANCE: '/Attendance/saveAttendance'
+    SAVE_ATTENDANCE: '/Attendance/saveAttendance',
+    SAVE_PROFILE: '/Employee/SaveProfile'
 }

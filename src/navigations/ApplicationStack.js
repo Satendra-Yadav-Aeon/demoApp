@@ -5,7 +5,7 @@ import Profile from '../screens/ProfileScreen/components/Profile'
 import EmployeeDashboard from '../screens/DashboardScreen/components/EmployeeDashboard'
 import SupervisorDashboard from '../screens/DashboardScreen/components/SupervisorDashboard'
 import AdminDashboard from '../screens/DashboardScreen/components/AdminDashboard'
-import { ROLES, SCREEN_ANIMATION, SCREENS } from '../constants/MainConstant'
+import { ROLES, SCREEN_ANIMATION, SCREEN_LOCALIZATION, SCREENS } from '../constants/MainConstant'
 import EmployeeTask from '../screens/TaskScreen/components/EmployeeTask'
 import Report from '../screens/ReportScreen/components/Report'
 import SupervisorAttendance from '../screens/AttendanceScreen/components/SupervisorAttendance'
@@ -21,9 +21,15 @@ import { getAsyncItem } from '../utils/AsyncStorage'
 import { ASYNC_CONSTANT } from '../constants/AsyncConstant'
 import TermsAndConditions from '../screens/ProfileScreen/components/TermsAndConditions'
 import PrivacyPolicy from '../screens/ProfileScreen/components/PrivacyPolicy'
+import ChangePassword from '../screens/ProfileScreen/components/ChangePassword'
+import Colors from '../assets/colors/colors'
+import CaptureImageComponent from '../common/CaptureImageComponent'
+import UpdateProfile from '../screens/ProfileScreen/components/UpdateProfile'
+import { useTranslation } from 'react-i18next'
 
 const Stack = createNativeStackNavigator()
 const ApplicationStack = () => {
+  const {t} = useTranslation()
   const [userRole, setUserRole] = useState(ROLES.EMPLOYEE)
   useEffect(() => {
     fetchAsyncData();
@@ -72,6 +78,23 @@ const ApplicationStack = () => {
         <Stack.Screen name={SCREENS.SET_EMPLOYEE_ATTENDANCE} component={SetEmployeeAttendance}/>
         <Stack.Screen name={SCREENS.TERMS_CONDITIONS} component={TermsAndConditions}/>
         <Stack.Screen name={SCREENS.PRIVACY_POLICY} component={PrivacyPolicy}/>
+        <Stack.Screen name={SCREENS.UPDATE_PROFILE} component={UpdateProfile} 
+          options={{ 
+            headerShown: true, 
+            headerStyle: {backgroundColor: Colors.bgColor},
+            headerShadowVisible: false, 
+            title: t(SCREEN_LOCALIZATION.UPDATE_PROFILE)
+          }}
+        />
+        <Stack.Screen name={SCREENS.CHANGE_PASSWORD} component={ChangePassword} 
+          options={{ 
+            headerShown: true, 
+            headerStyle: {backgroundColor: Colors.bgColor},
+            headerShadowVisible: false, 
+            title: t(SCREEN_LOCALIZATION.CHANGE_PASSWORDS)
+          }}
+        />
+        <Stack.Screen name={SCREENS.CAPTURE_IMAGE} component={CaptureImageComponent}/>
       </Stack.Navigator>
   )
 }

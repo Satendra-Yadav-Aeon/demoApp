@@ -47,25 +47,25 @@ const ManageEmployeeForm = () => {
     name: ROLE_CONSTANT.NAME,
   });
 
-  const adminListOptions = [
-    { label: 'Sales', value: 'Sales' },
-    { label: 'HR', value: 'HR' },
-    { label: 'Electrical', value: 'Electrical' },
-  ];
+  // const adminListOptions = [
+  //   { label: 'Sales', value: 'Sales' },
+  //   { label: 'HR', value: 'HR' },
+  //   { label: 'Electrical', value: 'Electrical' },
+  // ];
 
-  const supervisorListOptions = [
-    { label: 'Mechanical', value: 'Mechanical' },
-    { label: 'Maintenance', value: 'Maintenance' },
-    { label: 'Megawork', value: 'Megawork' },
-  ];
+  // const supervisorListOptions = [
+  //   { label: 'Mechanical', value: 'Mechanical' },
+  //   { label: 'Maintenance', value: 'Maintenance' },
+  //   { label: 'Megawork', value: 'Megawork' },
+  // ];
   
   const roleOptions = employeeRole?.map(role => ({
     label: role.rolename, 
     value: role.roleid,
   }));
 
-  // const adminListOptions = adminList?.map(a => ({ label: a.name, value: a.id }));
-  // const supervisorListOptions = supervisorList?.map(s => ({ label: s.name, value: s.id }));
+  const adminListOptions = adminList?.map(a => ({ label: a.rolename, value: a.roleid }));
+  const supervisorListOptions = supervisorList?.map(s => ({ label: s.rolename, value: s.roleid }));
 
   useEffect(() => {
     if (

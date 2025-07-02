@@ -85,5 +85,8 @@
     "SELECT_LANGUAGE": "Select Language",
     "CHANGE_PASSWORD": "Change Password",
     "TERMS_CONDITIONS": "Terms & Conditions",
-    "PRIVACY_POLICY": "Privacy Policy"
+    "PRIVACY_POLICY": "Privacy Policy",
+    "UPDATE_PROFILE": "Update Profile",
+    "CHANGE_PASSWORDS": "Change Password",
+    "CAPTURE_IMAGE": "Capture Image"
 }

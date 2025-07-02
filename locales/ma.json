@@ -85,5 +85,8 @@
     "SELECT_LANGUAGE": "भाषा निवडा",
     "CHANGE_PASSWORD": "पासवर्ड बदला",
     "TERMS_CONDITIONS": "नियम व अटी",
-    "PRIVACY_POLICY": "गोपनीयता धोरण"
+    "PRIVACY_POLICY": "गोपनीयता धोरण",
+    "UPDATE_PROFILE": "प्रोफाइल अपडेट करा",
+    "CHANGE_PASSWORDS": "पासवर्ड बदला",
+    "CAPTURE_IMAGE": "प्रतिमा कॅप्चर करा"
 }

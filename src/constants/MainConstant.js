@@ -14,7 +14,10 @@ export const SCREENS = {
     MANAGE_EMPLOYEE_FORM: 'ManageEmployeeForm',
     SET_EMPLOYEE_ATTENDANCE: 'SetEmployeeAttendance',
     TERMS_CONDITIONS: 'TermsAndConditions',
-    PRIVACY_POLICY: 'PrivacyPolicy'
+    PRIVACY_POLICY: 'PrivacyPolicy',
+    UPDATE_PROFILE: 'UpdateProfile',
+    CHANGE_PASSWORD: 'ChangePassword',
+    CAPTURE_IMAGE: 'CaptureImage'
 }
 export const AM_TIME_LABEL = 'AM';
 export const PM_TIME_LABEL = 'PM';
@@ -66,3 +69,8 @@ export const LAUNCHING_SOON = 'LAUNCHING_SOON'
 export const SELECT_LANGUAGE = 'SELECT_LANGUAGE'
 export const AEON_SOFTWARE = 'Powered By Aeon Software'
 export const VERSION_LABEL = 'Version:'
+export const SCREEN_LOCALIZATION = {
+    UPDATE_PROFILE: 'UPDATE_PROFILE',
+    CHANGE_PASSWORDS: 'CHANGE_PASSWORDS',
+    CAPTURE_IMAGE: 'CAPTURE_IMAGE'
+}

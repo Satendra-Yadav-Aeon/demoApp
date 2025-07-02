@@ -85,5 +85,8 @@
     "SELECT_LANGUAGE": "ભાષા પસંદ કરો",
     "CHANGE_PASSWORD": "પાસવર્ડ બદલો",
     "TERMS_CONDITIONS": "નિયમો અને શરતો",
-    "PRIVACY_POLICY": "ગોપનીયતા નીતિ"
+    "PRIVACY_POLICY": "ગોપનીયતા નીતિ",
+    "UPDATE_PROFILE": "પ્રોફાઇલ અપડેટ કરો",
+    "CHANGE_PASSWORDS": "પાસવર્ડ બદલો",
+    "CAPTURE_IMAGE": "છબી પકડો"
 }

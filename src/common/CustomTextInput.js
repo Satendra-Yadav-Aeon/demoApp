@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import Colors from '../assets/colors/colors';
 import { DEFAULT_KEYBOARD_TYPE } from '../constants/MainConstant';
 
-const CustomTextInput = ({ label, value, onChange, placeholder, error, keyboardType = DEFAULT_KEYBOARD_TYPE, maxLength }) => {
+const CustomTextInput = ({ label, value, onChange, placeholder, error, keyboardType = DEFAULT_KEYBOARD_TYPE, maxLength, disabled }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
@@ -16,6 +16,7 @@ const CustomTextInput = ({ label, value, onChange, placeholder, error, keyboardT
         maxLength={maxLength}
         keyboardType={keyboardType}
         multiline={true}
+        editable={!disabled}
       />
       {error && <Text style={styles.error}>{error}</Text>}
     </View>

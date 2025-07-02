@@ -22,11 +22,11 @@ const ManageEmployeeCard = ({ employee, onEdit }) => {
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.MOBILE)}</Text>
-        <Text style={styles.dataText}>{employee?.mobile}</Text>
+        <Text style={styles.dataText}>{employee?.mobileno}</Text>
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.ROLES)}</Text>
-        <Text style={styles.dataText}>{employee?.role}</Text>
+        <Text style={styles.dataText}>{employee?.rolename}</Text>
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.REPORTING_MANAGER)}</Text>
@@ -34,7 +34,7 @@ const ManageEmployeeCard = ({ employee, onEdit }) => {
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.JOINING_DATE)}</Text>
-        <Text style={styles.dataText}>{employee?.joiningDate}</Text>
+        <Text style={styles.dataText}>{employee?.joiningdate}</Text>
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.ADDRESS)}</Text>

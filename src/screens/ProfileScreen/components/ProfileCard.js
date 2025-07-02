@@ -13,19 +13,23 @@ const { screenWidth, screenHeight } = ScreenDimensions
 const cardWidth = screenWidth * 0.95;
 const cardHeight = screenHeight * 0.25
 
-const ProfileCard = ({employee}) => {
+const ProfileCard = ({employee, capturedImageUri}) => {
   const navigation = useNavigation()
   const {t} = useTranslation()
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <TouchableOpacity>
-          <Image source={MyImages.edit} style={styles.editIcon} />
+        <TouchableOpacity onPress={() => navigation.navigate(SCREENS.UPDATE_PROFILE,{employeeData: employee})}>
+          <Image source={MyImages.edit} style={styles.editIcon}/>
         </TouchableOpacity>
 
         <View style={styles.profileRow}>
           <TouchableOpacity style={styles.profileContainer}>
-            <Image source={MyImages.profile} style={styles.profileIcon} />
+            {capturedImageUri ? (
+              <Image source={{uri: capturedImageUri}} style={styles.profileIcon} />
+            ) : (
+              <Image source={MyImages.profile} style={styles.profileIcon} />
+            )}
           </TouchableOpacity>
 
           <View style={styles.nameRoleContainer}>
@@ -35,7 +39,7 @@ const ProfileCard = ({employee}) => {
         </View>
       </View>
       <View style={[styles.card, {backgroundColor: Colors.white}]}>
-        <TouchableOpacity style={styles.optionContainer}>
+        <TouchableOpacity style={styles.optionContainer} onPress={() => navigation.navigate(SCREENS.CHANGE_PASSWORD, {employeeData: employee})}>
           <Text style={styles.optionText}>{t(PROFILE_CONSTANT.CHANGE_PASSWORD)}</Text>
           <Image source={MyImages.rightArrow} style={styles.rightArrowIcon}/>
         </TouchableOpacity>
