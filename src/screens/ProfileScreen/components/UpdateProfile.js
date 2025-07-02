@@ -35,6 +35,8 @@ const UpdateProfile = () => {
 		if (employeeData) {
 			reset({
 				[NAME_CONSTANT.NAME]: employeeData?.empname || '',
+        [MOBILE_CONSTANT.NAME]: employeeData?.mobileno || '',
+        [ADDRESS_CONSTANT.NAME]: employeeData?.address || '',
 			});
 		}
 	}, [employeeData, reset]);
@@ -58,10 +60,11 @@ const UpdateProfile = () => {
 
 	const onSubmit = (data) => {
     const saveData = {
-    empId: employeeData?.empid,
+    empid: employeeData?.empid,
     mobileno: data?.mobile,
     address: data?.address,
-    photo: capturedImageUri
+    photo: capturedImageUri,
+    photoname: 'test'
   };
 
   // console.log('==UpdateProfile======onSubmit>>>>saveData>>>',saveData);
