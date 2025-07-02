@@ -10,16 +10,11 @@ export const saveProfileData = async (payload) => {
   formData.append('empid', empid);
   formData.append('mobileno', mobileno);
   formData.append('address', address);
+  formData.append('photo',photo)
+  formData.append('photoname',photoname)
 
-  // Append the image only if it exists
-  if (photo) {
-    formData.append('photo', {
-      uri: photo,
-      name: photoname || 'profile.jpg',
-      type: 'image/jpeg' // or 'image/png' based on your file
-    });
-  }
-
+  // console.log('===saveProfileData==>>>formData>>',formData);
+  
   const response = await axiosInstance.post(Endpoints.SAVE_PROFILE, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',

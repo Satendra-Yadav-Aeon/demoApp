@@ -7,25 +7,43 @@ import Colors from '../../../assets/colors/colors'
 import VersionInfo from './VersionInfo'
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant'
 import { getAsyncItem } from '../../../utils/AsyncStorage'
+import useGetEmployeeDetailsById from '../../DashboardScreen/hooks/useGetEmployeeDetailsById'
 
 const Profile = () => {
   const route = useRoute();
   const { employee } = route.params || {};
+  const { employeeDetails, refetch } = useGetEmployeeDetailsById();
   const[capturedImageUri, setCapturedImageUri] = useState()
-
+  
   useFocusEffect(
-  React.useCallback(() => {
-      const loadProfileImage = async () => {
-        const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employee?.empid}`
-        const uri = await getAsyncItem(key);
-        if (uri) {
-          setCapturedImageUri(uri);
-        }
-      };
+    React.useCallback(() => {
       if (employee?.empid) {
-        loadProfileImage();
+        refetch({ empid: employee?.empid });
       }
     }, [employee])
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
+        const loadProfileImage = async () => {
+          // First try using the fetched employeeDetails  
+          if (employeeDetails?.photo) {
+            setCapturedImageUri(employeeDetails.photo);
+            return;
+          }
+          // Otherwise, fallback to async stored image
+          if(employee?.empid){
+            const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employee?.empid}`
+            const uri = await getAsyncItem(key);
+            if (uri) {
+              setCapturedImageUri(uri);
+            }
+          }
+          
+        };
+        
+          loadProfileImage();
+      }, [employee])
   );
 
   return (

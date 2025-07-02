@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { Controller, useForm } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTranslation } from 'react-i18next';
@@ -41,30 +41,44 @@ const UpdateProfile = () => {
 		}
 	}, [employeeData, reset]);
 
-  useEffect(() => {
-    const loadProfileImage = async () => {
-      const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`
-      const uri = await getAsyncItem(key);
-      if (uri) {
-        setCapturedImageUri(uri);
-      }
-    };
-    if (employeeData?.empid) {
-      loadProfileImage();
-    }
-  }, [employeeData]);
+  useFocusEffect(
+      React.useCallback(() => {
+          const loadProfileImage = async () => {
+            if(employeeData?.empid){
+              const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`
+              const uri = await getAsyncItem(key);
+              if (uri) {
+                setCapturedImageUri(uri);
+              }
+            }
+            
+          };
+          
+            loadProfileImage();
+        }, [employeeData])
+    );
 
 
 	// console.log('==UpdateProfile======employeeData>>>>>>>',employeeData);
   // console.log('==UpdateProfile======capturedImageUri>>>>>>>',capturedImageUri);
 
 	const onSubmit = (data) => {
+    // Generate formatted date: yyyy-mm-dd hh:mm:ss
+  const now = new Date(); 
+  const formattedDate = now.getFullYear() + '-' +
+    String(now.getMonth() + 1).padStart(2, '0') + '-' +
+    String(now.getDate()).padStart(2, '0') + ' ' +
+    String(now.getHours()).padStart(2, '0') + '-' +
+    String(now.getMinutes()).padStart(2, '0') + '-' +
+    String(now.getSeconds()).padStart(2, '0');
+
+  const photoName = `${employeeData?.empid}_${formattedDate}.jpg`; // e.g., EMP01_2025-07-02 22:13:55.jpg
     const saveData = {
     empid: employeeData?.empid,
     mobileno: data?.mobile,
     address: data?.address,
     photo: capturedImageUri,
-    photoname: 'test'
+    photoname: photoName
   };
 
   // console.log('==UpdateProfile======onSubmit>>>>saveData>>>',saveData);
@@ -178,6 +192,8 @@ const styles = StyleSheet.create({
   profileIcon: {
     width: '50%',
     height: '100%',
+    borderColor: Colors.red,
+    borderWidth: 2
   },
 	captureText: {
     fontSize: 20,

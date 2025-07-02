@@ -11,10 +11,12 @@ import { getAsyncItem } from '../../../utils/AsyncStorage'
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant'
 import { getLanguageLabel } from '../../../utils/getLanguageLabel'
 import CustomChangeLanguage from '../../../common/CustomChangeLanguage'
+import useGetEmployeeDetailsById from '../hooks/useGetEmployeeDetailsById'
 
 const EmployeeDashboard = () => {
   const navigation = useNavigation()
   const {i18n} = useTranslation();
+  const { employeeDetails, refetch } = useGetEmployeeDetailsById();
   const[employeeData, setEmployeeData] = useState({})
   const [isLangModalVisible, setLangModalVisible] = useState(false);
   const[capturedImageUri, setCapturedImageUri] = useState()
@@ -23,39 +25,40 @@ const EmployeeDashboard = () => {
     fetchAsyncData();
   },[])
 
-  useFocusEffect(
-  React.useCallback(() => {
-      const loadProfileImage = async () => {
-        const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`
-        const uri = await getAsyncItem(key);
-        if (uri) {
-          setCapturedImageUri(uri);
-        }
-      };
-      if (employeeData?.empid) {
-        loadProfileImage();
-      }
-    }, [employeeData])
-  );
-
   const fetchAsyncData = async() => {
     const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
     setEmployeeData(data)
   }
 
   useFocusEffect(
-  React.useCallback(() => {
-      const loadProfileImage = async () => {
-        const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`
-        const uri = await getAsyncItem(key);
-        if (uri) {
-          setCapturedImageUri(uri);
-        }
-      };
+    React.useCallback(() => {
       if (employeeData?.empid) {
-        loadProfileImage();
+        refetch({ empid: employeeData?.empid });
       }
     }, [employeeData])
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
+        const loadProfileImage = async () => {
+          // First try using the fetched employeeDetails  
+          if (employeeDetails?.photo) {
+            setCapturedImageUri(employeeDetails.photo);
+            return;
+          }
+          // Otherwise, fallback to async stored image
+          if(employeeData?.empid){
+            const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`
+            const uri = await getAsyncItem(key);
+            if (uri) {
+              setCapturedImageUri(uri);
+            }
+          }
+          
+        };
+        
+          loadProfileImage();
+      }, [employeeDetails, employeeData])
   );
    
     // console.log('====EmployeeDashboard===>>>capturedImageUri>>>>',capturedImageUri);
@@ -66,7 +69,7 @@ const EmployeeDashboard = () => {
         <TouchableOpacity onPress={() => setLangModalVisible(true)} style={styles.languageButton}>
           <Text style={styles.languageText}>{getLanguageLabel(i18n.language)}</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate(SCREENS.PROFILE, {employee: employeeData})} style={styles.profileContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate(SCREENS.PROFILE, {employee: employeeDetails})} style={styles.profileContainer}>
           {capturedImageUri ? (
             <Image source={{uri: capturedImageUri}} style={styles.roundImage}/>
           ) : (
