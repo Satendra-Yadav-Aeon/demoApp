@@ -80,11 +80,14 @@ const CaptureImageComponent = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon} />
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleCameraLaunch()}>
+          <Image source={MyImages.goBack} style={styles.goForwardIcon} />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.controls}>
         {imageUri && <Image source={{ uri: imageUri }} style={styles.preview} />}
-        <TouchableOpacity onPress={handleCameraLaunch} style={styles.captureIcon} />
+        {/* <TouchableOpacity onPress={handleCameraLaunch} style={styles.captureIcon} /> */}
       </View>
     </View>
   );
@@ -129,4 +132,10 @@ const styles = StyleSheet.create({
     height: 40,
     tintColor: Colors.red,
   },
+  goForwardIcon: {
+    width: 40,
+    height: 40,
+    tintColor: Colors.red,
+    transform: [{ rotate: '180deg' }],
+  }
 });

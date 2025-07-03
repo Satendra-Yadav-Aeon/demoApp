@@ -14,6 +14,7 @@ import { getLanguageLabel } from '../../../utils/getLanguageLabel'
 import useGetEmployeeDetailsById from '../hooks/useGetEmployeeDetailsById'
 import useGetEmployeeTodayAttendance from '../hooks/useGetEmployeeTodayAttendance'
 import { BaseConfigUrl } from '../../../env/BaseConfigUrl'
+import { extractAttendanceTimes } from '../../../utils/extractAttendanceTimesUtils'
 
 const SupervisorDashboard = () => {
   const navigation = useNavigation()
@@ -23,6 +24,11 @@ const SupervisorDashboard = () => {
   const[employeeData, setEmployeeData] = useState({})
   const [isLangModalVisible, setLangModalVisible] = useState(false);
   const[capturedImageUri, setCapturedImageUri] = useState()
+
+  const { firstCheckIn, lastCheckOut } = extractAttendanceTimes(empAttendance);
+
+  // console.log('First Check-In:', firstCheckIn);   // e.g., "14:37"
+  // console.log('Last Check-Out:', lastCheckOut);   // e.g., "14:37"
   
   useEffect(() => {
     fetchAsyncData();
@@ -66,7 +72,7 @@ const SupervisorDashboard = () => {
       }, [employeeDetails, employeeData])
   );
 
-  console.log('====SupervisorDashboard===>>>empAttendance>>>>',empAttendance);
+  console.log('====SupervisorDashboard===>>>empAttendance>>>>',empAttendance, capturedImageUri);
 
   return (
     <View style={styles.container}>
@@ -85,7 +91,7 @@ const SupervisorDashboard = () => {
           <Text style={styles.employeeName}>{employeeData?.empname}</Text>
           <Text style={styles.employeeEmail}>{employeeData?.rolename}</Text>
         </View>
-        <EmployeeShowAttendance/>
+        <EmployeeShowAttendance checkIn={firstCheckIn} checkOut={lastCheckOut}/>
       </View>
       <View style={styles.secondHalf}>
         <EmployeeCategory role={ROLES.SUPERVISOR}/>

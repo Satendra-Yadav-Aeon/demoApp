@@ -16,7 +16,7 @@ import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 const MarkAttendanceEmployeeList = () => {
   const {supervisorsEmployeeList, refetchSupervisorEmployeeList} = useGetSupervisorsEmployeeAPI();
   const[employeeData, setEmployeeData] = useState({})
-  const filterEmployeeData = ManageEmployeeData?.filter(item => item.role === ATTENDANCE_CONSTANT.EMPLOYEE_ROLE)
+  // const filterEmployeeData = ManageEmployeeData?.filter(item => item.role === ATTENDANCE_CONSTANT.EMPLOYEE_ROLE)
 
   useEffect(() => {
     fetchAsyncData();
@@ -30,10 +30,10 @@ const MarkAttendanceEmployeeList = () => {
   useFocusEffect(
     React.useCallback(() => {
       refetchSupervisorEmployeeList({userId: employeeData?.empid});
-    }, [])
+    }, [employeeData])
   );
 
-  // console.log('==MarkAttendanceEmployeeList===>supervisorsEmployeeList>>>>',supervisorsEmployeeList);
+  console.log('==MarkAttendanceEmployeeList===>supervisorsEmployeeList>>>>',supervisorsEmployeeList, employeeData?.empid);
   
 
   const renderEmptyData = () => {
@@ -46,9 +46,9 @@ const MarkAttendanceEmployeeList = () => {
 
   return (
     <View style={styles.container}>
-      {isArrayLength(filterEmployeeData) ? (
+      {isArrayLength(supervisorsEmployeeList) ? (
         <FlatList
-          data={filterEmployeeData}
+          data={supervisorsEmployeeList}
           keyExtractor={(item) => item?.id}
           renderItem={({ item }) => (
             <MarkAttendanceEmployeeCard employee={item}/>

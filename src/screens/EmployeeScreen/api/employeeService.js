@@ -13,14 +13,18 @@ export const getAdminRoleList = async () => {
   return response.data;
 };
 
-export const getSupervisorRoleList = async () => {
-  const response = await axiosInstance.get(Endpoints.SUPERVISOR_LIST_ROLE_API);
-  // console.log('==getSupervisorRoleList==>response>>>>',response);
+export const getSupervisorRoleList = async (payload) => {
+  const {empid} = payload;
+  const data = {empid}
+  console.log('====getSupervisorRoleList===>>>data>>>',data);
+  
+  const response = await axiosInstance.post(Endpoints.SUPERVISOR_LIST_ROLE_API,data);
+  console.log('==getSupervisorRoleList==>response>>>>',response);
   return response.data;
 };
 
 export const saveEmployeeData = async (payload) => {
-  const { empid, empname, mobile, role, joiningdate, leavingdate, address, repomanager,photo } = payload;
+  const { empid, empname, mobile, role, joiningdate, leavingdate, address, repomanager,photo,adminId } = payload;
 
   const data = {
     empid: empid,
@@ -31,8 +35,12 @@ export const saveEmployeeData = async (payload) => {
     leavingdate: leavingdate,
     address: address,
     repomanager: repomanager,
-    photo: photo
+    photo: photo,
+    admnId: adminId
   };
+
+  console.log('====saveEmployeeData=======>data>>>>>>',data);
+  
 
   const response = await axiosInstance.post(Endpoints.SAVE_EMPLOYEE, data);
   // console.log('==saveEmployeeData==>response>>>>',response);

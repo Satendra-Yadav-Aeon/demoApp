@@ -1,13 +1,40 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { EmployeeAttendanceData } from '../constants/EmployeeAttendanceData';
 import useEmployeeAttendanceAPI from '../hooks/useEmployeeAttendanceAPI';
+import { getAsyncItem } from '../../../utils/AsyncStorage';
+import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 const AttendanceContext = createContext(null);
 
 export const AttendanceProvider = ({ children }) => {
   const today = new Date();
-  const {employeeAttendanceData} = useEmployeeAttendanceAPI();
+  const[employeeData, setEmployeeData] = useState({})
+  const {employeeAttendanceData, refetchEmployeeAttendance} = useEmployeeAttendanceAPI();
+
+  useEffect(() => {
+    fetchAsyncData();
+  },[])
+
+  const fetchAsyncData = async() => {
+    const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+    setEmployeeData(data)
+  }
+
+  console.log('===AttendanceProvider==>>>employeeData>>',employeeData);
+  
+
+
+   useFocusEffect(
+    React.useCallback(() => {
+      if (employeeData?.empid) {
+        refetchEmployeeAttendance({userId: employeeData?.empid});
+      }
+    }, [employeeData])
+  );
+
+  console.log('===AttendanceProvider==>>>employeeAttendanceData>>',employeeAttendanceData);
 
   const getDaysDiff = (inputDateStr) => {
     const inputDate = new Date(inputDateStr);

@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Platform, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../../assets/colors/colors'
@@ -7,37 +7,47 @@ import MyImages from '../../../utils/MyImages';
 import { CHECK_IN_LABEL, CHECK_OUT_LABEL, NO_TIME } from '../constants/DashboardConstant';
 import { AM_TIME_LABEL, PM_TIME_LABEL, SCREENS } from '../../../constants/MainConstant';
 import ScreenDimensions from '../../../utils/DimensionUtils';
+import { getAsyncItem } from '../../../utils/AsyncStorage';
+import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 
 const { screenWidth, screenHeight } = ScreenDimensions;
 
-const EmployeeShowAttendance = () => {
+const EmployeeShowAttendance = ({checkIn, checkOut}) => {
   const navigation = useNavigation()
   const {t} = useTranslation();
   const [isCheckIn, setIsCheckIn] = useState(true);
-  const [checkInList, setCheckInList] = useState([]);
-  const [checkOutList, setCheckOutList] = useState([]);
+  const [attendanceSelf, setAttendanceSelf] = useState(true);
+  // const [checkInList, setCheckInList] = useState([]);
+  // const [checkOutList, setCheckOutList] = useState([]);
 
-  const getCurrentTime = () => {
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const ampm = hours >= 12 ? PM_TIME_LABEL : AM_TIME_LABEL;
-    const formattedHours = hours % 12 || 12;
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    return `${formattedHours}:${formattedMinutes} ${ampm}`;
-  };
+  // const getCurrentTime = () => {
+  //   const now = new Date();
+  //   const hours = now.getHours();
+  //   const minutes = now.getMinutes();
+  //   const ampm = hours >= 12 ? PM_TIME_LABEL : AM_TIME_LABEL;
+  //   const formattedHours = hours % 12 || 12;
+  //   const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  //   return `${formattedHours}:${formattedMinutes} ${ampm}`;
+  // };
+
+  // useEffect(() => {
+  //   const fetchCheckInStatus = async () => {
+  //     const storedValue = await getAsyncItem(ASYNC_CONSTANT.MANAGE_CHECK_IN);
+  //     if (storedValue !== null) {
+  //       setIsCheckIn(storedValue === 'true'); // restore saved state
+  //     }
+  //   };
+  //   fetchCheckInStatus();
+  // }, []);
 
   const handleCheckPress = () => {
-    navigation.navigate(SCREENS.SET_EMPLOYEE_ATTENDANCE,{isCheckIn: isCheckIn})
-    const time = getCurrentTime();
-
-    if (isCheckIn) {
-      setCheckInList(prev => [...prev, time]);
-    } else {
-      setCheckOutList(prev => [...prev, time]);
-    }
-
-    setIsCheckIn(!isCheckIn);
+    navigation.navigate(SCREENS.SET_EMPLOYEE_ATTENDANCE, {
+      isCheckIn,
+      attendanceSelf,
+      onSuccess: () => {
+        setIsCheckIn(prev => !prev); // Toggle only after successful mark 
+      }
+    });
   };
 
   return (
@@ -50,7 +60,7 @@ const EmployeeShowAttendance = () => {
           <Text style={styles.labelText}>{t(CHECK_IN_LABEL)}</Text>
           </View>
           <Text style={styles.timeText}>
-            {checkInList?.length > 0 ? checkInList[checkInList.length - 1] : NO_TIME}
+            {checkIn}
           </Text>
         </View>
 
@@ -61,7 +71,7 @@ const EmployeeShowAttendance = () => {
           <Text style={styles.labelText}>{t(CHECK_OUT_LABEL)}</Text>
           </View>
           <Text style={styles.timeText}>
-            {checkOutList?.length > 0 ? checkOutList[checkOutList.length - 1] : NO_TIME}
+            {checkOut}
           </Text>
         </View>
          {/* Center Button */}

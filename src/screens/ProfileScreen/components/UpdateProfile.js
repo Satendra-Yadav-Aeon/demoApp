@@ -86,7 +86,7 @@ const UpdateProfile = () => {
     const response = saveProfile(saveData);
     if(response){
       navigation.goBack();
-    }j
+    }
     
   };
 	

@@ -1,6 +1,6 @@
 export const ManageEmployeeData = [
   {
-    id: '1',
+    empid: '1',
     name: 'John Doe',
     mobile: '9876543210',
     department: 'Sales',
@@ -9,7 +9,7 @@ export const ManageEmployeeData = [
     address: 'Mumbai',
   },
   {
-    id: '2',
+    empid: '2',
     name: 'Jane Smith',
     mobile: '9876501234',
     department: 'HR',
@@ -18,7 +18,7 @@ export const ManageEmployeeData = [
     address: 'Pune',
   },
   {
-    id: '3',
+    empid: '3',
     name: 'Will Jordan',
     mobile: '9876501234',
     department: 'Electrical',
@@ -27,7 +27,7 @@ export const ManageEmployeeData = [
     address: 'Pune',
   },
   {
-    id: '4',
+    empid: '4',
     name: 'Joe Root',
     mobile: '9876501234',
     department: 'HR',
@@ -36,7 +36,7 @@ export const ManageEmployeeData = [
     address: 'Pune',
   },
   {
-    id: '5',
+    empid: '5',
     name: 'Ben Stokes',
     mobile: '9876501234',
     department: 'HR',
@@ -45,7 +45,7 @@ export const ManageEmployeeData = [
     address: 'Pune',
   },
   {
-    id: '6',
+    empid: '6',
     name: 'KL Rahul',
     mobile: '9876501234',
     department: 'HR',

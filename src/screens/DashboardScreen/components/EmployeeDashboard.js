@@ -13,6 +13,8 @@ import { getLanguageLabel } from '../../../utils/getLanguageLabel'
 import CustomChangeLanguage from '../../../common/CustomChangeLanguage'
 import useGetEmployeeDetailsById from '../hooks/useGetEmployeeDetailsById'
 import useGetEmployeeTodayAttendance from '../hooks/useGetEmployeeTodayAttendance'
+import { extractAttendanceTimes } from '../../../utils/extractAttendanceTimesUtils'
+import { BaseConfigUrl } from '../../../env/BaseConfigUrl'
 
 const EmployeeDashboard = () => {
   const navigation = useNavigation()
@@ -22,6 +24,8 @@ const EmployeeDashboard = () => {
   const[employeeData, setEmployeeData] = useState({})
   const [isLangModalVisible, setLangModalVisible] = useState(false);
   const[capturedImageUri, setCapturedImageUri] = useState()
+
+  const { firstCheckIn, lastCheckOut } = extractAttendanceTimes(empAttendance);
     
   useEffect(() => {
     fetchAsyncData();
@@ -46,7 +50,7 @@ const EmployeeDashboard = () => {
         const loadProfileImage = async () => {
           // First try using the fetched employeeDetails  
           if (employeeDetails?.photo) {
-            setCapturedImageUri(employeeDetails.photo);
+            setCapturedImageUri(`${BaseConfigUrl.BASE_IMAGE_URL}${employeeDetails.photo}`);
             return;
           }
           // Otherwise, fallback to async stored image
@@ -64,7 +68,7 @@ const EmployeeDashboard = () => {
       }, [employeeDetails, employeeData])
   );
    
-    // console.log('====EmployeeDashboard===>>>empAttendance>>>>',empAttendance);
+    console.log('====EmployeeDashboard===>>>empAttendance>>>>',empAttendance);
 
   return (
     <View style={styles.container}>
@@ -83,7 +87,7 @@ const EmployeeDashboard = () => {
           <Text style={styles.employeeName}>{employeeData?.empname}</Text>
           <Text style={styles.employeeEmail}>{employeeData?.rolename}</Text>
         </View>
-        <EmployeeShowAttendance/>
+        <EmployeeShowAttendance checkIn={firstCheckIn} checkOut={lastCheckOut}/>
       </View>
       <View style={styles.secondHalf}>
         <EmployeeCategory role={ROLES.EMPLOYEE}/>

@@ -12,5 +12,6 @@ export const Endpoints = {
     SAVE_PROFILE: '/Employee/SaveProfile',
     GET_EMPLOYEE_DETAILS_BY_ID: '/Employee/GetEmpdetailsbyId',
     GET_EMPLOYEE_TODAY_ATTENDANCE: '/Attendance/GetEmpTodayEntry',
-    GET_SUPERVISORS_EMPLOYEE_LIST: '/Attendance/GetSupervisorsEmployee'
+    GET_SUPERVISORS_EMPLOYEE_LIST: '/Employee/GetEmpListForSuperV',
+    MARK_ATTENDANCE: '/Attendance/markAttendance'
 }

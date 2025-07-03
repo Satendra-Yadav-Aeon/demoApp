@@ -1,105 +1,114 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert, Image, TouchableOpacity, Text } from 'react-native';
-import { Camera, useCameraDevice } from 'react-native-vision-camera';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { launchCamera } from 'react-native-image-picker';
 import moment from 'moment';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import Toast from 'react-native-toast-message';
 import ImageResizer from 'react-native-image-resizer';
+import { useTranslation } from 'react-i18next';
 import Colors from '../../../assets/colors/colors';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import MyImages from '../../../utils/MyImages';
 import { SET_EMPLOYEE_ATTENDANCE } from '../constants/AttendanceConstant';
-import { DATE_FORMAT_A, TIME_FORMAT_A, TOAST_MESSAGE } from '../../../constants/MainConstant';
-import { setAsyncItem } from '../../../utils/AsyncStorage';
+import { getAsyncItem, setAsyncItem } from '../../../utils/AsyncStorage';
+import { CHECK_IN_LABEL, CHECK_OUT_LABEL } from '../../DashboardScreen/constants/DashboardConstant';
+import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
+import imageNameUtils from '../../../utils/imageNameUtils';
+import { useMarkAttendanceAPI } from '../hooks/useMarkAttendanceAPI';
 
-const {screenHeight,screenWidth} = ScreenDimensions;
+const { screenHeight, screenWidth } = ScreenDimensions;
 
 const SetEmployeeAttendance = () => {
-  const navigation = useNavigation()
-  const [cameraPermission, setCameraPermission] = useState(false);
+  const navigation = useNavigation();
+  const {t} = useTranslation()
+  const {markAttendance, isLoading} = useMarkAttendanceAPI()
+  const [cameraPermission, setCameraPermission] = useState(true);
   const [imageUri, setImageUri] = useState(null);
   const [lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
-  const [checkTime, setCheckTime] = useState('');
-  const [date, setDate] = useState('');
-  const [isFrontCamera, setIsFrontCamera] = useState(true);
+  // const [checkTime, setCheckTime] = useState('');
+  // const [date, setDate] = useState('');
+  const[employeeData, setEmployeeData] = useState({})
 
   const route = useRoute();
-  const {isCheckIn} = route?.params || {}
-  const cameraRef = useRef(null);
-  
-  const frontCamera = useCameraDevice(SET_EMPLOYEE_ATTENDANCE.FRONT_CAMERA);
-  const backCamera = useCameraDevice(SET_EMPLOYEE_ATTENDANCE.BACK_CAMERA);
-  const device = isFrontCamera ? frontCamera : backCamera;
+  const { isCheckIn, attendanceSelf, employee } = route?.params || {};
 
   useEffect(() => {
-    const requestPermissions = async () => {
-      const status = await Camera.requestCameraPermission();
-      if (status === SET_EMPLOYEE_ATTENDANCE.GRANTED_STATUS) {
-        setCameraPermission(true)
-      }else{
-        Alert.alert(SET_EMPLOYEE_ATTENDANCE.DENIED_CAMERA_PERMISSION);
-      }
-    };
+    fetchAsyncData();
+  },[])
 
-    // Get stored location
+  const fetchAsyncData = async() => {
+    const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+    setEmployeeData(data)
+  }
+
+  useEffect(() => {
     const fetchLocation = async () => {
-      const userLat = parseFloat(await AsyncStorage.getItem('userLat'));
-      const userLong = parseFloat(await AsyncStorage.getItem('userLong'));  
+      const userLat = parseFloat(await getAsyncItem('userLat')) || null;
+      const userLong = parseFloat(await getAsyncItem('userLong')) || null;
       setLat(userLat);
       setLong(userLong);
     };
 
-    requestPermissions();
     fetchLocation();
   }, []);
 
-  const captureAndStoreData = async () => {
-    if (!lat || !long) return Alert.alert(SET_EMPLOYEE_ATTENDANCE.DENIED_LOCATION);
-    if (!cameraRef.current) return Alert.alert(SET_EMPLOYEE_ATTENDANCE.CAMERA_NOT_READY);
-    try {
-      const photo = await cameraRef.current.takePhoto({
-        flash: SET_EMPLOYEE_ATTENDANCE.FLASH_OFF,
-      });
-      const photoPath = `file://${photo.path}`;
-      const now = moment();
-      // Compress the image to 80% quality
-      const compressedImage = await ImageResizer.createResizedImage(
-        photoPath,
-        800, // width (adjustable)
-        600, // height (adjustable)
-        'JPEG',
-        80, // quality in percentage
-        0,  // rotation
-        undefined,
-        false,
-        { mode: 'contain' }
-      );
-      setImageUri(compressedImage.uri);
-      setAsyncItem('checkInPhoto', compressedImage.uri)
-      setCheckTime(now.format(TIME_FORMAT_A));
-      setDate(now.format(DATE_FORMAT_A));
-
-      // console.log('Compressed Image URI:', compressedImage.uri, compressedImage.size);
-      // console.log('Location:', lat, long);
-      // console.log(isCheckIn ? 'Check In Time:' : 'Check Out Time:', now.format('HH:mm:ss'));
-      // console.log('Date:', now.format('YYYY-MM-DD'));
-      Toast.show({
-        type: TOAST_MESSAGE.SUCCESS,
-        text1: isCheckIn ? SET_EMPLOYEE_ATTENDANCE.CHECK_IN_SUCCESS : SET_EMPLOYEE_ATTENDANCE.CHECK_OUT_SUCCESS,
-        text2: now.format(TIME_FORMAT_A),
-      })
-    } catch (error) {
-      Toast.show({
-      type: TOAST_MESSAGE.ERROR,
-      text1: SET_EMPLOYEE_ATTENDANCE.FAILED_IMAGE,
-    });
+  useEffect(() => {
+    if(lat && long){
+      handleCameraLaunch();
     }
+  }, [lat, long]);
+
+  const captureAndStoreData = async () => {
+    if (!lat || !long) {
+      Alert.alert(SET_EMPLOYEE_ATTENDANCE.DENIED_LOCATION);
+      return;
+    }
+
+    const options = {
+      mediaType: 'photo',
+      includeBase64: false,
+      maxHeight: 2000,
+      maxWidth: 2000,
+    };
+
+    launchCamera(options, async (response) => {
+      if (response.didCancel) {
+        Alert.alert('Cancelled', 'Camera was closed without taking a picture.');
+        return;
+      }
+
+      if (response.errorCode) {
+        Alert.alert('Camera Error', response.errorMessage || 'Unknown error.');
+        return;
+      }
+
+      const photoUri = response.assets?.[0]?.uri;
+      if (!photoUri) {
+        Alert.alert('Error', 'Photo not captured.');
+        return;
+      }
+
+      try {
+        const now = moment();
+        const compressedImage = await ImageResizer.createResizedImage(
+          photoUri,
+          800,
+          600,
+          'JPEG',
+          80,
+          0
+        );
+
+        setImageUri(compressedImage.uri);
+        await setAsyncItem(ASYNC_CONSTANT.MARK_ATTENDANCE_IMAGE, compressedImage.uri);
+      } catch (error) {
+        // console.log('====launchCamera===>>>error>>>',error);
+      }
+    });
   };
 
-  const handleCheckPress = () => {
-    if (!lat && !long) {
+  const handleCameraLaunch = () => {
+    if (!lat || !long) {
       Alert.alert(SET_EMPLOYEE_ATTENDANCE.LOCATION_NOT_FOUND);
       return;
     }
@@ -110,30 +119,53 @@ const SetEmployeeAttendance = () => {
     captureAndStoreData();
   };
 
-  if (!device) return <View style={styles.loader}><Text style={styles.loaderText}>{SET_EMPLOYEE_ATTENDANCE.LOADING_CAMERA}</Text></View>;
+  const handleMarkAttendacne = async() => {
+    console.log('====handleMarkAttendacne=>>called>>>');
+    const empId = attendanceSelf ? employeeData?.empid : employee?.empid;
+    const photoName = imageNameUtils(empId);
+    const markAttendanceData = {
+      empId: empId,
+      status: 1,
+      checkDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+      latitude: lat,
+      longitude: long,
+      imgfile: imageUri,
+      imageName: photoName,
+      inOut: isCheckIn ? 1 : 2,
+      attendanceMode: attendanceSelf ? 1 : 2,
+      attendenceBy: attendanceSelf ? 'Self' : employee?.empid,
+    };
+
+
+    console.log('====handleMarkAttendacne======markAttendanceData>>>>>>>>>',markAttendanceData);
+
+    const response = await markAttendance(markAttendanceData);
+    if(response){
+      console.log('===handleMarkAttendacne===response>>>>',response);
+      // await setAsyncItem(`${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${empId}`, !isCheckIn)
+      route.params?.onSuccess?.();
+      navigation.goBack();
+    }
+    
+    
+  }
+  
 
   return (
     <View style={styles.container}>
-      {device && (
-        <Camera
-        style={StyleSheet.absoluteFill}
-        device={device}
-        isActive={true}
-        ref={cameraRef}
-        photo={true}
-      />
-      )}
       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image source={MyImages.goBack} style={styles.goBackIcon}/>
+          <Image source={MyImages.goBack} style={styles.goBackIcon} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setIsFrontCamera(prev => !prev)}>
-          <Image source={MyImages.flip} style={styles.flipIcon}/>
+        <TouchableOpacity onPress={() => handleCameraLaunch()}>
+          <Image source={MyImages.goBack} style={styles.goForwardIcon} />
         </TouchableOpacity>
-      </View>      
+      </View>
       <View style={styles.controls}>
         {imageUri && <Image source={{ uri: imageUri }} style={styles.preview} />}
-        <TouchableOpacity onPress={handleCheckPress} style={styles.captureIcon}/>
+        <TouchableOpacity style={styles.checkButtonContainer} onPress={handleMarkAttendacne}>
+          <Text style={styles.buttonText}>{isCheckIn ? t(CHECK_IN_LABEL) : t(CHECK_OUT_LABEL)}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -142,22 +174,20 @@ const SetEmployeeAttendance = () => {
 export default SetEmployeeAttendance;
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1 
-  },
-  controls: { 
-    flex: 2, 
-    padding: 16, 
-    alignItems: 'center', 
+  container: { flex: 1 },
+  controls: {
+    flex: 2,
+    padding: 16,
+    alignItems: 'center',
     justifyContent: 'space-around',
-  },  
-  preview: { 
-    width: screenWidth * 0.6, 
-    height: screenHeight * 0.3, 
-    borderRadius: 8, 
+  },
+  preview: {
+    width: screenWidth * 0.65,
+    height: screenHeight * 0.45,
+    borderRadius: 8,
     marginVertical: 8,
     marginBottom: 30,
-    marginTop: screenHeight * 0.35
+    marginTop: screenHeight * 0.20,
   },
   iconContainer: {
     flexDirection: 'row', 
@@ -169,15 +199,6 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     tintColor: Colors.red,
-  },
-  loader: { 
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center',
-  },
-  loaderText: {
-    fontSize: 18,
-    fontWeight: 'bold'
   },
   captureIcon: {
     height: 80,
@@ -193,5 +214,25 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     tintColor: Colors.red,
+  },
+  goForwardIcon: {
+    width: 40,
+    height: 40,
+    tintColor: Colors.red,
+    transform: [{ rotate: '180deg' }],
+  },
+  checkButtonContainer: {
+    position: 'absolute',
+    bottom: 40,
+    backgroundColor: Colors.red,
+    width: '50%',
+    height: screenHeight * 0.05,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: Colors.white,
+    fontSize: 22,
   }
 });

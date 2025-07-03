@@ -1,23 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useState, useCallback } from 'react';
 import { getSupervisorRoleList } from '../api/employeeService';
 
 const useSupervisorRoleLists = () => {
   const [supervisorList, setSupervisorList] = useState([]); 
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    fetchSupervisorList();
-  }, []);
+  const fetchSupervisorList = useCallback(async (payload) => {
+    if (!payload) return;
 
-  const fetchSupervisorList = async () => {
+    setIsLoading(true);
     try {
-      const supervisorRes = await getSupervisorRoleList();
-      setSupervisorList(supervisorRes);
+      const res = await getSupervisorRoleList(payload);
+      setSupervisorList(res);
     } catch (err) {
-      // console.error('===fetchSupervisorList==error>>>>', err);
+      // console.error('Error fetching Supervisor List:', err);
+    } finally {
+      setIsLoading(false);
     }
-  };
-  
-  return { supervisorList };
+  },[]);
+
+  return { supervisorList, isLoading, refetchSupervisorList: fetchSupervisorList };
 };
 
 export default useSupervisorRoleLists;

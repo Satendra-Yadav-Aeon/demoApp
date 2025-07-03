@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, Image, ActivityIndicator } from 'react-native';
 import { useForm, Controller, useWatch } from 'react-hook-form';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../../assets/colors/colors';
@@ -17,6 +17,8 @@ import useSupervisorRoleLists from '../hooks/useSupervisorRoleLists';
 import { useSaveEmployee } from '../hooks/useSaveEmployee';
 import { ROLES, SMALL_LOADER } from '../../../constants/MainConstant';
 import { SUBMIT_BUTTON_TEXT } from '../../LoginScreen/constants/LoginConstant';
+import { getAsyncItem } from '../../../utils/AsyncStorage';
+import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 
 const { screenWidth, screenHeight } = ScreenDimensions;
 const ManageEmployeeForm = () => {
@@ -24,7 +26,6 @@ const ManageEmployeeForm = () => {
   const {t} = useTranslation()
   const { employeeRole } = useEmployeeRole();
   const { adminList } = useAdminRoleLists();
-  const { supervisorList } = useSupervisorRoleLists();
   const { saveEmployee, isLoading } = useSaveEmployee();
   const { control, handleSubmit, setValue, reset, formState: { errors } } = useForm({
     defaultValues: {
@@ -42,6 +43,8 @@ const ManageEmployeeForm = () => {
   const { mode, employee } = route.params || {};
 
   const [selectedRoleName, setSelectedRoleName] = React.useState('');
+  const[employeeData, setEmployeeData] = useState({})
+  const { supervisorList, refetchSupervisorList } = useSupervisorRoleLists();
   const selectedRoleId = useWatch({
     control,
     name: ROLE_CONSTANT.NAME,
@@ -59,6 +62,10 @@ const ManageEmployeeForm = () => {
   //   { label: 'Megawork', value: 'Megawork' },
   // ];
   
+  console.log('===ManageEmployeeForm======employeeData>>>>>>',employeeData);
+  console.log('===ManageEmployeeForm======supervisorList>>>>>>',supervisorList);
+  
+
   const roleOptions = employeeRole?.map(role => ({
     label: role.rolename, 
     value: role.roleid,
@@ -66,6 +73,15 @@ const ManageEmployeeForm = () => {
 
   const adminListOptions = adminList?.map(a => ({ label: a.rolename, value: a.roleid }));
   const supervisorListOptions = supervisorList?.map(s => ({ label: s.rolename, value: s.roleid }));
+
+  useEffect(() => {
+    fetchAsyncData();
+  },[])
+
+  const fetchAsyncData = async() => {
+    const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+    setEmployeeData(data)
+  }
 
   useEffect(() => {
     if (
@@ -103,6 +119,14 @@ const ManageEmployeeForm = () => {
     }
   }, [selectedRoleId, employeeRole]);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      if (employeeData?.empid) {
+        refetchSupervisorList({empid: employeeData?.empid});
+      }
+    }, [employeeData?.empid])
+  );
+
   const onSubmit = (data) => {
     const saveData = {
       empid: '',
@@ -113,12 +137,13 @@ const ManageEmployeeForm = () => {
       joiningdate: data?.joiningDate,
       leavingdate: data?.leavingDate,
       address: data?.address,
-      photo: ''
+      photo: ' ',
+      adminId: employeeData?.empid
     }
      if (mode === MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE && employee?.empid) {
       saveData.empid = employee?.empid;
     }
-    // console.log('==onSubmit====ManageEmployeeForm==>saveData>>>>',saveData);
+    console.log('==onSubmit====ManageEmployeeForm==>saveData>>>>',saveData);
     const response = saveEmployee(saveData);
     if(response){
       navigation.goBack();
