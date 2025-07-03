@@ -12,3 +12,15 @@ export const getEmployeeDetailsById = async (payload) => {
   console.log('==getEmployeeDetailsById==>response>>>>',response);
   return response.data;
 };
+
+export const getEmployeeTodayAttendance = async (payload) => {
+  const { userId } = payload;
+
+  const data = { userId };
+
+  // console.log('====getEmployeeTodayAttendance=>>data>>>',data);
+  
+  const response = await axiosInstance.post(Endpoints.GET_EMPLOYEE_TODAY_ATTENDANCE, data);
+  // console.log('==getEmployeeTodayAttendance==>response>>>>',response);
+  return response.data;
+};

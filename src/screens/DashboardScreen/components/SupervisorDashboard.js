@@ -12,11 +12,13 @@ import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant'
 import CustomChangeLanguage from '../../../common/CustomChangeLanguage'
 import { getLanguageLabel } from '../../../utils/getLanguageLabel'
 import useGetEmployeeDetailsById from '../hooks/useGetEmployeeDetailsById'
+import useGetEmployeeTodayAttendance from '../hooks/useGetEmployeeTodayAttendance'
 
 const SupervisorDashboard = () => {
   const navigation = useNavigation()
   const {i18n} = useTranslation();
   const { employeeDetails, refetch } = useGetEmployeeDetailsById();
+  const { empAttendance, refetchAttendance } = useGetEmployeeTodayAttendance();
   const[employeeData, setEmployeeData] = useState({})
   const [isLangModalVisible, setLangModalVisible] = useState(false);
   const[capturedImageUri, setCapturedImageUri] = useState()
@@ -34,6 +36,7 @@ const SupervisorDashboard = () => {
     React.useCallback(() => {
       if (employeeData?.empid) {
         refetch({ empid: employeeData?.empid });
+        refetchAttendance({userId: employeeData?.empid});
       }
     }, [employeeData])
   );
@@ -61,6 +64,8 @@ const SupervisorDashboard = () => {
           loadProfileImage();
       }, [employeeDetails, employeeData])
   );
+
+  console.log('====SupervisorDashboard===>>>empAttendance>>>>',empAttendance);
 
   return (
     <View style={styles.container}>

@@ -12,11 +12,13 @@ import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant'
 import { getLanguageLabel } from '../../../utils/getLanguageLabel'
 import CustomChangeLanguage from '../../../common/CustomChangeLanguage'
 import useGetEmployeeDetailsById from '../hooks/useGetEmployeeDetailsById'
+import useGetEmployeeTodayAttendance from '../hooks/useGetEmployeeTodayAttendance'
 
 const EmployeeDashboard = () => {
   const navigation = useNavigation()
   const {i18n} = useTranslation();
   const { employeeDetails, refetch } = useGetEmployeeDetailsById();
+  const { empAttendance, refetchAttendance } = useGetEmployeeTodayAttendance();
   const[employeeData, setEmployeeData] = useState({})
   const [isLangModalVisible, setLangModalVisible] = useState(false);
   const[capturedImageUri, setCapturedImageUri] = useState()
@@ -34,6 +36,7 @@ const EmployeeDashboard = () => {
     React.useCallback(() => {
       if (employeeData?.empid) {
         refetch({ empid: employeeData?.empid });
+        refetchAttendance({userId: employeeData?.empid});
       }
     }, [employeeData])
   );
@@ -61,7 +64,7 @@ const EmployeeDashboard = () => {
       }, [employeeDetails, employeeData])
   );
    
-    // console.log('====EmployeeDashboard===>>>capturedImageUri>>>>',capturedImageUri);
+    // console.log('====EmployeeDashboard===>>>empAttendance>>>>',empAttendance);
 
   return (
     <View style={styles.container}>
