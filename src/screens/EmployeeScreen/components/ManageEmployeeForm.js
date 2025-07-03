@@ -74,6 +74,12 @@ const ManageEmployeeForm = () => {
   const adminListOptions = adminList?.map(a => ({ label: a.rolename, value: a.roleid }));
   const supervisorListOptions = supervisorList?.map(s => ({ label: s.rolename, value: s.roleid }));
 
+  const filteredAdminList = adminListOptions?.filter(
+  (admin) => admin.value === employeeData?.empid
+);
+
+  // console.log('===ManageEmployeeForm======filteredAdminList>>>>>>',filteredAdminList);
+
   useEffect(() => {
     fetchAsyncData();
   },[])
@@ -226,7 +232,7 @@ const ManageEmployeeForm = () => {
                 selectedRoleName === ROLES.EMPLOYEE
                   ? supervisorListOptions
                   : selectedRoleName === ROLES.SUPERVISOR
-                  ? adminListOptions
+                  ? filteredAdminList
                   : [];
 
               return (
