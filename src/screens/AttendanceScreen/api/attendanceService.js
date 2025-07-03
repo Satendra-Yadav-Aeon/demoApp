@@ -1,9 +1,16 @@
 import axiosInstance from "../../../api/axiosInstance";
 import { Endpoints } from "../../../services/Endpoints";
 
-export const getAdminAttendanceData = async () => {
-  const response = await axiosInstance.get(Endpoints.GET_ADMIN_ATTENDANCE);
-  // console.log('==getAdminAttendanceData==>response>>>>',response);
+export const getAdminAttendanceData = async (payload) => {
+  const {selectedDate, userId} = payload;
+  const data = {
+    selectedDate: selectedDate,
+    userId: userId
+  }
+  console.log('====getAdminAttendanceData===>>data>>>',data);
+  
+  const response = await axiosInstance.post(Endpoints.GET_ADMIN_ATTENDANCE);
+  console.log('==getAdminAttendanceData==>response>>>>',response);
   return response.data;
 };
 
@@ -85,5 +92,18 @@ export const markAttendanceData = async (payload) => {
   });
 
   console.log('===markAttendanceData====>response>>>>>>', response);
+  return response.data;
+};
+
+export const getAdminAttendanceCount = async (payload) => {
+  const {selectedDate, userId} = payload;
+  const data = {
+    selectedDate: selectedDate,
+    userId: userId
+  }
+  console.log('====getAdminAttendanceCount===>>data>>>',data);
+  
+  const response = await axiosInstance.post(Endpoints.GET_ADMIN_ATTENDANCE_COUNT);
+  console.log('==getAdminAttendanceCount==>response>>>>',response);
   return response.data;
 };

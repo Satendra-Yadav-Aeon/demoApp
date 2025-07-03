@@ -13,5 +13,6 @@ export const Endpoints = {
     GET_EMPLOYEE_DETAILS_BY_ID: '/Employee/GetEmpdetailsbyId',
     GET_EMPLOYEE_TODAY_ATTENDANCE: '/Attendance/GetEmpTodayEntry',
     GET_SUPERVISORS_EMPLOYEE_LIST: '/Employee/GetEmpListForSuperV',
-    MARK_ATTENDANCE: '/Attendance/markAttendance'
+    MARK_ATTENDANCE: '/Attendance/markAttendance',
+    GET_ADMIN_ATTENDANCE_COUNT: '/Attendance/GetAdminAttendanceCount',
 }
