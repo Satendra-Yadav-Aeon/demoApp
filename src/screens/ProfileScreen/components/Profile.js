@@ -8,6 +8,7 @@ import VersionInfo from './VersionInfo'
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant'
 import { getAsyncItem } from '../../../utils/AsyncStorage'
 import useGetEmployeeDetailsById from '../../DashboardScreen/hooks/useGetEmployeeDetailsById'
+import { BaseConfigUrl } from '../../../env/BaseConfigUrl'
 
 const Profile = () => {
   const route = useRoute();
@@ -28,7 +29,7 @@ const Profile = () => {
         const loadProfileImage = async () => {
           // First try using the fetched employeeDetails  
           if (employeeDetails?.photo) {
-            setCapturedImageUri(employeeDetails.photo);
+            setCapturedImageUri(`${BaseConfigUrl.BASE_IMAGE_URL}${employeeDetails.photo}`);
             return;
           }
           // Otherwise, fallback to async stored image

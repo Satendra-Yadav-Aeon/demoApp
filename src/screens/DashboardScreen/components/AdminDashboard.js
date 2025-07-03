@@ -11,6 +11,7 @@ import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant'
 import CustomChangeLanguage from '../../../common/CustomChangeLanguage'
 import { getLanguageLabel } from '../../../utils/getLanguageLabel'
 import useGetEmployeeDetailsById from '../hooks/useGetEmployeeDetailsById'
+import { BaseConfigUrl } from '../../../env/BaseConfigUrl'
 
 const AdminDashboard = () => {
   const navigation = useNavigation()
@@ -42,7 +43,7 @@ const AdminDashboard = () => {
         const loadProfileImage = async () => {
           // First try using the fetched employeeDetails  
           if (employeeDetails?.photo) {
-            setCapturedImageUri(employeeDetails.photo);
+            setCapturedImageUri(`${BaseConfigUrl.BASE_IMAGE_URL}${employeeDetails.photo}`);
             return;
           }
           // Otherwise, fallback to async stored image

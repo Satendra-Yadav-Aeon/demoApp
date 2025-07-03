@@ -10,8 +10,17 @@ export const saveProfileData = async (payload) => {
   formData.append('empid', empid);
   formData.append('mobileno', mobileno);
   formData.append('address', address);
-  formData.append('photo',photo)
   formData.append('photoname',photoname)
+
+  if (photo) {
+    const fileType = photo.substring(photo.lastIndexOf('.') + 1);
+    
+    formData.append('photo', {
+      uri: photo,
+      name: photoname,
+      type: `image/${fileType}`, // e.g., image/jpeg or image/png
+    });
+  }
 
   // console.log('===saveProfileData==>>>formData>>',formData);
   

@@ -39,7 +39,7 @@ const CaptureImageComponent = () => {
             : null;
 
         if (imageUri) {
-          console.log('===launchCamera===>>imageUri>>>',imageUri);
+          // console.log('===launchCamera===>>imageUri>>>',imageUri);
           
           try {
             const resizedImage = await ImageResizer.createResizedImage(
@@ -101,12 +101,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   preview: {
-    width: screenWidth * 0.6,
-    height: screenHeight * 0.3,
+    width: screenWidth * 0.65,
+    height: screenHeight * 0.45,
     borderRadius: 8,
     marginVertical: 8,
     marginBottom: 30,
-    marginTop: screenHeight * 0.35,
+    marginTop: screenHeight * 0.20,
   },
   iconContainer: {
     flexDirection: 'row',

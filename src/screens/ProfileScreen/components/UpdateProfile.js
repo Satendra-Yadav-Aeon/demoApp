@@ -64,15 +64,16 @@ const UpdateProfile = () => {
 
 	const onSubmit = (data) => {
     // Generate formatted date: yyyy-mm-dd hh:mm:ss
-  const now = new Date(); 
-  const formattedDate = now.getFullYear() + '-' +
+    const now = new Date(); 
+    const formattedDate = 
+    now.getFullYear() + '-' +
     String(now.getMonth() + 1).padStart(2, '0') + '-' +
-    String(now.getDate()).padStart(2, '0') + ' ' +
+    String(now.getDate()).padStart(2, '0') + '_' + // <-- underscore instead of space
     String(now.getHours()).padStart(2, '0') + '-' +
     String(now.getMinutes()).padStart(2, '0') + '-' +
     String(now.getSeconds()).padStart(2, '0');
 
-  const photoName = `${employeeData?.empid}_${formattedDate}.jpg`; // e.g., EMP01_2025-07-02 22:13:55.jpg
+    const photoName = `${employeeData?.empid}_${formattedDate}.jpg`; // e.g., EMP01_2025-07-02 22:13:55.jpg
     const saveData = {
     empid: employeeData?.empid,
     mobileno: data?.mobile,

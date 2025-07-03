@@ -13,6 +13,7 @@ import CustomChangeLanguage from '../../../common/CustomChangeLanguage'
 import { getLanguageLabel } from '../../../utils/getLanguageLabel'
 import useGetEmployeeDetailsById from '../hooks/useGetEmployeeDetailsById'
 import useGetEmployeeTodayAttendance from '../hooks/useGetEmployeeTodayAttendance'
+import { BaseConfigUrl } from '../../../env/BaseConfigUrl'
 
 const SupervisorDashboard = () => {
   const navigation = useNavigation()
@@ -47,7 +48,7 @@ const SupervisorDashboard = () => {
         const loadProfileImage = async () => {
           // First try using the fetched employeeDetails  
           if (employeeDetails?.photo) {
-            setCapturedImageUri(employeeDetails.photo);
+            setCapturedImageUri(`${BaseConfigUrl.BASE_IMAGE_URL}${employeeDetails.photo}`);
             return;
           }
           // Otherwise, fallback to async stored image
