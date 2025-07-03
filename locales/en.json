@@ -88,5 +88,22 @@
     "PRIVACY_POLICY": "Privacy Policy",
     "UPDATE_PROFILE": "Update Profile",
     "CHANGE_PASSWORDS": "Change Password",
-    "CAPTURE_IMAGE": "Capture Image"
+    "CAPTURE_IMAGE": "Capture Image",
+    "CURRENT_PASSWORD_LABEL": "Current Password",
+    "CURRENT_PASSWORD_PLACEHOLDER": "Enter Current Password",
+    "CURRENT_PASSWORD_ERROR": "Current Password is required",
+
+    "NEW_PASSWORD_LABEL": "New Password",
+    "NEW_PASSWORD_PLACEHOLDER": "Enter New Password",
+    "NEW_PASSWORD_ERROR": "New Password is required",
+
+    "CONFIRM_PASSWORD_LABEL": "Confirm Password",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "Enter Confirm Password",
+    "CONFIRM_PASSWORD_ERROR": "Confirm Password is required",
+    "PASSWORD_PATTERN_ERROR": "Use at least 6 characters with letters and numbers",
+    "CONFIRM_PASSWORD_MATCH_ERROR": "Passwords do not match",
+    "SUCCESS_TEXT": "Success",
+    "ERROR_TEXT": "Error",
+    "SUCCESS_MSG": "Saved successfully",
+    "ERROR_MSG": "Something went wrong"
 }

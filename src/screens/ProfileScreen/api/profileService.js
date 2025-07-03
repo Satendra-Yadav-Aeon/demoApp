@@ -33,3 +33,12 @@ export const saveProfileData = async (payload) => {
   // console.log('===saveProfileData====>response>>>>>>', response);
   return response.data;
 };
+
+
+export const updatePasswordData = async (payload) => {
+  const {empid, currPwd, newPwd } = payload;
+  const data = {empid, currPwd, newPwd}
+  
+  const response = await axiosInstance.post(Endpoints.CHANGE_PASSWORD,data);
+  return response.data;
+};

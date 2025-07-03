@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import Colors from '../assets/colors/colors';
 import { DEFAULT_KEYBOARD_TYPE } from '../constants/MainConstant';
+import { removeEmojisUtils } from '../utils/removeEmojisUtils';
 
 const CustomTextInput = ({ label, value, onChange, placeholder, error, keyboardType = DEFAULT_KEYBOARD_TYPE, maxLength, disabled }) => {
   return (
@@ -9,7 +10,7 @@ const CustomTextInput = ({ label, value, onChange, placeholder, error, keyboardT
       <Text style={styles.label}>{label}</Text>
       <TextInput
         value={value}
-        onChangeText={onChange}
+        onChangeText={(text) => onChange(removeEmojisUtils(text))}
         placeholder={placeholder || label}
         placeholderTextColor={Colors.grey}
         style={styles.input}

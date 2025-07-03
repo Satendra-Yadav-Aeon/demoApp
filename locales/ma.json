@@ -88,5 +88,22 @@
     "PRIVACY_POLICY": "गोपनीयता धोरण",
     "UPDATE_PROFILE": "प्रोफाइल अपडेट करा",
     "CHANGE_PASSWORDS": "पासवर्ड बदला",
-    "CAPTURE_IMAGE": "प्रतिमा कॅप्चर करा"
+    "CAPTURE_IMAGE": "प्रतिमा कॅप्चर करा",
+    "CURRENT_PASSWORD_LABEL": "सध्याचा पासवर्ड",
+    "CURRENT_PASSWORD_PLACEHOLDER": "सध्याचा पासवर्ड प्रविष्ट करा",
+    "CURRENT_PASSWORD_ERROR": "सध्याचा पासवर्ड आवश्यक आहे",
+
+    "NEW_PASSWORD_LABEL": "नवीन पासवर्ड",
+    "NEW_PASSWORD_PLACEHOLDER": "नवीन पासवर्ड प्रविष्ट करा",
+    "NEW_PASSWORD_ERROR": "नवीन पासवर्ड आवश्यक आहे",
+
+    "CONFIRM_PASSWORD_LABEL": "पासवर्डची पुष्टी करा",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "पासवर्डची पुष्टी प्रविष्ट करा",
+    "CONFIRM_PASSWORD_ERROR": "पासवर्डची पुष्टी आवश्यक आहे",
+    "PASSWORD_PATTERN_ERROR": "किमान 6 अक्षरे, ज्यामध्ये अक्षरे व अंक असावेत",
+    "CONFIRM_PASSWORD_MATCH_ERROR": "पासवर्ड जुळत नाहीत",
+    "SUCCESS_TEXT": "यशस्वी",
+    "ERROR_TEXT": "त्रुटी",
+    "SUCCESS_MSG": "यशस्वीरित्या जतन केले",
+    "ERROR_MSG": "काहीतरी चुकले"
 }

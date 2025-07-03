@@ -57,10 +57,10 @@ export const TIME_FORMAT_A = 'HH:mm:ss'
 export const TOAST_MESSAGE = {
     SUCCESS: 'success',
     ERROR: 'error',
-    SUCCESS_TEXT: 'Success',
-    ERROR_TEXT: 'Error',
-    SUCCESS_MSG: 'Saved successfully',
-    ERROR_MSG: 'Something went wrong'
+    SUCCESS_TEXT: 'SUCCESS_TEXT',
+    ERROR_TEXT: 'ERROR_TEXT',
+    SUCCESS_MSG: 'SUCCESS_MSG',
+    ERROR_MSG: 'ERROR_MSG'
 }
 export const SMALL_LOADER = 'small'
 export const LARGE_LOADER = 'large'

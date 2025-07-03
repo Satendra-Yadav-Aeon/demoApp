@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
 import { useTranslation } from 'react-i18next';
-import { saveEmployeeData } from '../api/employeeService';
+import { updatePasswordData } from '../api/profileService';
 import { TOAST_MESSAGE } from '../../../constants/MainConstant';
 
-export const useSaveEmployee = () => {
+export const useChangePasswordAPI = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
 
-  const saveEmployee = async (payload) => {
+  const changePassword = async (payload) => {
     setIsLoading(true);
     try {
-      const response = await saveEmployeeData(payload);
+      const response = await updatePasswordData(payload);
       if(response){
         Toast.show({
           type: TOAST_MESSAGE.SUCCESS,
@@ -20,6 +20,7 @@ export const useSaveEmployee = () => {
         });
         return true;
       }
+      return response;
     } catch (err) {
         Toast.show({
         type: TOAST_MESSAGE.ERROR,
@@ -32,5 +33,5 @@ export const useSaveEmployee = () => {
     }
   };
 
-  return { saveEmployee, isLoading };
+  return { changePassword, isLoading };
 };

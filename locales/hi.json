@@ -88,5 +88,22 @@
     "PRIVACY_POLICY": "गोपनीयता नीति",
     "UPDATE_PROFILE": "प्रोफ़ाइल अपडेट करें",
     "CHANGE_PASSWORDS": "पासवर्ड बदलें",
-    "CAPTURE_IMAGE": "चित्र कैप्चर करें"
+    "CAPTURE_IMAGE": "चित्र कैप्चर करें",
+    "CURRENT_PASSWORD_LABEL": "वर्तमान पासवर्ड",
+    "CURRENT_PASSWORD_PLACEHOLDER": "वर्तमान पासवर्ड दर्ज करें",
+    "CURRENT_PASSWORD_ERROR": "वर्तमान पासवर्ड आवश्यक है",
+
+    "NEW_PASSWORD_LABEL": "नया पासवर्ड",
+    "NEW_PASSWORD_PLACEHOLDER": "नया पासवर्ड दर्ज करें",
+    "NEW_PASSWORD_ERROR": "नया पासवर्ड आवश्यक है",
+
+    "CONFIRM_PASSWORD_LABEL": "पासवर्ड की पुष्टि करें",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "पासवर्ड की पुष्टि दर्ज करें",
+    "CONFIRM_PASSWORD_ERROR": "पासवर्ड की पुष्टि आवश्यक है",
+    "PASSWORD_PATTERN_ERROR": "कम से कम 6 अक्षर, जिसमें अक्षर और अंक हों",
+    "CONFIRM_PASSWORD_MATCH_ERROR": "पासवर्ड मेल नहीं खा रहे हैं",
+    "SUCCESS_TEXT": "सफलता",
+    "ERROR_TEXT": "त्रुटि",
+    "SUCCESS_MSG": "सफलतापूर्वक सहेजा गया",
+    "ERROR_MSG": "कुछ गलत हो गया"
 }
