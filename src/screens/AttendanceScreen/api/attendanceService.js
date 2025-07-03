@@ -11,10 +11,10 @@ export const getEmployeeAttendanceData = async (payload) => {
   const {userId} = payload;
   const data = {userId}
 
-  console.log('===getEmployeeAttendanceData==>userId>>>',userId);
+  // console.log('===getEmployeeAttendanceData==>data>>>',data);
   
   const response = await axiosInstance.post(Endpoints.GET_EMPLOYEE_ATTENDANCE, data);
-  console.log('==getEmployeeAttendanceData==>response>>>>',response);
+  // console.log('==getEmployeeAttendanceData==>response>>>>',response);
   return response.data;
 };
 

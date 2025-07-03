@@ -1,74 +1,23 @@
 export const EmployeeAttendanceData = [
   {
-    date: '2025-07-01',
-    day: '1 Jul',
-    checkIn: '08:56 AM',
-    checkOut: '06:56 PM',
-    totalHrs: '09:56',
-    location: 'Ramwadi, Pune',
-  },
-  {
-    date: '2025-07-02',
-    day: '2 Jul',
-    checkIn: '09:02 AM',
-    checkOut: '06:45 PM',
-    totalHrs: '09:43',
-    location: 'Kharadi, Pune',
-  },
-  {
-    date: '2025-07-03',
-    day: '3 Jul',
-    checkIn: '08:45 AM',
-    checkOut: '06:20 PM',
-    totalHrs: '09:35',
-    location: 'Hadapsar, Pune',
-  },
-  {
-    date: '2025-07-04',
-    day: '4 Jul',
-    checkIn: '08:50 AM',
-    checkOut: '06:30 PM',
-    totalHrs: '09:40',
-    location: 'Viman Nagar, Pune',
-  },
-  {
-    date: '2025-07-10',
-    day: '10 Jul',
-    checkIn: '09:10 AM',
-    checkOut: '06:40 PM',
-    totalHrs: '09:30',
-    location: 'Shivajinagar, Pune',
-  },
-  {
-    date: '2025-07-15',
-    day: '15 Jul',
-    checkIn: '08:55 AM',
-    checkOut: '06:50 PM',
-    totalHrs: '09:55',
-    location: 'Wagholi, Pune',
-  },
-  {
-    date: '2025-07-17',
-    day: '17 Jul',
-    checkIn: '09:00 AM',
-    checkOut: '06:35 PM',
-    totalHrs: '09:35',
-    location: 'Koregaon Park, Pune',
-  },
-  {
-    date: '2025-06-18',
-    day: '18 June',
-    checkIn: '09:00 AM',
-    checkOut: '06:35 PM',
-    totalHrs: '09:35',
-    location: 'Goregaon Park, Pune',
-  },
-  {
-    date: '2025-06-18',
-    day: '18 June',
-    checkIn: '09:00 AM',
-    checkOut: '06:35 PM',
-    totalHrs: '09:35',
-    location: 'Koregaon Park, Pune',
-  }
+    "userId": null,
+    "date": '2025-07-03',
+    "inTime": "05:24:28 PM",
+    "outTime": "07:40:18 PM",
+    "totalHours": "02:15:50"
+},
+{
+    "userId": null,
+    "date": '2025-07-02',
+    "inTime": "",
+    "outTime": "",
+    "totalHours": ""
+},
+{
+    "userId": null,
+    "date": '2025-07-01',
+    "inTime": "",
+    "outTime": "",
+    "totalHours": ""
+}
 ];

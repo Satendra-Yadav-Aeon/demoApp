@@ -1,78 +1,80 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { EmployeeAttendanceData } from '../constants/EmployeeAttendanceData';
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { useFocusEffect } from '@react-navigation/native';
 import useEmployeeAttendanceAPI from '../hooks/useEmployeeAttendanceAPI';
 import { getAsyncItem } from '../../../utils/AsyncStorage';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
-import { useFocusEffect } from '@react-navigation/native';
-
+// import { EmployeeAttendanceData } from '../constants/EmployeeAttendanceData';
 
 const AttendanceContext = createContext(null);
 
 export const AttendanceProvider = ({ children }) => {
-  const today = new Date();
-  const[employeeData, setEmployeeData] = useState({})
-  const {employeeAttendanceData, refetchEmployeeAttendance} = useEmployeeAttendanceAPI();
+  const [employeeData, setEmployeeData] = useState({});
+  const [dayState, setDayState] = useState([]);
+  const [weekState, setWeekState] = useState([]);
+  const [monthState, setMonthState] = useState([]);
 
+  const { employeeAttendanceData, refetchEmployeeAttendance } = useEmployeeAttendanceAPI();
+
+  // Fetch logged-in employee data from AsyncStorage
   useEffect(() => {
+    const fetchAsyncData = async () => {
+      const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+      setEmployeeData(data);
+    };
     fetchAsyncData();
-  },[])
+  }, []);
 
-  const fetchAsyncData = async() => {
-    const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
-    setEmployeeData(data)
-  }
-
-  console.log('===AttendanceProvider==>>>employeeData>>',employeeData);
-  
-
-
-   useFocusEffect(
+  // Refetch on screen focus
+  useFocusEffect(
     React.useCallback(() => {
       if (employeeData?.empid) {
-        refetchEmployeeAttendance({userId: employeeData?.empid});
+        refetchEmployeeAttendance({ userId: employeeData?.empid });
       }
-    }, [employeeData])
+    }, [employeeData?.empid])
   );
-
-  console.log('===AttendanceProvider==>>>employeeAttendanceData>>',employeeAttendanceData);
 
   const getDaysDiff = (inputDateStr) => {
     const inputDate = new Date(inputDateStr);
-    const timeDiff = today.getTime() - inputDate.getTime();
-    return timeDiff / (1000 * 3600 * 24);
+    const today = new Date();
+
+    inputDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    const diff = today.getTime() - inputDate.getTime();
+    return diff / (1000 * 3600 * 24);
   };
 
-  const getFilteredData = () => {
+  const filterData = () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const todayStr = today.toISOString().split('T')[0];
 
-    const dayData = EmployeeAttendanceData?.filter((item) => item.date === todayStr);
+    const dayData = employeeAttendanceData?.filter(item => item.date === todayStr) || [];
 
-    const weekData = EmployeeAttendanceData?.filter((item) => {
+    const weekData = employeeAttendanceData?.filter(item => {
       const diff = getDaysDiff(item.date);
-      return diff <= 7;
-    });
+      return diff >= 0 && diff <= 6;
+    }) || [];
 
-    const monthData = EmployeeAttendanceData?.filter((item) => {
+    const monthData = employeeAttendanceData?.filter(item => {
       const diff = getDaysDiff(item.date);
-      return diff <= 30;
-    });
+      return diff >= 0 && diff <= 29;
+    }) || [];
 
-    return { dayData, weekData, monthData };
-  };
-
-  // Initial filtered data
-  const { dayData, weekData, monthData } = getFilteredData();
-
-  const [dayState, setDayState] = useState(dayData);
-  const [weekState, setWeekState] = useState(weekData);
-  const [monthState, setMonthState] = useState(monthData);
-
-  // Refresh function
-  const refreshData = () => {
-    const { dayData, weekData, monthData } = getFilteredData();
     setDayState(dayData);
     setWeekState(weekData);
     setMonthState(monthData);
+  };
+
+  // Refactor data every time API data updates
+  useEffect(() => {
+    if (employeeAttendanceData && employeeAttendanceData.length) {
+      filterData();
+    }
+  }, [employeeAttendanceData]);
+
+  const refreshData = () => {
+    filterData();
   };
 
   return (

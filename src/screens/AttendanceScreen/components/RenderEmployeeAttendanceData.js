@@ -19,27 +19,27 @@ const RenderEmployeeAttendanceData = ({data, refreshControl}) => {
       <View style={styles.row}>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.DAY)}</Text>
-          <Text style={styles.dataText}>{item?.day}</Text>
+          <Text style={styles.dataText}>{item?.date}</Text>
         </View>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.CHECK_IN)}</Text>
-          <Text style={styles.dataText}>{item?.checkIn}</Text>
+          <Text style={styles.dataText}>{item?.inTime}</Text>
         </View>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.CHECK_OUT)}</Text>
-          <Text style={styles.dataText}>{item?.checkOut}</Text>
+          <Text style={styles.dataText}>{item?.outTime}</Text>
         </View>
       </View>
 
       <View style={styles.row}>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.TOTAL_HOUR)}</Text>
-          <Text style={styles.dataText}>{item?.totalHrs}</Text>
+          <Text style={styles.dataText}>{item?.totalHours}</Text>
         </View>
-        <View style={styles.flex1}>
+        {/* <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.LOCATION)}</Text>
           <Text style={styles.dataText} numberOfLines={2} ellipsizeMode={ELLIPSIZE_MODE}>{item?.location}</Text>
-        </View>
+        </View> */}
         <View style={styles.flex1}></View>
       </View>
     </View>
