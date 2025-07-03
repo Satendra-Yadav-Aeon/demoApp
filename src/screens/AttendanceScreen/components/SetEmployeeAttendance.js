@@ -121,7 +121,7 @@ const SetEmployeeAttendance = () => {
 
   const handleMarkAttendacne = async() => {
     console.log('====handleMarkAttendacne=>>called>>>');
-    const empId = attendanceSelf ? employeeData?.empid : employee?.empid;
+    const empId = attendanceSelf ? employeeData?.empid : employee?.userId;
     const photoName = imageNameUtils(empId);
     const markAttendanceData = {
       empId: empId,
@@ -133,16 +133,18 @@ const SetEmployeeAttendance = () => {
       imageName: photoName,
       inOut: isCheckIn ? 1 : 2,
       attendanceMode: attendanceSelf ? 1 : 2,
-      attendenceBy: attendanceSelf ? 'Self' : employee?.empid,
+      attendenceBy: attendanceSelf ? 'Self' : employee?.userId,
     };
 
 
     console.log('====handleMarkAttendacne======markAttendanceData>>>>>>>>>',markAttendanceData);
 
     const response = await markAttendance(markAttendanceData);
-    if(response){
-      console.log('===handleMarkAttendacne===response>>>>',response);
-      // await setAsyncItem(`${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${empId}`, !isCheckIn)
+    if (response) {
+      const key = `${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${empId}`;
+      const oldValue = await getAsyncItem(key);
+      const newValue = oldValue !== 'true';
+      await setAsyncItem(key, newValue.toString());
       route.params?.onSuccess?.();
       navigation.goBack();
     }

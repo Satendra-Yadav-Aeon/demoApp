@@ -9,7 +9,7 @@ import MyImages from '../../../utils/MyImages';
 import { SCREENS } from '../../../constants/MainConstant';
 import { CHECK_IN_LABEL, CHECK_OUT_LABEL } from '../../DashboardScreen/constants/DashboardConstant';
 import { BaseConfigUrl } from '../../../env/BaseConfigUrl';
-import { getAsyncItem } from '../../../utils/AsyncStorage';
+import { getAsyncItem, setAsyncItem } from '../../../utils/AsyncStorage';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 
 const { screenWidth } = ScreenDimensions
@@ -22,22 +22,15 @@ const MarkAttendanceEmployeeCard = ({ employee }) => {
   const {t} = useTranslation()
   const[attendanceImageUri, setAttendanceImageUri] = useState()
 
-//   useEffect(() => {
-//   const fetchCheckInStatus = async () => {
-//     if (!employee?.empid) return;
-
-//     const key = `${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${employee.empid}`;
-//     const storedValue = await getAsyncItem(key);
-    
-//     if (storedValue !== null) {
-//       setIsCheckIn(storedValue === 'true');
-//     } else {
-//       setIsCheckIn(true); // default isCheckIn = true if no data
-//     }
-//   };
-
-//   fetchCheckInStatus();
-// }, [employee]);
+  useEffect(() => {
+    const loadCheckStatus = async () => {
+      if (!employee?.userId) return;
+      const key = `${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${employee?.userId}`;
+      const value = await getAsyncItem(key);
+      setIsCheckIn(value === 'true');
+    };
+    loadCheckStatus();
+  }, [employee]);
 
 
   useEffect(() => {
@@ -51,9 +44,11 @@ const MarkAttendanceEmployeeCard = ({ employee }) => {
     navigation.navigate(SCREENS.SET_EMPLOYEE_ATTENDANCE, {
       isCheckIn,
       employee,
-      onSuccess: () => {
-        setIsCheckIn(prev => !prev); // Toggle only after successful mark 
-      }
+      onSuccess: async () => {
+        const newState = !isCheckIn;
+        setIsCheckIn(newState);
+        await setAsyncItem(`${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${employee.userId}`, newState.toString());
+    }
     });
   };
 

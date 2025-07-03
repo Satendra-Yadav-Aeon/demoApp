@@ -44,7 +44,7 @@ const ManageEmployeeList = () => {
       {isArrayLength(manageEmployeeData) ? (
         <FlatList
           data={manageEmployeeData}
-          keyExtractor={(item) => item?.id}
+          keyExtractor={(item) => item?.empid}
           renderItem={({ item }) => (
             <ManageEmployeeCard employee={item} onEdit={handleEditEmployee} />
           )}

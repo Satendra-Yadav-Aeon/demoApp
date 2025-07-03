@@ -4,10 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages';
-import { CHECK_IN_LABEL, CHECK_OUT_LABEL, NO_TIME } from '../constants/DashboardConstant';
-import { AM_TIME_LABEL, PM_TIME_LABEL, SCREENS } from '../../../constants/MainConstant';
+import { CHECK_IN_LABEL, CHECK_OUT_LABEL} from '../constants/DashboardConstant';
+import { SCREENS } from '../../../constants/MainConstant';
 import ScreenDimensions from '../../../utils/DimensionUtils';
-import { getAsyncItem } from '../../../utils/AsyncStorage';
+import { getAsyncItem, setAsyncItem } from '../../../utils/AsyncStorage';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 
 const { screenWidth, screenHeight } = ScreenDimensions;
@@ -16,36 +16,33 @@ const EmployeeShowAttendance = ({checkIn, checkOut}) => {
   const navigation = useNavigation()
   const {t} = useTranslation();
   const [isCheckIn, setIsCheckIn] = useState(true);
-  const [attendanceSelf, setAttendanceSelf] = useState(true);
-  // const [checkInList, setCheckInList] = useState([]);
-  // const [checkOutList, setCheckOutList] = useState([]);
+  const [empId, setEmpId] = useState('');
 
-  // const getCurrentTime = () => {
-  //   const now = new Date();
-  //   const hours = now.getHours();
-  //   const minutes = now.getMinutes();
-  //   const ampm = hours >= 12 ? PM_TIME_LABEL : AM_TIME_LABEL;
-  //   const formattedHours = hours % 12 || 12;
-  //   const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-  //   return `${formattedHours}:${formattedMinutes} ${ampm}`;
-  // };
-
-  // useEffect(() => {
-  //   const fetchCheckInStatus = async () => {
-  //     const storedValue = await getAsyncItem(ASYNC_CONSTANT.MANAGE_CHECK_IN);
-  //     if (storedValue !== null) {
-  //       setIsCheckIn(storedValue === 'true'); // restore saved state
-  //     }
-  //   };
-  //   fetchCheckInStatus();
-  // }, []);
+  useEffect(() => {
+    const loadState = async () => {
+      const userData = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+      const id = userData?.empid;
+      setEmpId(id);
+      const stored = await getAsyncItem(`${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${id}`);
+      
+      if (stored === null) {
+      // First-time user or no data stored yet → default to Check In
+      setIsCheckIn(true);
+      } else {
+        setIsCheckIn(stored === 'true');
+      }
+    };
+    loadState();
+  }, []);
 
   const handleCheckPress = () => {
     navigation.navigate(SCREENS.SET_EMPLOYEE_ATTENDANCE, {
       isCheckIn,
-      attendanceSelf,
-      onSuccess: () => {
-        setIsCheckIn(prev => !prev); // Toggle only after successful mark 
+      attendanceSelf: true,
+      onSuccess: async () => {
+        const newState = !isCheckIn;
+        setIsCheckIn(newState);
+        await setAsyncItem(`${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${empId}`, newState.toString());
       }
     });
   };
