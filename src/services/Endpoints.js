@@ -11,5 +11,6 @@ export const Endpoints = {
     SAVE_ATTENDANCE: '/Attendance/saveAttendance',
     SAVE_PROFILE: '/Employee/SaveProfile',
     GET_EMPLOYEE_DETAILS_BY_ID: '/Employee/GetEmpdetailsbyId',
-    GET_EMPLOYEE_TODAY_ATTENDANCE: '/Attendance/GetEmpTodayEntry'
+    GET_EMPLOYEE_TODAY_ATTENDANCE: '/Attendance/GetEmpTodayEntry',
+    GET_SUPERVISORS_EMPLOYEE_LIST: '/Attendance/GetSupervisorsEmployee'
 }

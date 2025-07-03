@@ -36,3 +36,13 @@ export const saveEmployeeAttendance = async (payload) => {
   // console.log('==saveAttendance===response==>>>>',response);
   return response.data;
 };
+
+export const getSupervisorsEmployeeData = async (payload) => {
+  const { userid } = payload;
+
+  const data = {userid};
+
+  const response = await axiosInstance.post(Endpoints.GET_SUPERVISORS_EMPLOYEE_LIST, data);
+  // console.log('==saveAttendance===response==>>>>',response);
+  return response.data;
+};
