@@ -91,7 +91,8 @@ const AdminAttendanceCard = ({ employee, selectedDates }) => {
         </View>
       </View>
        {/* ✅ Show for all employees, pass all 4 lat/long */}
-      <TouchableOpacity
+      {employee?.checkinLat && employee?.checkinLong && (
+        <TouchableOpacity
         style={[styles.flex1, styles.setLocationButton]}
         onPress={() =>
           navigation.navigate(SCREENS.GEOFENCE_MAP, {
@@ -106,6 +107,7 @@ const AdminAttendanceCard = ({ employee, selectedDates }) => {
       >
         <Text style={styles.setLocationText}>{t(ATTENDANCE_CONSTANT.CHECK_LOCATION)}</Text>
       </TouchableOpacity>
+      )} 
     </View>
   )
 };

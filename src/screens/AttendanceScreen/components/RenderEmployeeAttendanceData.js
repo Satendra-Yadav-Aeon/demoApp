@@ -5,6 +5,7 @@ import Colors from '../../../assets/colors/colors'
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import { ATTENDANCE_CONSTANT } from '../constants/AttendanceConstant';
 import { ELLIPSIZE_MODE } from '../../../constants/MainConstant';
+import { formatDate } from '../../../utils/formatDateUtils';
 
 const { screenWidth } = ScreenDimensions
 
@@ -19,7 +20,7 @@ const RenderEmployeeAttendanceData = ({data, refreshControl}) => {
       <View style={styles.row}>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.DAY)}</Text>
-          <Text style={styles.dataText}>{item?.date}</Text>
+          <Text style={styles.dataText}>{formatDate(item?.date)}</Text>
         </View>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.CHECK_IN)}</Text>

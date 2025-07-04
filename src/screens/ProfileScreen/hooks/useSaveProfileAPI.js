@@ -2,9 +2,11 @@ import { useState } from 'react';
 import Toast from 'react-native-toast-message';
 import { saveProfileData } from '../api/profileService';
 import { TOAST_MESSAGE } from '../../../constants/MainConstant';
+import { useTranslation } from 'react-i18next';
 
 export const useSaveProfileAPI = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const {t} = useTranslation();
 
   const saveProfile = async (payload) => {
     setIsLoading(true);
@@ -13,8 +15,8 @@ export const useSaveProfileAPI = () => {
       if(response){
         Toast.show({
           type: TOAST_MESSAGE.SUCCESS,
-          text1: TOAST_MESSAGE.SUCCESS_TEXT,
-          text2: TOAST_MESSAGE.SUCCESS_MSG,
+          text1: t(TOAST_MESSAGE.SUCCESS_TEXT),
+          text2: t(TOAST_MESSAGE.SUCCESS_MSG),
         });
         return true;
       }
@@ -22,8 +24,8 @@ export const useSaveProfileAPI = () => {
     } catch (err) {
         Toast.show({
         type: TOAST_MESSAGE.ERROR,
-        text1: TOAST_MESSAGE.ERROR_TEXT,
-        text2: TOAST_MESSAGE.ERROR_MSG,
+        text1: t(TOAST_MESSAGE.ERROR_TEXT),
+        text2: t(TOAST_MESSAGE.ERROR_MSG),
       });
       return false;
     } finally {

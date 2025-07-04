@@ -34,7 +34,8 @@ export const AttendanceProvider = ({ children }) => {
   );
 
   const getDaysDiff = (inputDateStr) => {
-    const inputDate = new Date(inputDateStr);
+    const [day, month, year] = inputDateStr.split(' ')[0].split('-'); // "03-07-2025"
+    const inputDate = new Date(`${year}-${month}-${day}`);
     const today = new Date();
 
     inputDate.setHours(0, 0, 0, 0);
@@ -47,7 +48,8 @@ export const AttendanceProvider = ({ children }) => {
   const filterData = () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const todayStr = today.toISOString().split('T')[0];
+
+    const todayStr = `${String(today.getDate()).padStart(2, '0')}-${String(today.getMonth() + 1).padStart(2, '0')}-${today.getFullYear()} 00:00:00`;
 
     const dayData = employeeAttendanceData?.filter(item => item.date === todayStr) || [];
 
