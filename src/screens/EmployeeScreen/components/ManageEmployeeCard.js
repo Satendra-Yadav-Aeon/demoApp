@@ -5,6 +5,7 @@ import MyImages from '../../../utils/MyImages';
 import Colors from '../../../assets/colors/colors';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import { MANAGE_EMPLOYEE_CONSTANT } from '../constants/ManageEmployeeConstant';
+import { formatDate } from '../../../utils/formatDateUtils';
 
 const { screenWidth } = ScreenDimensions
 
@@ -34,7 +35,7 @@ const ManageEmployeeCard = ({ employee, onEdit }) => {
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.JOINING_DATE)}</Text>
-        <Text style={styles.dataText}>{employee?.joiningdate}</Text>
+        <Text style={styles.dataText}>{formatDate(employee?.joiningdate)}</Text>
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.ADDRESS)}</Text>

@@ -47,8 +47,12 @@ export const saveEmployeeData = async (payload) => {
   return response.data;
 };
 
-export const getAllEmployeeList = async () => {
-  const response = await axiosInstance.get(Endpoints.GET_ALL_EMPLOYEE);
+export const getAllEmployeeList = async (payload) => {
+  const {admnId} = payload;
+  const data = {admnId}
+  // console.log('===getAllEmployeeList=>data>>>',data);
+  
+  const response = await axiosInstance.post(Endpoints.GET_ALL_EMPLOYEE, data);
   // console.log('==getAllEmployeeList==>response>>>>',response);
   return response.data;
 };

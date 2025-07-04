@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { SCREENS } from '../../../constants/MainConstant';
@@ -8,16 +8,30 @@ import ManageEmployeeCard from './ManageEmployeeCard';
 import { MANAGE_EMPLOYEE_CONSTANT } from '../constants/ManageEmployeeConstant';
 import useGetAllEmployee from '../hooks/useGetAllEmployee';
 import { isArrayLength } from '../../../utils/ValidationUtils';
+import { getAsyncItem } from '../../../utils/AsyncStorage';
+import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 
 
 const ManageEmployeeList = () => {
   const navigation = useNavigation();
   const {manageEmployeeData, refetch} = useGetAllEmployee()
+  const[employeeData, setEmployeeData] = useState({})
+
+  useEffect(() => {
+    fetchAsyncData();
+  },[])
+
+  const fetchAsyncData = async() => {
+    const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+    setEmployeeData(data)
+  }
 
   useFocusEffect(
     React.useCallback(() => {
-      refetch();
-    }, [refetch])
+      if(employeeData?.empid){
+        refetch({admnId: employeeData?.empid});
+      }
+    }, [employeeData])
   );
 
   const handleAddEmployee = () => {

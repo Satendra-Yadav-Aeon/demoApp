@@ -11,6 +11,7 @@ import { CHECK_IN_LABEL, CHECK_OUT_LABEL } from '../../DashboardScreen/constants
 import { BaseConfigUrl } from '../../../env/BaseConfigUrl';
 import { getAsyncItem, setAsyncItem } from '../../../utils/AsyncStorage';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
+import { getTodayFormatted } from '../../../utils/DateUtils';
 
 const { screenWidth } = ScreenDimensions
 
@@ -25,9 +26,23 @@ const MarkAttendanceEmployeeCard = ({ employee }) => {
   useEffect(() => {
     const loadCheckStatus = async () => {
       if (!employee?.userId) return;
-      const key = `${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${employee?.userId}`;
-      const value = await getAsyncItem(key);
-      setIsCheckIn(value === 'true');
+      
+      const checkInKey = `${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${employee?.userId}`;
+      const dateKey = `${ASYNC_CONSTANT.MANAGE_CHECK_DATE}_${employee?.userId}`;
+
+      const storedCheckIn = await getAsyncItem(checkInKey);
+      const storedDate = await getAsyncItem(dateKey);
+
+      const today = getTodayFormatted();
+
+      if (storedDate !== today) {
+        // Reset for a new date
+        await setAsyncItem(checkInKey, 'true');
+        await setAsyncItem(dateKey, today);
+        setIsCheckIn(true);
+      } else {
+        setIsCheckIn(storedCheckIn === 'true');
+      }
     };
     loadCheckStatus();
   }, [employee]);
@@ -47,7 +62,9 @@ const MarkAttendanceEmployeeCard = ({ employee }) => {
       onSuccess: async () => {
         const newState = !isCheckIn;
         setIsCheckIn(newState);
+        const today = getTodayFormatted();
         await setAsyncItem(`${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${employee.userId}`, newState.toString());
+        await setAsyncItem(`${ASYNC_CONSTANT.MANAGE_CHECK_DATE}_${employee.userId}`, today);
     }
     });
   };

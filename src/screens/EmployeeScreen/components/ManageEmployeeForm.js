@@ -19,6 +19,7 @@ import { ROLES, SMALL_LOADER } from '../../../constants/MainConstant';
 import { SUBMIT_BUTTON_TEXT } from '../../LoginScreen/constants/LoginConstant';
 import { getAsyncItem } from '../../../utils/AsyncStorage';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
+import { formatDate } from '../../../utils/formatDateUtils';
 
 const { screenWidth, screenHeight } = ScreenDimensions;
 const ManageEmployeeForm = () => {
@@ -104,9 +105,13 @@ const ManageEmployeeForm = () => {
         [NAME_CONSTANT.NAME]: employee?.empname || '',
         [MOBILE_CONSTANT.NAME]: employee?.mobileno || '',
         [ROLE_CONSTANT.NAME]: roleId || '',
-        [REPORTING_MANAGER_CONSTANT.NAME]: employee?.repomanager || '',
-        [JOINIG_DATE_CONSTANT.NAME]: employee?.joiningdate || '',
-        [LEAVING_DATE_CONSTANT.NAME]: employee?.leavingdate || '',
+        [REPORTING_MANAGER_CONSTANT.NAME]: (() => {
+          const matchFromSupervisorList = supervisorList?.find(s => s.rolename === employee?.repomanager);
+          const matchFromAdminList = adminList?.find(a => a.rolename === employee?.repomanager);
+          return matchFromSupervisorList?.roleid || matchFromAdminList?.roleid || '';
+        })(),
+        [JOINIG_DATE_CONSTANT.NAME]:  formatDate(employee?.joiningdate)  || '',
+        [LEAVING_DATE_CONSTANT.NAME]: formatDate(employee?.leavingdate) || '',
         [ADDRESS_CONSTANT.NAME]: employee?.address || '',
       });
 

@@ -8,9 +8,9 @@ const useGetAllEmployee = () => {
     fetchAllEmployee();
   }, [fetchAllEmployee]);
 
-  const fetchAllEmployee = useCallback(async () => {
+  const fetchAllEmployee = useCallback(async (payload) => {
     try {
-      const res = await getAllEmployeeList();
+      const res = await getAllEmployeeList(payload);
       setManageEmployeeData(res);
     } catch (err) {
     //   console.error('===fetchAllEmployee==error>>>>', err);

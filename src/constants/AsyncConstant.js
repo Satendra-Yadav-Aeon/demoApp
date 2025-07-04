@@ -4,5 +4,6 @@ export const ASYNC_CONSTANT = {
     APP_VERSION: 'appVersion',
     PROFILE_IMAGE: 'profileImage',
     MARK_ATTENDANCE_IMAGE: 'markAttendanceImage',
-    MANAGE_CHECK_IN: 'manageCheckIn'
+    MANAGE_CHECK_IN: 'manageCheckIn',
+    MANAGE_CHECK_DATE: 'manageCheckDate'
 }

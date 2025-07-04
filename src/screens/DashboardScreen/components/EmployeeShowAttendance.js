@@ -9,6 +9,7 @@ import { SCREENS } from '../../../constants/MainConstant';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import { getAsyncItem, setAsyncItem } from '../../../utils/AsyncStorage';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
+import { getTodayFormatted } from '../../../utils/DateUtils';
 
 const { screenWidth, screenHeight } = ScreenDimensions;
 
@@ -23,13 +24,22 @@ const EmployeeShowAttendance = ({checkIn, checkOut}) => {
       const userData = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
       const id = userData?.empid;
       setEmpId(id);
-      const stored = await getAsyncItem(`${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${id}`);
-      
-      if (stored === null) {
-      // First-time user or no data stored yet → default to Check In
-      setIsCheckIn(true);
+
+      const checkInKey = `${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${id}`;
+      const dateKey = `${ASYNC_CONSTANT.MANAGE_CHECK_DATE}_${id}`;
+
+      const storedCheckIn = await getAsyncItem(checkInKey);
+      const storedDate = await getAsyncItem(dateKey);
+
+      const today = getTodayFormatted();
+
+      if (storedDate !== today) {
+        // Reset to checkIn if it's a new day
+        await setAsyncItem(checkInKey, 'true');
+        await setAsyncItem(dateKey, today);
+        setIsCheckIn(true);
       } else {
-        setIsCheckIn(stored === 'true');
+        setIsCheckIn(storedCheckIn === 'true');
       }
     };
     loadState();
@@ -42,7 +52,9 @@ const EmployeeShowAttendance = ({checkIn, checkOut}) => {
       onSuccess: async () => {
         const newState = !isCheckIn;
         setIsCheckIn(newState);
+        const today = getTodayFormatted();
         await setAsyncItem(`${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${empId}`, newState.toString());
+        await setAsyncItem(`${ASYNC_CONSTANT.MANAGE_CHECK_DATE}_${empId}`, today);
       }
     });
   };

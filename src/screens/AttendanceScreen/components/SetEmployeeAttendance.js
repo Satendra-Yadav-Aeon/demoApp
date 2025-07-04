@@ -141,10 +141,16 @@ const SetEmployeeAttendance = () => {
 
     const response = await markAttendance(markAttendanceData);
     if (response) {
-      const key = `${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${empId}`;
-      const oldValue = await getAsyncItem(key);
+      const checkInKey = `${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${empId}`;
+      const dateKey = `${ASYNC_CONSTANT.MANAGE_CHECK_DATE}_${empId}`;
+      const today = moment().format('YYYY-MM-DD');
+
+      const oldValue = await getAsyncItem(checkInKey);
       const newValue = oldValue !== 'true';
-      await setAsyncItem(key, newValue.toString());
+
+      await setAsyncItem(checkInKey, newValue.toString());
+      await setAsyncItem(dateKey, today);
+
       route.params?.onSuccess?.();
       navigation.goBack();
     }
