@@ -1,14 +1,18 @@
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useTranslation } from 'react-i18next';
+import { useFocusEffect } from '@react-navigation/native';
 import { useAdminAttendance } from '../context/AdminAttendanceContext';
 import Colors from '../../../assets/colors/colors';
 import MyImages from '../../../utils/MyImages';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import { DATE_FORMAT_A } from '../../../constants/MainConstant';
 import { ATTENDANCE_COUNT_CARD_CONSTANT } from '../constants/AttendanceConstant';
+import useAdminAttendanceCountAPI from '../hooks/useAdminAttendanceCountAPI';
+import { getAsyncItem } from '../../../utils/AsyncStorage';
+import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 
 const { screenHeight, screenWidth } = ScreenDimensions
 
@@ -17,22 +21,44 @@ const cardHeight = screenHeight * 0.15;
 
 const AttendanceCountCard = () => {
   const {
-    totalEmployees,
-    presentEmployees,
-    absentEmployees,
-    selectedDate,
-    setSelectedDate,
+    selectedDates,
+    setSelectedDates,
   } = useAdminAttendance();
+  const {adminAttendanceCount, refetchAdminAttendanceCount} = useAdminAttendanceCountAPI();
   const {t} = useTranslation()
 
+  const[employeeData, setEmployeeData] = useState({})
+  const [selectedDate, setSelectedDate] = useState(moment().format(DATE_FORMAT_A));
   const [showPicker, setShowPicker] = useState(false);
+
+  useEffect(() => {
+      fetchAsyncData();
+    },[])
+  
+    const fetchAsyncData = async() => {
+      const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+      setEmployeeData(data)
+    }
+  
+    useFocusEffect(
+      React.useCallback(() => {
+        if (employeeData?.empid && selectedDate) {
+          refetchAdminAttendanceCount({userId: employeeData?.empid, date: selectedDate});
+        }
+      }, [employeeData, selectedDate])
+    );
 
   const onDateChange = (_, date) => {
     setShowPicker(false);
     if (date) {
       setSelectedDate(moment(date).format(DATE_FORMAT_A));
+      setSelectedDates(moment(date).format(DATE_FORMAT_A));
     }
   };
+
+  // console.log('====AttendanceCountCard==>>selectedDate>>>>', selectedDate);
+  // console.log('====AttendanceCountCard==>>employeeData>>>>', employeeData);
+  
 
   return (
     <View style={styles.container}>
@@ -52,17 +78,17 @@ const AttendanceCountCard = () => {
         <View style={styles.card}>
             <Image source={MyImages.totalEmployees} style={styles.icon}/>
             <Text style={styles.cardHeaderText}>{t(ATTENDANCE_COUNT_CARD_CONSTANT.TOTAL)}</Text>
-            <Text style={styles.cardDataText}>{totalEmployees?.length}</Text>
+            <Text style={styles.cardDataText}>{adminAttendanceCount[0]?.totalEmpCnt}</Text>
         </View>
         <View style={styles.card}>
             <Image source={MyImages.presentEmployees} style={styles.icon}/>
             <Text style={styles.cardHeaderText}>{t(ATTENDANCE_COUNT_CARD_CONSTANT.PRESENT)}</Text>
-            <Text style={styles.cardDataText}>{presentEmployees?.length}</Text>
+            <Text style={styles.cardDataText}>{adminAttendanceCount[0]?.presentEmpCnt}</Text>
         </View>
         <View style={styles.card}>
             <Image source={MyImages.absentEmployees} style={styles.icon}/>
             <Text style={styles.cardHeaderText}>{t(ATTENDANCE_COUNT_CARD_CONSTANT.ABSENT)}</Text>
-            <Text style={styles.cardDataText}>{absentEmployees?.length}</Text>
+            <Text style={styles.cardDataText}>{adminAttendanceCount[0]?.absentEmpCnt}</Text>
         </View>
         </View>
     </View>

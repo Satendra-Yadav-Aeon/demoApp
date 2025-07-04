@@ -11,7 +11,9 @@ export const ATTENDANCE_CONSTANT = {
     NO_DATA: '--',
     CHECK_LOCATION: 'CHECK_LOCATION',
     SUPERVISOR_ROLE: 'Supervisor',
-    EMPLOYEE_ROLE: 'Employee'
+    EMPLOYEE_ROLE: 'Employee',
+    PRESENT: 'Present',
+    ABSENT: 'Absent'
 }
 export const MY_ATTENDANCE_TITLE = 'MY_ATTENDANCE_TITLE'
 export const EMPLOYEE_ATTENDANCE_TITLE = 'EMPLOYEE_ATTENDANCE_TITLE'

@@ -12,7 +12,7 @@ const { screenWidth } = ScreenDimensions
 const cardWidth = screenWidth * 0.95;
 
 const AllEmployees = () => {
-  const { totalEmployees, selectedDate } = useAdminAttendance();
+  const { totalEmployees, selectedDates, setSelectedDates } = useAdminAttendance();
   
   const renderEmptyData = () => {
     return(
@@ -27,9 +27,9 @@ const AllEmployees = () => {
       {isArrayLength(totalEmployees) ? (
         <FlatList 
           data={totalEmployees} 
-          keyExtractor={(item) => item.id.toString()} 
+          keyExtractor={(item) => item.empId.toString()} 
           renderItem={({ item }) => (
-            <AdminAttendanceCard employee={item} selectedDate={selectedDate} />
+            <AdminAttendanceCard employee={item} selectedDates={selectedDates} />
           )}
       />
       ): (

@@ -2,15 +2,25 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment';
 import Colors from '../../../assets/colors/colors';
 import { ATTENDANCE_CONSTANT } from '../constants/AttendanceConstant';
 import { SCREENS } from '../../../constants/MainConstant';
 
-
-const AdminAttendanceCard = ({ employee, selectedDate }) => {
+const AdminAttendanceCard = ({ employee, selectedDates }) => {
   const navigation = useNavigation()
   const {t} = useTranslation()
-  const attendanceRecord = employee?.attendance?.find(a => a.date === selectedDate);
+    //Format status
+  const getStatusText = (status) => {
+    if (status === "1") return t(ATTENDANCE_CONSTANT.PRESENT);
+    if (status === "0" || status === "2") return t(ATTENDANCE_CONSTANT.ABSENT);
+    return ATTENDANCE_CONSTANT.NO_DATA;
+  };
+
+  //Format time as HH:mm
+  const formatTime = (timeString) => {
+    return timeString ? moment(timeString, 'HH:mm:ss.SSSSSSS').format('HH:mm') : ATTENDANCE_CONSTANT.NO_DATA;
+  };
   
   return (
     <View style={styles.card}>
@@ -21,54 +31,57 @@ const AdminAttendanceCard = ({ employee, selectedDate }) => {
         </View>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.ROLE)}</Text>
-          <Text style={styles.dataText}>{employee?.role || ATTENDANCE_CONSTANT.NO_DATA}</Text>
+          <Text style={styles.dataText}>{employee?.rolename || ATTENDANCE_CONSTANT.NO_DATA}</Text>
         </View>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.STATUS)}</Text>
-          <Text style={styles.dataText}>{attendanceRecord?.status || ATTENDANCE_CONSTANT.NO_DATA}</Text>
+          <Text style={styles.dataText}>{getStatusText(employee?.status)}</Text>
         </View>
         
-      </View>
+      </View> 
 
       <View style={styles.row}>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.DATE)}</Text>
-          <Text style={styles.dataText}>{selectedDate || ATTENDANCE_CONSTANT.NO_DATA}</Text>
+          <Text style={styles.dataText}>{selectedDates || ATTENDANCE_CONSTANT.NO_DATA}</Text>
         </View>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.CHECK_IN)}</Text>
-          <Text style={styles.dataText}>{attendanceRecord?.checkIn || ATTENDANCE_CONSTANT.NO_DATA}</Text>
+          <Text style={styles.dataText}>{formatTime(employee?.checkinTime)}</Text>
         </View>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.CHECK_OUT)}</Text>
-          <Text style={styles.dataText}>{attendanceRecord?.checkOut || ATTENDANCE_CONSTANT.NO_DATA}</Text>
+          <Text style={styles.dataText}>{formatTime(employee?.checkoutTime)}</Text>
         </View>
       </View>
 
       <View style={styles.row}>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.TOTAL_HOUR)}</Text>
-          <Text style={styles.dataText}>{attendanceRecord?.totalHrs || ATTENDANCE_CONSTANT.NO_DATA}</Text>
+          <Text style={styles.dataText}>{employee?.totalHrs || ATTENDANCE_CONSTANT.NO_DATA}</Text>
         </View>
         <View style={styles.flex1}>
           <Text style={styles.headerText}>{t(ATTENDANCE_CONSTANT.LOCATION)}</Text>
-          <Text style={styles.dataText}>{attendanceRecord?.location || ATTENDANCE_CONSTANT.NO_DATA}</Text>
+          <Text style={styles.dataText}>{employee?.location || ATTENDANCE_CONSTANT.NO_DATA}</Text>
         </View>
         <View style={styles.flex1}/>
       </View>
-      {employee?.role === ATTENDANCE_CONSTANT.SUPERVISOR_ROLE && (
-          <TouchableOpacity 
-            style={[styles.flex1, styles.setLocationButton]}
-            onPress={() =>
-              navigation.navigate(SCREENS.GEOFENCE_MAP, {
-                employeeId: employee?.id,
-                name: employee?.name,
-              })
-          }
-        >
-          <Text style={styles.setLocationText}>{t(ATTENDANCE_CONSTANT.CHECK_LOCATION)}</Text>
-          </TouchableOpacity>
-        )}
+       {/* ✅ Show for all employees, pass all 4 lat/long */}
+      <TouchableOpacity
+        style={[styles.flex1, styles.setLocationButton]}
+        onPress={() =>
+          navigation.navigate(SCREENS.GEOFENCE_MAP, {
+            employeeId: employee?.empId,
+            name: employee?.name,
+            checkinLat: employee?.checkinLat,
+            checkinLong: employee?.checkinLong,
+            checkoutLat: employee?.checkoutLat,
+            checkoutLong: employee?.checkoutLong,
+          })
+        }
+      >
+        <Text style={styles.setLocationText}>{t(ATTENDANCE_CONSTANT.CHECK_LOCATION)}</Text>
+      </TouchableOpacity>
     </View>
   )
 };

@@ -1,46 +1,73 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import moment from 'moment';
-import { AdminAttendanceData } from '../constants/AdminAttendanceData';
+import { useFocusEffect } from '@react-navigation/native';
 import { DATE_FORMAT_A } from '../../../constants/MainConstant';
-import { ATTENDANCE_STATUS } from '../constants/AttendanceConstant';
 import useAdminAttendanceAPI from '../hooks/useAdminAttendanceAPI';
+import { getAsyncItem } from '../../../utils/AsyncStorage';
+import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 
 const AdminAttendanceContext = createContext();
 
 export const AdminAttendanceProvider = ({ children }) => {
-  const [selectedDate, setSelectedDate] = useState(moment().format(DATE_FORMAT_A));
+  const [selectedDates, setSelectedDates] = useState(moment().format(DATE_FORMAT_A));
   const [totalEmployees, setTotalEmployees] = useState([]);
   const [presentEmployees, setPresentEmployees] = useState([]);
   const [absentEmployees, setAbsentEmployees] = useState([]);
+  const[employeeData, setEmployeeData] = useState({})
 
-  const {adminAttendanceData} = useAdminAttendanceAPI()
+  const {adminAttendanceData, refetchAdminAttendance} = useAdminAttendanceAPI()
 
   useEffect(() => {
-    filterDataByDate(selectedDate);
-  }, [selectedDate,adminAttendanceData]);
+    fetchAsyncData();
+  },[])
+
+  const fetchAsyncData = async() => {
+    const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+    setEmployeeData(data)
+  }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (employeeData?.empid && selectedDates) {
+        refetchAdminAttendance({AdminId: employeeData?.empid, Dateval: selectedDates});
+      }
+    }, [employeeData, selectedDates])
+  );
+
+  useEffect(() => {
+    filterDataByDate(selectedDates);
+  }, [selectedDates,adminAttendanceData]);
 
   const filterDataByDate = (date) => {
-    // const total = adminAttendanceData;
-    const total = AdminAttendanceData;
+    const total = adminAttendanceData || [];
 
-    const present = total?.filter(emp =>
-      emp.attendance.find(att => att.date === date && att.status === ATTENDANCE_STATUS.PRESENT)
-    );
+    // Filter by selectedDate if available (if dateval is being set)
+    const filteredByDate = total.filter(emp => {
+      const photoDate = emp?.checkinPhoto?.split('_')[1]; // "2025-07-03"
+      return photoDate === date;
+    });
 
-    const absent = total?.filter(emp => 
-      emp.attendance.find(att => att.date === date && att.status === ATTENDANCE_STATUS.ABSENT)
-    );
+    const present = filteredByDate.filter(emp => emp.status === "1");
+    const absent = filteredByDate.filter(emp => emp.status !== "1");
 
-    setTotalEmployees(total);
+    setTotalEmployees(filteredByDate);
     setPresentEmployees(present);
     setAbsentEmployees(absent);
   };
 
+
+
+
+  // console.log('====AdminAttendanceContext==>>selectedDate>>>>', selectedDates);
+  // console.log('====AdminAttendanceContext==>>employeeData>>>>', employeeData);
+  // console.log('====AdminAttendanceContext==>>adminAttendanceData>>>>', adminAttendanceData);
+  
+
   return (
     <AdminAttendanceContext.Provider
       value={{
-        selectedDate,
-        setSelectedDate,
+        selectedDates,
+        setSelectedDates,
         totalEmployees,
         presentEmployees,
         absentEmployees,

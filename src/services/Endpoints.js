@@ -5,7 +5,7 @@ export const Endpoints = {
     SUPERVISOR_LIST_ROLE_API: '/Employee/GetSupervisiorList',
     SAVE_EMPLOYEE: '/Employee/InsertEmployee',
     GET_ALL_EMPLOYEE: 'Employee/GetEmployeeList',
-    GET_ADMIN_ATTENDANCE: '/Attendance/GetAdminAttendance',
+    GET_ADMIN_ATTENDANCE: '/Attendance/GetAttDtlsAdByDate',
     GET_EMPLOYEE_ATTENDANCE: '/Attendance/GetAttendenceDtlsOfEmp',
     GET_EMPLOYEE_SUPERVISOR_ATTENDANCE: '/Attendance/GetEmployeeSupervisorAttendance',
     SAVE_ATTENDANCE: '/Attendance/saveAttendance',
@@ -14,6 +14,6 @@ export const Endpoints = {
     GET_EMPLOYEE_TODAY_ATTENDANCE: '/Attendance/GetEmpTodayEntry',
     GET_SUPERVISORS_EMPLOYEE_LIST: '/Employee/GetEmpListForSuperV',
     MARK_ATTENDANCE: '/Attendance/markAttendance',
-    GET_ADMIN_ATTENDANCE_COUNT: '/Attendance/GetAdminAttendanceCount',
+    GET_ADMIN_ATTENDANCE_COUNT: '/Attendance/GetAttCountDtlsAd',
     CHANGE_PASSWORD: '/Employee/ChangePassword',
 }
