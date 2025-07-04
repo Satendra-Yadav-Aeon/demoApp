@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import moment from 'moment';
-import { useFocusEffect } from '@react-navigation/native';
 import { DATE_FORMAT_A } from '../../../constants/MainConstant';
 import useAdminAttendanceAPI from '../hooks/useAdminAttendanceAPI';
 import { getAsyncItem } from '../../../utils/AsyncStorage';
@@ -26,37 +25,32 @@ export const AdminAttendanceProvider = ({ children }) => {
     setEmployeeData(data)
   }
 
-  useFocusEffect(
-    React.useCallback(() => {
-      if (employeeData?.empid && selectedDates) {
-        refetchAdminAttendance({AdminId: employeeData?.empid, Dateval: selectedDates});
-      }
-    }, [employeeData, selectedDates])
-  );
+  useEffect(() => {
+  if (employeeData?.empid && selectedDates) {
+    refetchAdminAttendance({ AdminId: employeeData.empid, Dateval: selectedDates });
+  }
+}, [employeeData?.empid, selectedDates]);
 
   useEffect(() => {
     filterDataByDate(selectedDates);
   }, [selectedDates,adminAttendanceData]);
 
   const filterDataByDate = (date) => {
-    const total = adminAttendanceData || [];
+  const all = adminAttendanceData || [];
 
-    // Filter by selectedDate if available (if dateval is being set)
-    const filteredByDate = total.filter(emp => {
-      const photoDate = emp?.checkinPhoto?.split('_')[1]; // "2025-07-03"
-      return photoDate === date;
-    });
+  const present = all.filter(emp => emp.status === "1");
+  const absent = all.filter(emp => emp.status === "2");
 
-    const present = filteredByDate.filter(emp => emp.status === "1");
-    const absent = filteredByDate.filter(emp => emp.status !== "1");
+  //Set full list as total
+  setTotalEmployees(all);
+  setPresentEmployees(present);
+  setAbsentEmployees(absent);
+};
 
-    setTotalEmployees(filteredByDate);
-    setPresentEmployees(present);
-    setAbsentEmployees(absent);
-  };
-
-
-
+  // console.log('====AdminAttendanceContext=>>>totalEmployees>>>',totalEmployees);
+  // console.log('====AdminAttendanceContext=>>>presentEmployees>>>',presentEmployees);
+  // console.log('====AdminAttendanceContext=>>>absentEmployees>>>',absentEmployees);
+  
 
   // console.log('====AdminAttendanceContext==>>selectedDate>>>>', selectedDates);
   // console.log('====AdminAttendanceContext==>>employeeData>>>>', employeeData);
