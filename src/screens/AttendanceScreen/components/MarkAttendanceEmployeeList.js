@@ -49,7 +49,7 @@ const MarkAttendanceEmployeeList = () => {
       {isArrayLength(supervisorsEmployeeList) ? (
         <FlatList
           data={supervisorsEmployeeList}
-          keyExtractor={(item) => item?.empId}
+          keyExtractor={(item) => item?.userId}
           renderItem={({ item }) => (
             <MarkAttendanceEmployeeCard employee={item}/>
           )}

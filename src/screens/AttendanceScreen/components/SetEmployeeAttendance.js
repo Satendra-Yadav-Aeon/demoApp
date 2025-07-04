@@ -133,7 +133,7 @@ const SetEmployeeAttendance = () => {
       imageName: photoName,
       inOut: isCheckIn ? 1 : 2,
       attendanceMode: attendanceSelf ? 1 : 2,
-      attendenceBy: attendanceSelf ? 'Self' : employee?.userId,
+      attendenceBy: attendanceSelf ? 'Self' : employeeData?.empid,
     };
 
 
