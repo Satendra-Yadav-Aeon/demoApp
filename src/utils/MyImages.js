@@ -1,5 +1,5 @@
 const MyImages = {
-    app_logo: require('../assets/images/app_logo.png'),
+    app_logo: require('../assets/images/attendrix_logo_21.png'),
     view: require('../assets/images/view.png'),
     hide: require('../assets/images/hide.png'),
     goBack: require('../assets/images/back-button.png'),

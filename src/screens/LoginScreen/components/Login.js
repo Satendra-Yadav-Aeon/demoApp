@@ -113,17 +113,18 @@ const styles = StyleSheet.create({
       flexGrow: 1,
     },
     logoIcon: {
-      width: screenWidth * 0.80,
-      height: screenHeight * 0.35,
-      marginTop: screenHeight * 0.05,
-      resizeMode: 'cover',
+      width: screenWidth * 0.55,
+      height: screenHeight * 0.25,
+      marginTop: screenHeight * 0.10,
+      resizeMode: 'contain',
       alignSelf: 'center',
     },
     loginHeader: {
       color: Colors.black,
       fontSize: 25,
       fontWeight: 'bold',
-      margin: 20
+      margin: 20,
+      marginTop: 70
     },
     inputText: {
       borderWidth:1,
@@ -132,7 +133,8 @@ const styles = StyleSheet.create({
       height: screenHeight * 0.06,
       borderRadius:4,
       fontSize: 18,
-      color: Colors.black
+      color: Colors.black,
+      paddingLeft: 10
     },
     errorText: {
       color: Colors.red,
@@ -165,6 +167,7 @@ const styles = StyleSheet.create({
       flex: 1,
       fontSize: 18,
       color: Colors.black,
+      paddingLeft: 10
     },
 
     eyeButton: {

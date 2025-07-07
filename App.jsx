@@ -1,9 +1,10 @@
-import { StyleSheet, SafeAreaView, Platform, PermissionsAndroid, Alert, View } from 'react-native';
+import { StyleSheet, SafeAreaView, Platform, PermissionsAndroid, Alert} from 'react-native';
 import React, { useEffect } from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import Toast from 'react-native-toast-message';
 import { Provider } from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
+import SplashScreen from 'react-native-splash-screen';
 import { ANDROID_PLATFORM, MAP_CONSTANT } from './src/constants/MainConstant';
 import store from './src/redux/store';
 import { setAsyncItem } from './src/utils/AsyncStorage';
@@ -51,8 +52,14 @@ const App = () => {
 
     requestPermission();
     loadSavedLanguage();
-    setAppVersion();
+    setAppVersion();  
   }, []);
+
+  useEffect(() => {
+    if(Platform.OS === 'android'){
+      SplashScreen.hide();
+    }
+  },[])
 
   return (
     <SafeAreaView style={styles.container}>

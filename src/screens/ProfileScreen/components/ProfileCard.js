@@ -34,7 +34,7 @@ const ProfileCard = ({employee, capturedImageUri}) => {
 
           <View style={styles.nameRoleContainer}>
             <Text style={styles.employeeName}>{employee?.empname}</Text>
-            <Text style={styles.employeeRole}>{employee?.rolename}</Text>
+            <Text style={styles.employeeRole}>{employee?.role}</Text>
           </View>
         </View>
       </View>
