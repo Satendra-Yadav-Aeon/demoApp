@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
     width: 20
   },
   optionText: {
+    width: '95%',
     fontSize: 18,
   }
 });

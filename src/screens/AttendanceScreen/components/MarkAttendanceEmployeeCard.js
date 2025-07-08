@@ -126,10 +126,11 @@ const styles = StyleSheet.create({
   name: {
     fontWeight: 'bold',
     fontSize: 18,
+    flex: 0.5,
+    flexWrap: 'wrap',
   },
   dataRow: {
     flexDirection: 'row',
-    gap: 10
   },
   profileIcon: {
     height: 50,
@@ -138,12 +139,14 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 16,
     color: Colors.grey,
-    fontWeight: '700'
+    fontWeight: '700',
+    width: '35%',
   },
   dataText: {
+    flex: 1,
     fontSize: 16,
     color: Colors.black,
-    fontWeight: '700'
+    fontWeight: '700',
   },
   setLocationButton: {
     backgroundColor: Colors.red,
@@ -154,6 +157,8 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   setLocationText: {
+    width: '100%',
+    textAlign: 'center',
     color: Colors.white,
     fontSize: 18,
     fontWeight: 'bold',

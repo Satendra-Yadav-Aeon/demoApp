@@ -71,6 +71,8 @@ const styles = StyleSheet.create({
 
   },
   logoutText: {
+    width: '100%',
+    textAlign: 'center',
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.white

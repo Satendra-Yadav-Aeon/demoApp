@@ -97,7 +97,7 @@ export default EmployeeShowAttendance
 const styles = StyleSheet.create({
   overlay: {
     position: 'absolute',
-    top: screenHeight * 0.25,
+    top: screenHeight * 0.26,
     width: screenWidth,
     alignItems: 'center',
     zIndex: 10,
@@ -122,43 +122,39 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start'
   },
-  textStyle: {
-    fontSize: 16,
-    color: Colors.black,
-  },
   checkInContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
   },
   checkOutContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
-    marginLeft: 10
   },
   checkIcons: {
-    width: 40, 
-    height: 40,
-    tintColor: Colors.grey
+    width: 30, 
+    height: 30,
+    tintColor: Colors.grey,
+    marginRight: 8,
   },
   checkSection: {
     flexDirection: 'row', 
     alignItems: 'center',  
     justifyContent: 'space-between',    
     width: '100%',
+    marginVertical: 8,
   },
 
   labelText: {
-    fontSize: 18,
+    fontSize: 16,
     color: Colors.black,
+    fontWeight: '500',
   },
 
   timeText: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: Colors.black,
-    alignSelf: 'center',
+    textAlign: 'right',
   },
   checkButtonContainer: {
     backgroundColor: Colors.red,
@@ -169,6 +165,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
+    width: '100%',
+    textAlign: 'center',
     color: Colors.white,
     fontSize: 22,
   }

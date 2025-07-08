@@ -37,9 +37,13 @@ const styles = StyleSheet.create({
         padding:10
     },
     companyText: {
+        width: '100%',
+        textAlign: 'center',
         fontSize: 18
     },
     versionText: {
+        width: '100%',
+        textAlign: 'center',
         fontSize: 16
     }
 

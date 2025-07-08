@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
+import { useTranslation } from 'react-i18next';
 import { saveProfileData } from '../api/profileService';
 import { TOAST_MESSAGE } from '../../../constants/MainConstant';
-import { useTranslation } from 'react-i18next';
 
 export const useSaveProfileAPI = () => {
   const [isLoading, setIsLoading] = useState(false);

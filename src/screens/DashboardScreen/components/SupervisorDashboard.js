@@ -169,12 +169,14 @@ const styles = StyleSheet.create({
       paddingVertical: 5,
       paddingHorizontal: 10,
       borderRadius: 6,
-      elevation: 3
+      elevation: 3,
+      width: '20%'
     },
     languageText: {
       fontSize: 14,
       fontWeight: 'bold',
       color: Colors.black,
+      textAlign: 'center'
     },
     roundImage: {
       width: 70,

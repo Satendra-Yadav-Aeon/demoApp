@@ -169,6 +169,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   setLocationText: {
+    width: '100%',
+    textAlign: 'center',
     color: Colors.white,
     fontWeight: 'bold',
   },

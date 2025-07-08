@@ -64,10 +64,11 @@ const styles = StyleSheet.create({
   name: {
     fontWeight: 'bold',
     fontSize: 18,
+    flex: 0.5,
+    flexWrap: 'wrap',
   },
   dataRow: {
     flexDirection: 'row',
-    gap: 10
   },
   editIcon: {
     height: 40,
@@ -77,11 +78,13 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 16,
     color: Colors.grey,
-    fontWeight: '700'
+    fontWeight: '700',
+    width: '35%'
   },
   dataText: {
+    flex: 1,
     fontSize: 16,
     color: Colors.black,
-    fontWeight: '700'
+    fontWeight: '700',
   }
 });

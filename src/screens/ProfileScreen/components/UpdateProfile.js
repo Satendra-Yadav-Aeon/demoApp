@@ -207,18 +207,19 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20
   },
-	submitButton: {
-		position: 'absolute',
-		top: 400,
+  submitButton: {
     width: screenWidth * 0.90,
     backgroundColor: Colors.red,
     padding: 15,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
+    marginBottom: 20,
     marginLeft: 20,
   },
   submitText: {
+    width: '100%',
+    textAlign: 'center',
     color: Colors.white,
     fontSize: 20,
     fontWeight: 'bold',

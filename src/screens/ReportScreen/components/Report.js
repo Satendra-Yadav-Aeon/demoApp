@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   launchText: {
+    width: '100%',
+    textAlign: 'center',
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.black

@@ -151,6 +151,8 @@ const styles = StyleSheet.create({
       alignItems  : 'center',
     },
     submitText: {
+      width: '100%',
+      textAlign: 'center',
       color: Colors.white,
       fontSize: 22
     },

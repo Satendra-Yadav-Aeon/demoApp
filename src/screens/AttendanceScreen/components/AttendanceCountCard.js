@@ -109,13 +109,13 @@ const styles = StyleSheet.create({
   },  
   card: {
     width: cardWidth,
-    height: cardHeight,
     backgroundColor: Colors.white,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 5,
-    margin:10
+    margin:10,
+    padding: 5
   },
   row: {
     flexDirection: 'row',
@@ -134,6 +134,8 @@ const styles = StyleSheet.create({
     gap: 10
   },
   dateText: {
+    flex: 0.3,
+    flexWrap: 'wrap',
     fontSize: 16,
     fontWeight: 'bold'
   },
@@ -146,6 +148,8 @@ const styles = StyleSheet.create({
     height: 60, 
   },
   cardHeaderText: {
+    width: '100%',
+    textAlign: 'center',
     marginTop: 5,
     fontSize: 16
   },

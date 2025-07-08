@@ -10,8 +10,7 @@ import { ROLES, SCREENS } from '../../../constants/MainConstant';
 
 const { screenHeight, screenWidth } = ScreenDimensions
 
-const cardWidth = screenWidth * 0.40;
-const cardHeight = screenHeight * 0.15;
+const cardWidth = screenWidth * 0.35;
 
 const EmployeeCategory = ({ role }) => {
   const navigation = useNavigation()
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: screenHeight * 0.02,
+    paddingTop: screenHeight * 0.03,
   },
   title: {
     fontSize: 20,
@@ -91,12 +90,13 @@ const styles = StyleSheet.create({
   },
   card: {
     width: cardWidth,
-    height: cardHeight,
     backgroundColor: Colors.white,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 5,
+    margin: 10,
+    padding: 5
   },
   cardText: {
     fontSize: 16,

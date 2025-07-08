@@ -376,6 +376,8 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   submitText: {
+    width: '100%',
+    textAlign: 'center',
     color: Colors.white,
     fontSize: 20,
     fontWeight: 'bold',
