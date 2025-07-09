@@ -11,7 +11,7 @@ import { isArrayLength } from '../../../utils/ValidationUtils';
 import ManageTaskCard from './ManageTaskCard';
 import useGetTaskDetailsAPI from '../hooks/useGetTaskDetailsAPI';
 
-const ManageTaskList = () => {
+const ManageTaskList = ({employee}) => {
   const navigation = useNavigation();
   const {taskData, refetchTaskDetails} = useGetTaskDetailsAPI()
   const[employeeData, setEmployeeData] = useState({})
@@ -27,18 +27,21 @@ const ManageTaskList = () => {
 
   useFocusEffect(
     React.useCallback(() => {
+      if(employee){
+        refetchTaskDetails({empId: employee?.empid});
+      }
       if(employeeData?.empid){
         refetchTaskDetails({empId: employeeData?.empid});
       }
-    }, [employeeData])
+    }, [employee, employeeData])
   );
 
   const handleAddEmployee = () => {
-    navigation.navigate(SCREENS.MANAGE_TASK_FORM, { mode: MANAGE_EMPLOYEE_CONSTANT.ADD_MODE, attendanceSelf: true });
+    navigation.navigate(SCREENS.MANAGE_TASK_FORM, { mode: MANAGE_EMPLOYEE_CONSTANT.ADD_MODE, attendanceSelf: !employee, });
   };
 
   const handleEditEmployee = (task) => {
-    navigation.navigate(SCREENS.MANAGE_TASK_FORM, { mode: MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE, task, attendanceSelf: true });
+    navigation.navigate(SCREENS.MANAGE_TASK_FORM, { mode: MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE, task, attendanceSelf: !employee });
   };
 
   const renderEmptyData = () => {

@@ -17,7 +17,6 @@ export const saveTaskData = async (payload) => {
   formData.append('taskStatus',taskStatus)
   formData.append('taskMode', taskMode);
   formData.append('assignBy',assignBy);
-  formData.append('imageName', imageName || '');
 
   if (imgfile) {
     const fileType = imgfile.substring(imgfile.lastIndexOf('.') + 1);
@@ -27,9 +26,7 @@ export const saveTaskData = async (payload) => {
       name: imageName,
       type: `image/${fileType}`, // e.g., image/jpeg or image/png
     });
-  }else {
-  formData.append('imgfile', '');
-}
+  }
 
   // console.log('===saveTaskData==>>>formData>>',formData);
   

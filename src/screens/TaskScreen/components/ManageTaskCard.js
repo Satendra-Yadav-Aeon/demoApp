@@ -25,8 +25,10 @@ const ManageTaskCard = ({ task, onEdit }) => {
   return (
     <View style={styles.card}>
       <View style={styles.row}>
-        {taskImageUri && (
+        {taskImageUri ? (
           <Image source={{uri: taskImageUri}} style={styles.roundImage}/>
+        ): (
+          <Image source={MyImages.noPhoto} style={styles.profileIcon}/>
         )}
         <TouchableOpacity onPress={() => onEdit(task)}>
           <Image source={MyImages.edit} style={styles.editIcon}/>
@@ -105,5 +107,9 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     borderWidth: 2,
     borderColor: Colors.red,
-  }
+  },
+  profileIcon: {
+    height: 50,
+    width: 50,
+  },
 });

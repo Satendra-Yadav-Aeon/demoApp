@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import { ADD_TASK_TITLE, END_DATE_CONSTANT, START_DATE_CONSTANT, TASK_DESCRIPTION_CONSTANT, TASK_NAME_CONSTANT, TASK_PHOTO_CONSTANT, UPDATE_TASK_TITLE } from '../constants/EmployeeTaskConstant';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
-import { getAsyncItem, removeAsyncItem } from '../../../utils/AsyncStorage';
+import { getAsyncItem } from '../../../utils/AsyncStorage';
 import { MANAGE_EMPLOYEE_CONSTANT } from '../../EmployeeScreen/constants/ManageEmployeeConstant';
 import MyImages from '../../../utils/MyImages';
 import { DATE_TIME_MODE, SCREENS, SMALL_LOADER } from '../../../constants/MainConstant';
@@ -26,9 +26,8 @@ const ManageTaskForm = () => {
   const route = useRoute();
   const { mode, task, attendanceSelf } = route.params || {};
   const { saveTask, isLoading } = useSaveTaskAPI();
-  const[capturedImageUri, setCapturedImageUri] = useState()
   const[employeeData, setEmployeeData] = useState({})
-  const isTaskCompleted = mode === MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE && !!task?.endDatetime;
+  const isTaskCompleted = task?.taskStatus === '2';
   const { control, handleSubmit, setValue, reset, formState: { errors } } = useForm({
     defaultValues: {
       [TASK_NAME_CONSTANT.NAME]: '',
@@ -50,29 +49,34 @@ const ManageTaskForm = () => {
 
   useFocusEffect(
     React.useCallback(() => {
-        const loadTaskImage = async () => {
-          if (!employeeData?.empid) return;
-          const key = `${ASYNC_CONSTANT.TASK_IMGAE}_${employeeData.empid}`;
-          const capturedUri = await getAsyncItem(key);
-          if(mode === MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE && task?.imageName){
-            const backendUri = `${BaseConfigUrl.BASE_TASK_IMAGE_URL}${task?.empId}/${task?.imageName}`
-            if(backendUri){
-              setValue(TASK_PHOTO_CONSTANT.NAME, backendUri)
-            } else if (capturedUri) {
-              setValue(TASK_PHOTO_CONSTANT.NAME, capturedUri);
-            }
-          }
-          if (mode === MANAGE_EMPLOYEE_CONSTANT.ADD_MODE) {
-            await removeAsyncItem(key);
+      const loadTaskImage = async () => {
+        if (!employeeData?.empid) return;
+
+        const key = `${ASYNC_CONSTANT.TASK_IMGAE}_${task?.taskId}`;
+        const capturedUri = await getAsyncItem(key);
+        // console.log('====ManageTaskForm===>>capturedUri>>>>>>', capturedUri);
+        if (mode === MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE) {
+          if (task?.imageName) {
+            const backendUri = `${BaseConfigUrl.BASE_TASK_IMAGE_URL}${task?.empId}/${task?.imageName}`;
+            setValue(TASK_PHOTO_CONSTANT.NAME, backendUri);
+          } else if (capturedUri) {
+            setValue(TASK_PHOTO_CONSTANT.NAME, capturedUri);
+          } else {
             setValue(TASK_PHOTO_CONSTANT.NAME, '');
           }
-        };
-        
-          loadTaskImage();
-      }, [employeeData])
-  );
+        } else if (mode === MANAGE_EMPLOYEE_CONSTANT.ADD_MODE) {
+          if (capturedUri) {
+            setValue(TASK_PHOTO_CONSTANT.NAME, capturedUri);
+          } else {
+            setValue(TASK_PHOTO_CONSTANT.NAME, '');
+          }
+        }
+      };
 
-  // console.log('=====ManageTaskForm==>loadTaskImage>>>>',capturedImageUri);
+      loadTaskImage();
+    }, [employeeData, mode, task?.imageName])
+);
+
   // console.log('===ManageTaskForm======employeeData>>>>>>',employeeData);
   // console.log('====ManageTaskForm====>task>>>>',task);
   // console.log('====ManageTaskForm====>isTaskCompleted>>>>',isTaskCompleted);
@@ -97,26 +101,22 @@ const ManageTaskForm = () => {
     // console.log('==onSubmit====ManageTaskForm==>data>>>>',data);
     const empId = attendanceSelf ? employeeData?.empid : employee?.userId;
     const roleId = attendanceSelf ? employeeData?.role : employee?.role;
+    const photoUri = data?.photo || '';
     const photoName = data?.photo ? imageNameUtils(employeeData?.empid) : '';
     const saveData = {
-      taskId: 0,
-      empId: empId,//not sure
-      roleId: roleId, //not sure
+      taskId: task?.taskId || 0,
+      empId: task?.empId || empId,
+      roleId: roleId,
       taskName: data?.title,  
       taskDesc: data?.description,
       startDatetime: data?.startDate,
-      endDatetime: data?.endDate,
-      imgfile: data?.photo || '',
-      imageName: photoName || '',
-      taskStatus: 1,
+      endDatetime: data?.endDate || '',
+      imgfile: photoUri,
+      imageName: photoName,
+      taskStatus: data?.endDate ? 2 : 1,
       taskMode: attendanceSelf ? 1 : 2,
       assignBy: attendanceSelf ? 'Self' : employeeData?.empid
     }
-    if (mode === MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE && employee?.empid) {
-    saveData.taskId = task?.taskId;
-    saveData.empId = task?.empId;
-    saveData.taskStatus = task?.endDatetime ? 2 : 1;
-  }
     // console.log('==onSubmit====ManageTaskForm==>saveData>>>>',saveData);
     const response = saveTask(saveData);
     if(response){
@@ -214,7 +214,7 @@ const ManageTaskForm = () => {
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate(SCREENS.CAPTURE_IMAGE, {
-                      employeeData,
+                      task,
                       mode: 'task_mode',
                     });
                   }}

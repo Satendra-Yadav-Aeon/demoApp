@@ -23,7 +23,8 @@ const MyImages = {
     flip: require('../assets/images/flip.png'),
     rightArrow: require('../assets/images/right-arrow.png'),
     termsConditions: require('../assets/html/attendrixTermsConditions.html'),
-    privacyPolicy: require('../assets/html/attendrixPrivacyPolicy.html')
+    privacyPolicy: require('../assets/html/attendrixPrivacyPolicy.html'),
+    noPhoto: require('../assets/images/no-camera.png')
 }
 
 export default MyImages;
