@@ -19,6 +19,7 @@ export const SCREENS = {
     CHANGE_PASSWORD: 'ChangePassword',
     CAPTURE_IMAGE: 'CaptureImage',
     MANAGE_TASK_FORM: 'ManageTaskForm',
+    ADMIN_TASK: 'AdminTask',
 }
 export const AM_TIME_LABEL = 'AM';
 export const PM_TIME_LABEL = 'PM';

@@ -8,7 +8,9 @@ export const CATERGORY_CONSTANT = {
     EMPLOYEES: 'EMPLOYEES',
     MARK_ATTENDANCE: 'MARK_ATTENDANCE',
     MY_ATTENDANCE: 'MY_ATTENDANCE',
-    MY_TASK: 'MY_TASK'
+    MY_TASK: 'MY_TASK',
+    EMPLOYEE_TASK: 'Employee Task',
 }
 export const MANAGE_TASK = 'Manage Task';
 export const SELF_TASK = 'Self Task';
+export const CHECK_TASK = 'Check Task';

@@ -23,6 +23,7 @@ const EmployeeCategory = ({ role }) => {
           { id: '1', title: t(CATERGORY_CONSTANT.ATTENDANCE), screen: SCREENS.ADMIN_ATTENDANCE, icon: MyImages.attendance },
           { id: '2', title: t(CATERGORY_CONSTANT.REPORTS), screen: SCREENS.REPORT, icon: MyImages.report },
           { id: '3', title: t(CATERGORY_CONSTANT.EMPLOYEES), screen: SCREENS.MANAGE_EMPLOYEE, icon: MyImages.employee },
+          { id: '3', title: t(CATERGORY_CONSTANT.EMPLOYEE_TASK), screen: SCREENS.ADMIN_TASK, icon: MyImages.task },
         ];
       case ROLES.SUPERVISOR:
         return [

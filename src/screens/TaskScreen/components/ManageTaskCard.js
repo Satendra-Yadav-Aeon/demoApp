@@ -12,7 +12,7 @@ const { screenWidth } = ScreenDimensions
 
 const cardWidth = screenWidth * 0.95;
 
-const ManageTaskCard = ({ task, onEdit }) => {
+const ManageTaskCard = ({ task, onEdit, employee }) => {
   const {t} = useTranslation()
   const[taskImageUri, setTaskImageUri] = useState()
 
@@ -30,9 +30,11 @@ const ManageTaskCard = ({ task, onEdit }) => {
         ): (
           <Image source={MyImages.noPhoto} style={styles.profileIcon}/>
         )}
-        <TouchableOpacity onPress={() => onEdit(task)}>
-          <Image source={MyImages.edit} style={styles.editIcon}/>
-        </TouchableOpacity>
+        {!employee?.admnId && (
+          <TouchableOpacity onPress={() => onEdit(task)}>
+            <Image source={MyImages.edit} style={styles.editIcon}/>
+          </TouchableOpacity>
+        )}
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(EMPLOYEE_TASK_CONSTANT.TITLE)}</Text>

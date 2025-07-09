@@ -19,8 +19,9 @@ const ManageTaskList = ({employee}) => {
   useFocusEffect(
     React.useCallback(() => {
       const fetchAndRefetch = async () => {
-        if (employee?.userId) {
-          refetchTaskDetails({ empId: employee.userId });
+        if (employee?.userId || employee?.empid) {
+          const empId = employee?.userId || employee?.empid;
+          refetchTaskDetails({ empId });
         } else {
           const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
           setEmployeeData(data);
@@ -52,15 +53,17 @@ const ManageTaskList = ({employee}) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.addIcon} onPress={handleAddEmployee}>
-        <Image source={MyImages.add} style={styles.addIconStyle}/>
-      </TouchableOpacity>
+      {!employee?.admnId && (
+        <TouchableOpacity style={styles.addIcon} onPress={handleAddEmployee}>
+          <Image source={MyImages.add} style={styles.addIconStyle}/>
+        </TouchableOpacity>
+      )}
       {isArrayLength(taskData) ? (
         <FlatList
           data={taskData}
           keyExtractor={(item) => item?.taskId}
           renderItem={({ item }) => (
-            <ManageTaskCard task={item} onEdit={handleEditEmployee} />
+            <ManageTaskCard task={item} onEdit={handleEditEmployee} employee={employee}/>
           )}
         />
       ) : (
