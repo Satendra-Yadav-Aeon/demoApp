@@ -31,7 +31,7 @@ const SupervisorAttendance = () => {
       <View style={styles.secondHalf}>
         <TouchableOpacity style={styles.card} onPress={handleTask}>
           <Image source={MyImages.add} style={styles.icon}/>
-          <Text style={styles.cardText}>{SELF_TASK}</Text>
+          <Text style={styles.cardText}>{t(SELF_TASK)}</Text>
         </TouchableOpacity>
         <MarkAttendanceEmployeeList/>
       </View>

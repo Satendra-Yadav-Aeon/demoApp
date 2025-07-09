@@ -20,7 +20,7 @@
     "ATTENDANCE": "उपस्थिती",
     "REPORTS": "अहवाल",
     "EMPLOYEES": "कर्मचारी",
-    "MARK_ATTENDANCE": "उपस्थिती नोंदवा",
+    "MARK_ATTENDANCE": "हजेरी व कार्य नोंदवा",
     "MY_ATTENDANCE": "माझी उपस्थिती",
     "MY_TASK": "माझं काम",
     "MY_ATTENDANCE_TITLE": "माझी उपस्थिती",
@@ -105,5 +105,45 @@
     "SUCCESS_TEXT": "यशस्वी",
     "ERROR_TEXT": "त्रुटी",
     "SUCCESS_MSG": "यशस्वीरित्या जतन केले",
-    "ERROR_MSG": "काहीतरी चुकले"
+    "ERROR_MSG": "काहीतरी चुकले",
+    "EMPLOYEE_TASK": "कर्मचारी कार्य",
+    "CHECK_TASK": "कार्य तपासा",
+    "EMPLOYEE_TASK_TITLE": "माझे कार्य",
+    "SUPERVISOR_TASK_TITLE": "कर्मचारी कार्य",
+    "EMPLOYEE_TASK_CONSTANT": {
+        "TITLE": "शीर्षक",
+        "DESCRIPTION": "वर्णन",
+        "START_DATE": "प्रारंभ तारीख",
+        "END_DATE": "शेवटची तारीख",
+        "STATUS": "स्थिती",
+        "PHOTO": "फोटो"
+    },
+    "TASK_NAME_CONSTANT": {
+        "LABEL": "शीर्षक",
+        "PLACEHOLDER": "शीर्षक प्रविष्ट करा",
+        "REQUIRED_ERROR": "शीर्षक आवश्यक आहे"
+    },
+    "TASK_DESCRIPTION_CONSTANT": {
+        "LABEL": "वर्णन",
+        "PLACEHOLDER": "वर्णन प्रविष्ट करा"
+    },
+    "START_DATE_CONSTANT": {
+        "LABEL": "प्रारंभ दिनांक",
+        "PLACEHOLDER": "प्रारंभ दिनांक निवडा",
+        "REQUIRED_ERROR": "प्रारंभ दिनांक आवश्यक आहे"
+    },
+    "END_DATE_CONSTANT": {
+        "LABEL": "समाप्ती दिनांक",
+        "PLACEHOLDER": "समाप्ती दिनांक निवडा"
+    },
+    "TASK_PHOTO_CONSTANT": {
+        "LABEL": "फोटो",
+        "PLACEHOLDER": "कार्याचा फोटो घ्या"
+    },
+    "SELF_TASK": "स्वतःचे कार्य",
+    "MANAGE_TASK": "कार्य व्यवस्थापन",
+    "ADD_TASK_TITLE": "कार्य जोडा",
+    "UPDATE_TASK_TITLE": "कार्य अद्ययावत करा"
+
+
 }

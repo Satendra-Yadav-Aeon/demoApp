@@ -65,7 +65,7 @@ const AdminTaskCard = ({ employee }) => {
         <Text style={styles.dataText}>{employee?.address}</Text>
       </View>
       <TouchableOpacity style={styles.setLocationButton} onPress={handleTask}>
-        <Text style={styles.setLocationText}>{CHECK_TASK}</Text>
+        <Text style={styles.setLocationText}>{t(CHECK_TASK)}</Text>
       </TouchableOpacity>
     </View>
   );

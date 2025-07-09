@@ -109,7 +109,7 @@ const MarkAttendanceEmployeeCard = ({ employee }) => {
         <Text style={styles.setLocationText}>{isCheckIn ? t(CHECK_IN_LABEL) : t(CHECK_OUT_LABEL)}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.setLocationButton} onPress={handleTask}>
-        <Text style={styles.setLocationText}>{MANAGE_TASK}</Text>
+        <Text style={styles.setLocationText}>{t(MANAGE_TASK)}</Text>
       </TouchableOpacity>
     </View>
   );

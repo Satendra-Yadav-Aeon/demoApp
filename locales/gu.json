@@ -20,7 +20,7 @@
     "ATTENDANCE": "હાજરી",
     "REPORTS": "રિપોર્ટ્સ",
     "EMPLOYEES": "કર્મચારીઓ",
-    "MARK_ATTENDANCE": "હાજરી નોંધો",
+    "MARK_ATTENDANCE": "હાજરી અને કાર્ય નોંધાવો",
     "MY_ATTENDANCE": "મારી હાજરી",
     "MY_TASK": "મારું કાર્ય",
     "MY_ATTENDANCE_TITLE": "મારી હાજરી",
@@ -105,5 +105,45 @@
     "SUCCESS_TEXT": "સફળતા",
     "ERROR_TEXT": "ભૂલ",
     "SUCCESS_MSG": "સફળતાપૂર્વક સાચવાયું",
-    "ERROR_MSG": "કંઈક ખોટું થયું"
+    "ERROR_MSG": "કંઈક ખોટું થયું",
+    "EMPLOYEE_TASK": "કર્મચારી કાર્ય",
+    "CHECK_TASK": "કાર્ય તપાસો",
+    "EMPLOYEE_TASK_TITLE": "મારું કાર્ય",
+    "SUPERVISOR_TASK_TITLE": "કર્મચારી કાર્ય",
+    "EMPLOYEE_TASK_CONSTANT": {
+        "TITLE": "શીર્ષક",
+        "DESCRIPTION": "વિવરણ",
+        "START_DATE": "શરૂઆત તારીખ",
+        "END_DATE": "અંત તારીખ",
+        "STATUS": "સ્થિતિ",
+        "PHOTO": "ફોટો"
+    },
+    "TASK_NAME_CONSTANT": {
+        "LABEL": "શીર્ષક",
+        "PLACEHOLDER": "શીર્ષક દાખલ કરો",
+        "REQUIRED_ERROR": "શીર્ષક જરૂરી છે"
+    },
+    "TASK_DESCRIPTION_CONSTANT": {
+        "LABEL": "વિવરણ",
+        "PLACEHOLDER": "વિવરણ દાખલ કરો"
+    },
+    "START_DATE_CONSTANT": {
+        "LABEL": "શરૂઆતની તારીખ",
+        "PLACEHOLDER": "શરૂઆતની તારીખ પસંદ કરો",
+        "REQUIRED_ERROR": "શરૂઆતની તારીખ જરૂરી છે"
+    },
+    "END_DATE_CONSTANT": {
+        "LABEL": "અંતિમ તારીખ",
+        "PLACEHOLDER": "અંતિમ તારીખ પસંદ કરો"
+    },
+    "TASK_PHOTO_CONSTANT": {
+        "LABEL": "ફોટો",
+        "PLACEHOLDER": "કાર્યનું ફોટો કેપ્ચર કરો"
+    },
+    "SELF_TASK": "ખુદનું કાર્ય",
+    "MANAGE_TASK": "કાર્ય વ્યવસ્થાપન",
+    "ADD_TASK_TITLE": "કાર્ય ઉમેરો",
+    "UPDATE_TASK_TITLE": "કાર્ય અપડેટ કરો"
+
+
 }

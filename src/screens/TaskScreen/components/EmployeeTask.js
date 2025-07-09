@@ -20,7 +20,7 @@ const EmployeeTask = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon}/>
         </TouchableOpacity>
-        <Text style={styles.title}>{employee ? SUPERVISOR_TASK_TITLE : EMPLOYEE_TASK_TITLE}</Text>
+        <Text style={styles.title}>{employee ? t(SUPERVISOR_TASK_TITLE) : t(EMPLOYEE_TASK_TITLE)}</Text>
       </View>
       <View style={styles.secondHalf}>
         <ManageTaskList employee={employee}/>

@@ -16,9 +16,10 @@ const CustomDatePicker = ({ label, value, onChange, error, minimumDate, placehol
     const dd = pad(date.getDate());
     const hh = pad(date.getHours());
     const min = pad(date.getMinutes());
+    const ss = pad(date.getSeconds());
 
     if (mode === 'date') return `${yyyy}-${mm}-${dd}`;
-    return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
+    return `${dd}-${mm}-${yyyy} ${hh}:${min}:${ss}`;
   };
 
 

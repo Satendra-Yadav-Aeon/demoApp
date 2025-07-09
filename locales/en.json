@@ -20,7 +20,7 @@
     "ATTENDANCE": "Attendance",
     "REPORTS": "Reports",
     "EMPLOYEES": "Employees",
-    "MARK_ATTENDANCE": "Mark Attendance",
+    "MARK_ATTENDANCE": "Mark Attendance & Task",
     "MY_ATTENDANCE": "My Attendance",
     "MY_TASK": "My Task",
     "MY_ATTENDANCE_TITLE": "My Attendance",
@@ -105,5 +105,44 @@
     "SUCCESS_TEXT": "Success",
     "ERROR_TEXT": "Error",
     "SUCCESS_MSG": "Saved successfully",
-    "ERROR_MSG": "Something went wrong"
+    "ERROR_MSG": "Something went wrong",
+    "EMPLOYEE_TASK": "Employee Task",
+    "CHECK_TASK": "Check Task",
+    "EMPLOYEE_TASK_TITLE": "My Task",
+    "SUPERVISOR_TASK_TITLE": "Employee Task",
+    "EMPLOYEE_TASK_CONSTANT": {
+        "TITLE": "Title",
+        "DESCRIPTION": "Description",
+        "START_DATE": "Start Date",
+        "END_DATE": "End Date",
+        "STATUS": "Status",
+        "PHOTO": "Photo"
+    },
+    "TASK_NAME_CONSTANT": {
+        "LABEL": "Title",
+        "PLACEHOLDER": "Enter Title",
+        "REQUIRED_ERROR": "Title is required"
+    },
+    "TASK_DESCRIPTION_CONSTANT": {
+        "LABEL": "Description",
+        "PLACEHOLDER": "Enter Description"
+    },
+    "START_DATE_CONSTANT": {
+        "LABEL": "Start Date",
+        "PLACEHOLDER": "Select Start Date",
+        "REQUIRED_ERROR": "Start Date is required"
+    },
+    "END_DATE_CONSTANT": {
+        "LABEL": "End Date",
+        "PLACEHOLDER": "Select End Date"
+    },
+    "TASK_PHOTO_CONSTANT": {
+        "LABEL": "Photo",
+        "PLACEHOLDER": "Capture Task Photo"
+    },
+    "SELF_TASK": "Self Task",
+    "MANAGE_TASK": "Manage Task",
+    "ADD_TASK_TITLE": "Add Task",
+    "UPDATE_TASK_TITLE": "Update Task"
+    
 }
