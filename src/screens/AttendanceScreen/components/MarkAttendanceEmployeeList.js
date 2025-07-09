@@ -2,21 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet, Image } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import MarkAttendanceEmployeeCard from './MarkAttendanceEmployeeCard';
-import { ManageEmployeeData } from '../../EmployeeScreen/constants/ManageEmployeeData';
 import Colors from '../../../assets/colors/colors';
-import { ATTENDANCE_CONSTANT } from '../constants/AttendanceConstant';
 import MyImages from '../../../utils/MyImages';
 import { isArrayLength } from '../../../utils/ValidationUtils';
 import useGetSupervisorsEmployeeAPI from '../hooks/useGetSupervisorsEmployeeAPI';
 import { getAsyncItem } from '../../../utils/AsyncStorage';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 
-
-
 const MarkAttendanceEmployeeList = () => {
   const {supervisorsEmployeeList, refetchSupervisorEmployeeList} = useGetSupervisorsEmployeeAPI();
   const[employeeData, setEmployeeData] = useState({})
-  // const filterEmployeeData = ManageEmployeeData?.filter(item => item.role === ATTENDANCE_CONSTANT.EMPLOYEE_ROLE)
 
   useEffect(() => {
     fetchAsyncData();
@@ -32,9 +27,6 @@ const MarkAttendanceEmployeeList = () => {
       refetchSupervisorEmployeeList({userId: employeeData?.empid});
     }, [employeeData])
   );
-
-  console.log('==MarkAttendanceEmployeeList===>supervisorsEmployeeList>>>>',supervisorsEmployeeList, employeeData?.empid);
-  
 
   const renderEmptyData = () => {
     return(
@@ -69,7 +61,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bgColor,
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 20
   },
   addIcon: {

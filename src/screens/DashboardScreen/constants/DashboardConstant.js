@@ -11,3 +11,4 @@ export const CATERGORY_CONSTANT = {
     MY_TASK: 'MY_TASK'
 }
 export const MANAGE_TASK = 'Manage Task';
+export const SELF_TASK = 'Self Task';
