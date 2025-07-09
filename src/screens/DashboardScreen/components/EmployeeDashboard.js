@@ -68,7 +68,7 @@ const EmployeeDashboard = () => {
       }, [employeeDetails, employeeData])
   );
    
-    console.log('====EmployeeDashboard===>>>empAttendance>>>>',empAttendance);
+    // console.log('====EmployeeDashboard===>>>empAttendance>>>>',employeeData);
 
   return (
     <View style={styles.container}>

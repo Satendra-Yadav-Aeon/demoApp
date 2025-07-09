@@ -17,7 +17,8 @@ export const SCREENS = {
     PRIVACY_POLICY: 'PrivacyPolicy',
     UPDATE_PROFILE: 'UpdateProfile',
     CHANGE_PASSWORD: 'ChangePassword',
-    CAPTURE_IMAGE: 'CaptureImage'
+    CAPTURE_IMAGE: 'CaptureImage',
+    MANAGE_TASK_FORM: 'ManageTaskForm',
 }
 export const AM_TIME_LABEL = 'AM';
 export const PM_TIME_LABEL = 'PM';
@@ -49,6 +50,7 @@ export const MAP_CONSTANT = {
     LOCATION_PERMISSSION_DENIED: 'Location permission not granted'
 }
 export const DATE_MODE = 'date'
+export const DATE_TIME_MODE = 'datetime'
 export const IOS_PLATFORM = 'ios'
 export const DISPLAY_SPINNER = 'spinner'
 export const DISPLAY_DEFAULT = 'default'

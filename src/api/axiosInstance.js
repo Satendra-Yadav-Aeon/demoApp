@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { BaseConfigUrl } from '../env/BaseConfigUrl';
+import { getAsyncItem } from '../utils/AsyncStorage';
+import { ASYNC_CONSTANT } from '../constants/AsyncConstant';
 
 const axiosInstance = axios.create({
   baseURL: BaseConfigUrl.BASE_URL,
@@ -7,17 +9,22 @@ const axiosInstance = axios.create({
 });
 
 // Request interceptor
-axiosInstance.interceptors.request.use(config => {
-  const token = '';
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  const fullUrl = `${config.baseURL}${config.url}`;
-  // console.log('[REQUEST]', config.method?.toUpperCase(), fullUrl);
-  return config;
-}, error => {
-    return Promise.reject(error);
-  });
+axiosInstance.interceptors.request.use(
+  async config => {
+    try {
+      const loginDataStr = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+      const token = loginDataStr?.token;
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } catch (err) {
+      // console.error('====axiosInstance====>failed to get token>>>>>>>>>>', err);
+    }
+
+    return config;
+  },
+  error => Promise.reject(error)
+);
 
 // Response interceptor
 axiosInstance.interceptors.response.use(

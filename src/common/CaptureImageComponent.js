@@ -14,7 +14,7 @@ const { screenHeight, screenWidth } = ScreenDimensions;
 const CaptureImageComponent = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { employeeData } = route.params || {};
+  const { employeeData, mode } = route.params || {};
   const [imageUri, setImageUri] = useState(null);
 
   const handleCameraLaunch = () => {
@@ -52,7 +52,12 @@ const CaptureImageComponent = () => {
             );
 
             setImageUri(resizedImage.uri);
-            const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`;
+            // const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`;
+            const key =
+              mode === 'task_mode'
+                ? `${ASYNC_CONSTANT.TASK_IMGAE}_${employeeData?.empid}`
+                : `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`;
+
             await setAsyncItem(key, resizedImage.uri);
 
             // Give some time to ensure image is saved

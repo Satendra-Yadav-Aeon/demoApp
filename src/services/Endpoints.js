@@ -16,4 +16,6 @@ export const Endpoints = {
     MARK_ATTENDANCE: '/Attendance/markAttendance',
     GET_ADMIN_ATTENDANCE_COUNT: '/Attendance/GetAttCountDtlsAd',
     CHANGE_PASSWORD: '/Employee/ChangePassword',
+    SAVE_TASK: 'Task/insUpdEmployeeTask',
+    GET_TASK_DETAILS: 'Task/GetTaskDtlsForEmp',
 }

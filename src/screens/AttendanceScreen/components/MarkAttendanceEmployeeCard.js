@@ -69,15 +69,14 @@ const MarkAttendanceEmployeeCard = ({ employee }) => {
     });
   };
 
-  console.log('====MarkAttendanceEmployeeCard======employee=>>>>>>>',employee);
-  console.log('====MarkAttendanceEmployeeCard======attendanceImageUri=>>>>>>>',attendanceImageUri);
+  // console.log('====MarkAttendanceEmployeeCard======employee=>>>>>>>',employee);
+  // console.log('====MarkAttendanceEmployeeCard======attendanceImageUri=>>>>>>>',attendanceImageUri);
   
 
   return (
     <View style={styles.card}>
       <View style={styles.row}>
         <Text style={styles.name}>{employee?.name}</Text>
-        {/* <Image source={MyImages.profile} style={styles.profileIcon}/> */}
         {attendanceImageUri ? (
           <Image source={{uri: attendanceImageUri}} style={styles.roundImage}/>
         ) : (
@@ -166,9 +165,8 @@ const styles = StyleSheet.create({
   roundImage: {
     width: 50,
     height: 50,
-    borderRadius: 25, // Half of width/height
+    borderRadius: 25,
     borderWidth: 2,
     borderColor: Colors.red,
-    // marginTop: 10
   }
 });

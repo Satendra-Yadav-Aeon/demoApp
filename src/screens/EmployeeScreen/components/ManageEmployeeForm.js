@@ -50,21 +50,8 @@ const ManageEmployeeForm = () => {
     control,
     name: ROLE_CONSTANT.NAME,
   });
-
-  // const adminListOptions = [
-  //   { label: 'Sales', value: 'Sales' },
-  //   { label: 'HR', value: 'HR' },
-  //   { label: 'Electrical', value: 'Electrical' },
-  // ];
-
-  // const supervisorListOptions = [
-  //   { label: 'Mechanical', value: 'Mechanical' },
-  //   { label: 'Maintenance', value: 'Maintenance' },
-  //   { label: 'Megawork', value: 'Megawork' },
-  // ];
-  
-  console.log('===ManageEmployeeForm======employeeData>>>>>>',employeeData);
-  console.log('===ManageEmployeeForm======supervisorList>>>>>>',supervisorList);
+  // console.log('===ManageEmployeeForm======employeeData>>>>>>',employeeData);
+  // console.log('===ManageEmployeeForm======supervisorList>>>>>>',supervisorList);
   
 
   const roleOptions = employeeRole?.map(role => ({

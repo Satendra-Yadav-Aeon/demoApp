@@ -42,21 +42,21 @@ const UpdateProfile = () => {
 	}, [employeeData, reset]);
 
   useFocusEffect(
-      React.useCallback(() => {
-          const loadProfileImage = async () => {
-            if(employeeData?.empid){
-              const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`
-              const uri = await getAsyncItem(key);
-              if (uri) {
-                setCapturedImageUri(uri);
-              }
+    React.useCallback(() => {
+        const loadProfileImage = async () => {
+          if(employeeData?.empid){
+            const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`
+            const uri = await getAsyncItem(key);
+            if (uri) {
+              setCapturedImageUri(uri);
             }
-            
-          };
+          }
           
-            loadProfileImage();
-        }, [employeeData])
-    );
+        };
+        
+          loadProfileImage();
+      }, [employeeData])
+  );
 
 
 	// console.log('==UpdateProfile======employeeData>>>>>>>',employeeData);

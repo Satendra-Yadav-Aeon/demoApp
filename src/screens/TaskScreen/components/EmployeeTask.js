@@ -1,14 +1,26 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import { LAUNCHING_SOON } from '../../../constants/MainConstant';
-import Colors from '../../../assets/colors/colors';
+import { EMPLOYEE_TASK_TITLE } from '../constants/EmployeeTaskConstant'
+import MyImages from '../../../utils/MyImages'
+import Colors from '../../../assets/colors/colors'
+import ManageTaskList from './ManageTaskList'
 
 const EmployeeTask = () => {
-  const {t} = useTranslation();
+  const navigation = useNavigation()
+  const {t} = useTranslation()
   return (
     <View style={styles.container}>
-      <Text style={styles.launchText}>{t(LAUNCHING_SOON)}</Text>
+      <View style={styles.firstHalf}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image source={MyImages.goBack} style={styles.goBackIcon}/>
+        </TouchableOpacity>
+        <Text style={styles.title}>{EMPLOYEE_TASK_TITLE}</Text>
+      </View>
+      <View style={styles.secondHalf}>
+        <ManageTaskList/>
+      </View>
     </View>
   )
 }
@@ -17,15 +29,33 @@ export default EmployeeTask
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flex:1,
+    backgroundColor: Colors.red,
   },
-  launchText: {
-    width: '100%',
-    textAlign: 'center',
-    fontSize: 18,
+  firstHalf: {
+    flex:1,
+    backgroundColor: Colors.red,
+    justifyContent: 'center',
+  },
+  secondHalf: {
+    flex:5,
+    backgroundColor: Colors.bgColor,
+    borderTopStartRadius: 30,
+    borderTopEndRadius: 30,
+    borderColor: Colors.bgColor,
+  },
+  title: {
+    fontSize: 20,
     fontWeight: 'bold',
-    color: Colors.black
+    color: Colors.white,
+    marginBottom: 10,
+    marginLeft: 10,
+    textAlign: 'center',
+  },
+  goBackIcon: {
+    width: 30,
+    height: 30,
+    tintColor: Colors.white,
+    marginLeft: 10,
   }
 })
