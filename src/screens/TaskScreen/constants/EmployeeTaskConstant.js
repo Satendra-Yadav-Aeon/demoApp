@@ -1,4 +1,5 @@
 export const EMPLOYEE_TASK_TITLE = 'My Task'
+export const SUPERVISOR_TASK_TITLE = 'Employee Task'
 export const ADD_TASK_TITLE = 'Add Task'
 export const UPDATE_TASK_TITLE = 'Update Task'
 export const EMPLOYEE_TASK_CONSTANT = {

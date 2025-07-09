@@ -24,7 +24,7 @@ const ManageTaskForm = () => {
   const navigation = useNavigation()
   const {t} = useTranslation()
   const route = useRoute();
-  const { mode, task, attendanceSelf } = route.params || {};
+  const { mode, task, attendanceSelf, employee} = route.params || {};
   const { saveTask, isLoading } = useSaveTaskAPI();
   const[employeeData, setEmployeeData] = useState({})
   const isTaskCompleted = task?.taskStatus === '2';
@@ -100,7 +100,7 @@ const ManageTaskForm = () => {
   const onSubmit = (data) => {
     // console.log('==onSubmit====ManageTaskForm==>data>>>>',data);
     const empId = attendanceSelf ? employeeData?.empid : employee?.userId;
-    const roleId = attendanceSelf ? employeeData?.role : employee?.role;
+    const roleId = attendanceSelf ? employeeData?.role : employee?.roleId;
     const photoUri = data?.photo || '';
     const photoName = data?.photo ? imageNameUtils(employeeData?.empid) : '';
     const saveData = {

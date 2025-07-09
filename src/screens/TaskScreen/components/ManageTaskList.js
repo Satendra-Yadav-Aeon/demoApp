@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { getAsyncItem } from '../../../utils/AsyncStorage';
@@ -16,32 +16,30 @@ const ManageTaskList = ({employee}) => {
   const {taskData, refetchTaskDetails} = useGetTaskDetailsAPI()
   const[employeeData, setEmployeeData] = useState({})
 
-  useEffect(() => {
-    fetchAsyncData();
-  },[])
-
-  const fetchAsyncData = async() => {
-    const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
-    setEmployeeData(data)
-  }
-
   useFocusEffect(
     React.useCallback(() => {
-      if(employee){
-        refetchTaskDetails({empId: employee?.empid});
-      }
-      if(employeeData?.empid){
-        refetchTaskDetails({empId: employeeData?.empid});
-      }
-    }, [employee, employeeData])
+      const fetchAndRefetch = async () => {
+        if (employee?.userId) {
+          refetchTaskDetails({ empId: employee.userId });
+        } else {
+          const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
+          setEmployeeData(data);
+          if (data?.empid) {
+            refetchTaskDetails({ empId: data.empid });
+          }
+        }
+      };
+
+      fetchAndRefetch();
+    }, [employee])
   );
 
   const handleAddEmployee = () => {
-    navigation.navigate(SCREENS.MANAGE_TASK_FORM, { mode: MANAGE_EMPLOYEE_CONSTANT.ADD_MODE, attendanceSelf: !employee, });
+    navigation.navigate(SCREENS.MANAGE_TASK_FORM, { mode: MANAGE_EMPLOYEE_CONSTANT.ADD_MODE, attendanceSelf: !employee, employee });
   };
 
   const handleEditEmployee = (task) => {
-    navigation.navigate(SCREENS.MANAGE_TASK_FORM, { mode: MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE, task, attendanceSelf: !employee });
+    navigation.navigate(SCREENS.MANAGE_TASK_FORM, { mode: MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE, task, attendanceSelf: !employee , employee });
   };
 
   const renderEmptyData = () => {

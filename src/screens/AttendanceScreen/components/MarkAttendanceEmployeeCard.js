@@ -7,7 +7,7 @@ import { MANAGE_EMPLOYEE_CONSTANT } from '../../EmployeeScreen/constants/ManageE
 import Colors from '../../../assets/colors/colors';
 import MyImages from '../../../utils/MyImages';
 import { SCREENS } from '../../../constants/MainConstant';
-import { CHECK_IN_LABEL, CHECK_OUT_LABEL } from '../../DashboardScreen/constants/DashboardConstant';
+import { CHECK_IN_LABEL, CHECK_OUT_LABEL, MANAGE_TASK } from '../../DashboardScreen/constants/DashboardConstant';
 import { BaseConfigUrl } from '../../../env/BaseConfigUrl';
 import { getAsyncItem, setAsyncItem } from '../../../utils/AsyncStorage';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
@@ -69,6 +69,12 @@ const MarkAttendanceEmployeeCard = ({ employee }) => {
     });
   };
 
+  const handleTask = () => {
+    navigation.navigate(SCREENS.EMPLOYEE_TASK, {
+      employee,
+    });
+  };
+
   // console.log('====MarkAttendanceEmployeeCard======employee=>>>>>>>',employee);
   // console.log('====MarkAttendanceEmployeeCard======attendanceImageUri=>>>>>>>',attendanceImageUri);
   
@@ -101,6 +107,9 @@ const MarkAttendanceEmployeeCard = ({ employee }) => {
       </View>
       <TouchableOpacity style={styles.setLocationButton} onPress={handleCheckPress}>
         <Text style={styles.setLocationText}>{isCheckIn ? t(CHECK_IN_LABEL) : t(CHECK_OUT_LABEL)}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.setLocationButton} onPress={handleTask}>
+        <Text style={styles.setLocationText}>{MANAGE_TASK}</Text>
       </TouchableOpacity>
     </View>
   );
