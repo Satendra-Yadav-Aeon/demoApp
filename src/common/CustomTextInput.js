@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     color: Colors.black
   },
   error: { 
-    color: Colors.red, 
+    color: Colors.red_1, 
     marginTop: 4, 
     fontSize: 14 
   },

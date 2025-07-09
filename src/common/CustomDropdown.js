@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold' 
   },
   error: { 
-    color: Colors.red, 
+    color: Colors.red_1, 
     marginTop: 4, 
     fontSize: 14 
   },
