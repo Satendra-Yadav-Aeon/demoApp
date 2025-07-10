@@ -24,7 +24,8 @@ const MyImages = {
     rightArrow: require('../assets/images/right-arrow.png'),
     termsConditions: require('../assets/html/attendrixTermsConditions.html'),
     privacyPolicy: require('../assets/html/attendrixPrivacyPolicy.html'),
-    noPhoto: require('../assets/images/no-camera.png')
+    noPhoto: require('../assets/images/no-camera.png'),
+    close: require('../assets/images/close.png')
 }
 
 export default MyImages;

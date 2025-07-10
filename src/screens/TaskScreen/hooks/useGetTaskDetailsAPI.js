@@ -4,11 +4,9 @@ import { getTaskDetailsByEmployeeId } from '../api/taskService';
 const useGetTaskDetailsAPI = () => {
   const [taskData, setTaskData] = useState([]); 
 
-  useEffect(() => {
-    fetchTaskDetails();
-  }, [fetchTaskDetails]);
 
   const fetchTaskDetails = useCallback(async (payload) => {
+    if (!payload?.empId) return;
     try {
       const res = await getTaskDetailsByEmployeeId(payload);
       setTaskData(res);

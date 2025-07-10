@@ -18,20 +18,27 @@ const ManageTaskList = ({employee}) => {
 
   useFocusEffect(
     React.useCallback(() => {
+      let isActive = true;
       const fetchAndRefetch = async () => {
+        let empId;
         if (employee?.userId || employee?.empid) {
-          const empId = employee?.userId || employee?.empid;
-          refetchTaskDetails({ empId });
+          empId = employee?.userId || employee?.empid;
         } else {
           const data = await getAsyncItem(ASYNC_CONSTANT.LOGIN_DATA);
-          setEmployeeData(data);
-          if (data?.empid) {
-            refetchTaskDetails({ empId: data.empid });
+          if (isActive) {
+            setEmployeeData(data);
           }
+          empId = data?.empid;
+        }
+        if (empId && isActive) {
+          refetchTaskDetails({ empId });
         }
       };
 
       fetchAndRefetch();
+      return () => {
+        isActive = false;
+      };
     }, [employee])
   );
 

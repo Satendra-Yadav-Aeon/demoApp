@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import MyImages from '../../../utils/MyImages';
 import { EMPLOYEE_TASK_CONSTANT } from '../constants/EmployeeTaskConstant';
-import { formatDate } from '../../../utils/formatDateUtils';
 import Colors from '../../../assets/colors/colors';
 import { BaseConfigUrl } from '../../../env/BaseConfigUrl';
+import CustomImageViewerModal from '../../../common/CustomImageViewerModal';
 
 const { screenWidth } = ScreenDimensions
 
@@ -15,6 +15,7 @@ const cardWidth = screenWidth * 0.95;
 const ManageTaskCard = ({ task, onEdit, employee }) => {
   const {t} = useTranslation()
   const[taskImageUri, setTaskImageUri] = useState()
+  const [taskImageModalVisible, setTaskImageModalVisible] = useState(false);
 
   useEffect(() => {
     if (task?.imageName) {
@@ -26,9 +27,11 @@ const ManageTaskCard = ({ task, onEdit, employee }) => {
     <View style={styles.card}>
       <View style={styles.row}>
         {taskImageUri ? (
-          <Image source={{uri: taskImageUri}} style={styles.roundImage}/>
-        ): (
-          <Image source={MyImages.noPhoto} style={styles.profileIcon}/>
+          <TouchableOpacity onPress={() => setTaskImageModalVisible(true)}>
+            <Image source={{ uri: taskImageUri }} style={styles.roundImage} />
+          </TouchableOpacity>
+        ) : (
+          <Image source={MyImages.noPhoto} style={styles.profileIcon} />
         )}
         {!employee?.admnId && (
           <TouchableOpacity onPress={() => onEdit(task)}>
@@ -56,6 +59,11 @@ const ManageTaskCard = ({ task, onEdit, employee }) => {
         <Text style={styles.headerText}>{t(EMPLOYEE_TASK_CONSTANT.STATUS)}</Text>
         <Text style={styles.dataText}>{task?.taskStatusName}</Text>
       </View>
+      <CustomImageViewerModal
+        visible={taskImageModalVisible}
+        onClose={() => setTaskImageModalVisible(false)}
+        imageUri={taskImageUri}
+      />
     </View>
   );
 };
