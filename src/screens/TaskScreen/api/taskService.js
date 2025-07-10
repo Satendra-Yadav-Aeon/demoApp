@@ -50,3 +50,13 @@ export const getTaskDetailsByEmployeeId = async (payload) => {
   // console.log('==getTaskDetailsByEmployeeId==>response>>>>',response);
   return response.data;
 };
+
+export const deleteTaskData = async (payload) => {
+  const {taskId, empId, taskStatus} = payload;
+  const data = {taskId, empId, taskStatus}
+  // console.log('===deleteTaskData=>data>>>',data);
+  
+  const response = await axiosInstance.post(Endpoints.DELETE_TASK, data);
+  // console.log('==deleteTaskData==>response>>>>',response);
+  return response.data;
+};

@@ -143,6 +143,7 @@
     "SELF_TASK": "Self Task",
     "MANAGE_TASK": "Manage Task",
     "ADD_TASK_TITLE": "Add Task",
-    "UPDATE_TASK_TITLE": "Update Task"
+    "UPDATE_TASK_TITLE": "Update Task",
+    "DELETE_MSG": "Deleted Successfully"
     
 }

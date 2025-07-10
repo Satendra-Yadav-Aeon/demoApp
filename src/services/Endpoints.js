@@ -18,4 +18,5 @@ export const Endpoints = {
     CHANGE_PASSWORD: '/Employee/ChangePassword',
     SAVE_TASK: 'Task/insUpdEmployeeTask',
     GET_TASK_DETAILS: 'Task/GetTaskDtlsForEmp',
+    DELETE_TASK: 'Task/delEmployeeTask',
 }

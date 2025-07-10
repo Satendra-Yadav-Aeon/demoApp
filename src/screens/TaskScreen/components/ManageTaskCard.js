@@ -1,27 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import MyImages from '../../../utils/MyImages';
 import { EMPLOYEE_TASK_CONSTANT } from '../constants/EmployeeTaskConstant';
 import Colors from '../../../assets/colors/colors';
 import { BaseConfigUrl } from '../../../env/BaseConfigUrl';
 import CustomImageViewerModal from '../../../common/CustomImageViewerModal';
+import { useDeleteTaskAPI } from '../hooks/useDeleteTaskAPI';
 
 const { screenWidth } = ScreenDimensions
 
 const cardWidth = screenWidth * 0.95;
 
 const ManageTaskCard = ({ task, onEdit, employee }) => {
+  const navigation = useNavigation()
   const {t} = useTranslation()
+  const { deleteTask } = useDeleteTaskAPI()
   const[taskImageUri, setTaskImageUri] = useState()
   const [taskImageModalVisible, setTaskImageModalVisible] = useState(false);
+  const isTaskCompleted = task?.taskStatus === '2';
 
   useEffect(() => {
     if (task?.imageName) {
       setTaskImageUri(`${BaseConfigUrl.BASE_TASK_IMAGE_URL}${task?.empId}/${task?.imageName}`);
     }
   },[task])
+
+  const handleDeleteMethod = (task) => {
+    const deleteData = {
+      taskId: task?.taskId,
+      empId: task?.empId,
+      taskStatus: '3'
+    }
+    // console.log('===handleDeleteMethod==>>deleteData>>>', deleteData)
+    const response = deleteTask(deleteData);
+    if(response){
+      navigation.goBack();
+    }
+  }
 
   return (
     <View style={styles.card}>
@@ -58,6 +76,13 @@ const ManageTaskCard = ({ task, onEdit, employee }) => {
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(EMPLOYEE_TASK_CONSTANT.STATUS)}</Text>
         <Text style={styles.dataText}>{task?.taskStatusName}</Text>
+      </View>
+      <View style={styles.deleteRow}>
+        {!employee?.admnId && !isTaskCompleted &&(
+          <TouchableOpacity onPress={() => handleDeleteMethod(task)}>
+            <Image source={MyImages.delete} style={styles.deleteIcon}/>
+          </TouchableOpacity>
+        )}
       </View>
       <CustomImageViewerModal
         visible={taskImageModalVisible}
@@ -122,4 +147,16 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
   },
+  deleteRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 10,
+    marginRight: 5,
+    padding: 5,
+  },
+  deleteIcon: {
+    height: 35,
+    width: 35,
+    tintColor: Colors.red_1
+  }
 });

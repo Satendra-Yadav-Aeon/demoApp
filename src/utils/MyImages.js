@@ -25,7 +25,8 @@ const MyImages = {
     termsConditions: require('../assets/html/attendrixTermsConditions.html'),
     privacyPolicy: require('../assets/html/attendrixPrivacyPolicy.html'),
     noPhoto: require('../assets/images/no-camera.png'),
-    close: require('../assets/images/close.png')
+    close: require('../assets/images/close.png'),
+    delete: require('../assets/images/delete.png')
 }
 
 export default MyImages;

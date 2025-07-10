@@ -63,7 +63,8 @@ export const TOAST_MESSAGE = {
     SUCCESS_TEXT: 'SUCCESS_TEXT',
     ERROR_TEXT: 'ERROR_TEXT',
     SUCCESS_MSG: 'SUCCESS_MSG',
-    ERROR_MSG: 'ERROR_MSG'
+    ERROR_MSG: 'ERROR_MSG',
+    DELETE_MSG: 'DELETE_MSG',
 }
 export const SMALL_LOADER = 'small'
 export const LARGE_LOADER = 'large'

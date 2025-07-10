@@ -143,7 +143,8 @@
     "SELF_TASK": "ખુદનું કાર્ય",
     "MANAGE_TASK": "કાર્ય વ્યવસ્થાપન",
     "ADD_TASK_TITLE": "કાર્ય ઉમેરો",
-    "UPDATE_TASK_TITLE": "કાર્ય અપડેટ કરો"
+    "UPDATE_TASK_TITLE": "કાર્ય અપડેટ કરો",
+    "DELETE_MSG": "સફળતાપૂર્વક કાઢી નાખ્યું"
 
 
 }
