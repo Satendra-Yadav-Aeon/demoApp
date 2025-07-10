@@ -18,6 +18,7 @@ import CustomDatePicker from '../../../common/CustomDatePicker';
 import { useSaveTaskAPI } from '../hooks/useSaveTaskAPI';
 import imageNameUtils from '../../../utils/imageNameUtils';
 import { BaseConfigUrl } from '../../../env/BaseConfigUrl';
+import { formatDateTime } from '../../../utils/formatDateUtils';
 
 const { screenWidth, screenHeight } = ScreenDimensions;
 const ManageTaskForm = () => {
@@ -109,8 +110,8 @@ const ManageTaskForm = () => {
       roleId: roleId,
       taskName: data?.title,  
       taskDesc: data?.description,
-      startDatetime: data?.startDate,
-      endDatetime: data?.endDate || '',
+      startDatetime: data?.startDate ? formatDateTime(data?.startDate) : '',
+      endDatetime: data?.endDate ? formatDateTime(data?.endDate) : '',
       imgfile: photoUri,
       imageName: photoName,
       taskStatus: data?.endDate ? 2 : 1,

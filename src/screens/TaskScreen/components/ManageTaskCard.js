@@ -54,7 +54,7 @@ const ManageTaskCard = ({ task, onEdit, employee }) => {
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(EMPLOYEE_TASK_CONSTANT.STATUS)}</Text>
-        <Text style={styles.dataText}>{task?.taskStatus}</Text>
+        <Text style={styles.dataText}>{task?.taskStatusName}</Text>
       </View>
     </View>
   );

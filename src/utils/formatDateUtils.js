@@ -4,3 +4,13 @@ export const formatDate = (dateString) => {
   const [dd, mm, yyyy] = dateString.split(' ')[0].split('-'); // Splits "DD-MM-YYYY"
   return `${yyyy}-${mm}-${dd}`; // Returns "YYYY-MM-DD"
 };
+
+export const formatDateTime = (dateString) => {
+  // Input: "16-01-15 11:33:00" → Output: "2015-01-16 11:33:00"
+  const [datePart, timePart] = dateString.split(' ');
+  const [day, month, shortYear] = datePart.split('-');
+
+  const fullYear = `${shortYear}`;
+
+  return `${fullYear}-${month}-${day} ${timePart}`;
+};
