@@ -24,6 +24,8 @@ const App = () => {
         if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
           Alert.alert(MAP_CONSTANT.LOCATION_PERMISSSION_DENIED)
           return;
+        }else {
+          Geolocation.requestAuthorization(); // This is required for iOS
         }
       }
 
