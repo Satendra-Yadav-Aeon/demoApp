@@ -50,7 +50,7 @@ react {
     //   The list of flags to pass to the Hermes compiler. By default is "-O", "-output-source-map"
     // hermesFlags = ["-O", "-output-source-map"]
 
-    /* Autolinking */
+    /* Autolink */
     autolinkLibrariesWithApp()
 }
 
@@ -71,11 +71,12 @@ def enableProguardInReleaseBuilds = false
  * this variant is about 6MiB larger per architecture than default.
  */
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
+def MAPS_API_KEY = project.hasProperty("MAPS_API_KEY") ? project.MAPS_API_KEY : ""
 
 android {
-    ndkVersion rootProject.ext.ndkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
-    compileSdk rootProject.ext.compileSdkVersion
+    ndkVersion '29.0.13599879 rc2'
+    buildToolsVersion buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     namespace "com.demoapp"
     defaultConfig {
@@ -84,6 +85,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        manifestPlaceholders = [ MAPS_API_KEY: MAPS_API_KEY ]
     }
     signingConfigs {
         debug {
