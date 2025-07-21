@@ -71,7 +71,15 @@ def enableProguardInReleaseBuilds = false
  * this variant is about 6MiB larger per architecture than default.
  */
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
-def MAPS_API_KEY = project.hasProperty("MAPS_API_KEY") ? project.MAPS_API_KEY : ""
+// 👇 Place this at the top
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(new FileInputStream(localPropertiesFile))
+}
+
+def MAPS_API_KEY = localProperties.getProperty("MAPS_API_KEY")
+
 
 android {
     ndkVersion '29.0.13599879 rc2'
@@ -85,7 +93,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        manifestPlaceholders = [ MAPS_API_KEY: MAPS_API_KEY ]
+        resValue "string", "google_maps_api_key", MAPS_API_KEY
     }
     signingConfigs {
         debug {

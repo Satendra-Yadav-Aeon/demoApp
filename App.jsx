@@ -1,4 +1,4 @@
-import { StyleSheet, SafeAreaView, Platform, PermissionsAndroid, Alert} from 'react-native';
+import { StyleSheet, SafeAreaView, Platform, PermissionsAndroid, Alert, Linking} from 'react-native';
 import React, { useEffect } from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import Toast from 'react-native-toast-message';
@@ -37,12 +37,23 @@ const App = () => {
             await setAsyncItem('userLong', longitude);
           },
           error => {
-            console.error('Geolocation error:', error);
+            if(error.code === 2 && error.message.includes(MAP_CONSTANT.NO_PROVIDER)){
+              Alert.alert(
+                MAP_CONSTANT.ENABLE_LOCATION,
+                MAP_CONSTANT.TURN_ON_LOCATION,
+                [
+                  {text: 'Cancel', style: 'cancel'},
+                  {text: 'Open Settings', onPress: () => Linking.openSettings()}
+                ]
+              )
+            }else{
+              // console.error('Geolocation error:', error);
+            }
           },
           { enableHighAccuracy: false, timeout: 30000, maximumAge: 10000 }
         );
       } catch (err) {
-        console.error('Unexpected geolocation error:', err);
+        // console.error('Unexpected geolocation error:', err);
       }
     };
     // Store version name in AsyncStorage

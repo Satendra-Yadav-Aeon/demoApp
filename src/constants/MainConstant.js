@@ -48,7 +48,10 @@ export const MAP_CONSTANT = {
     SET_LOCATION: 'Set Location',
     WORKING_LOCATION: 'Working Location',
     USER_LOCATION: 'User Location',
-    LOCATION_PERMISSSION_DENIED: 'Location permission not granted'
+    LOCATION_PERMISSSION_DENIED: 'Location permission not granted',
+    ENABLE_LOCATION: 'Enable Location Service',
+    TURN_ON_LOCATION: 'Location is disabled. Please turn it ON to continue',
+    NO_PROVIDER: 'No location provider'
 }
 export const DATE_MODE = 'date'
 export const DATE_TIME_MODE = 'datetime'
