@@ -26,7 +26,9 @@ const MyImages = {
     privacyPolicy: require('../assets/html/attendrixPrivacyPolicy.html'),
     noPhoto: require('../assets/images/no-camera.png'),
     close: require('../assets/images/close.png'),
-    delete: require('../assets/images/delete.png')
+    delete: require('../assets/images/delete.png'),
+    setLocation: require('../assets/images/setLocation.png'),
+    geofence: require('../assets/images/geofence.jpg')
 }
 
 export default MyImages;

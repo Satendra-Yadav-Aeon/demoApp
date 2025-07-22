@@ -28,6 +28,8 @@ import UpdateProfile from '../screens/ProfileScreen/components/UpdateProfile'
 import { useTranslation } from 'react-i18next'
 import ManageTaskForm from '../screens/TaskScreen/components/ManageTaskForm'
 import AdminTask from '../screens/TaskScreen/components/AdminTask'
+import SetEmployeeLocation from '../screens/SetLocationScreen/components/SetEmployeeLocation'
+import SelectEmployeeGeofenceLocation from '../screens/SetLocationScreen/components/SelectEmployeeGeofenceLocation'
 
 const Stack = createNativeStackNavigator()
 const ApplicationStack = () => {
@@ -99,6 +101,8 @@ const ApplicationStack = () => {
         <Stack.Screen name={SCREENS.CAPTURE_IMAGE} component={CaptureImageComponent}/>
         <Stack.Screen name={SCREENS.MANAGE_TASK_FORM} component={ManageTaskForm}/>
         <Stack.Screen name={SCREENS.ADMIN_TASK} component={AdminTask}/>
+        <Stack.Screen name={SCREENS.SET_LOCATION} component={SetEmployeeLocation}/>
+        <Stack.Screen name={SCREENS.EMPLOYEE_GEOFENCE_LOCATION} component={SelectEmployeeGeofenceLocation}/>
       </Stack.Navigator>
   )
 }

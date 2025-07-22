@@ -20,6 +20,8 @@ export const SCREENS = {
     CAPTURE_IMAGE: 'CaptureImage',
     MANAGE_TASK_FORM: 'ManageTaskForm',
     ADMIN_TASK: 'AdminTask',
+    SET_LOCATION: 'SetLocation',
+    EMPLOYEE_GEOFENCE_LOCATION: 'SelectEmployeeGeofenceLocation'
 }
 export const AM_TIME_LABEL = 'AM';
 export const PM_TIME_LABEL = 'PM';

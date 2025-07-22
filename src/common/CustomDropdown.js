@@ -3,9 +3,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import Colors from '../assets/colors/colors';
 
-const CustomDropdown = ({ label, value, onChange, options, error, placeholder }) => {
+const CustomDropdown = ({ label, value, onChange, options, error, placeholder , containerStyle}) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <Text style={styles.label}>{label}</Text>
       <RNPickerSelect
         onValueChange={onChange}

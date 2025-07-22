@@ -10,6 +10,7 @@ export const CATERGORY_CONSTANT = {
     MY_ATTENDANCE: 'MY_ATTENDANCE',
     MY_TASK: 'MY_TASK',
     EMPLOYEE_TASK: 'EMPLOYEE_TASK',
+    SET_LOCATION: 'Set Location'
 }
 export const MANAGE_TASK = 'MANAGE_TASK';
 export const SELF_TASK = 'SELF_TASK';
