@@ -6,36 +6,48 @@ import CustomDropdown from '../../../common/CustomDropdown';
 import Colors from '../../../assets/colors/colors';
 import { SET_LOCATION_CONSTANT, SET_LOCATION_DROPDOWN } from '../constants/SetLocationConstants';
 import MyImages from '../../../utils/MyImages';
+import useGeofenceDropdownAPI from '../hooks/useGeofenceDropdownAPI';
+import { useSaveGeofenceAPI } from '../hooks/useSaveGeofenceAPI';
 
 const SelectEmployeeGeofenceLocation = ({ route }) => {
   const navigation = useNavigation()
+  const { geofenceDropdown } = useGeofenceDropdownAPI();
+  const {saveGeofenceLocation, isLoading} = useSaveGeofenceAPI();
   const { selectedEmployees } = route.params;
   const { control, handleSubmit, watch, formState: { errors } } = useForm();
 
-  const locationOptions = [
-    {
-      label: 'Head Office',
-      value: 1
-    },
-    {
-      label: 'Branch Office',
-      value: 2
-    },
-    {
-      label: 'Remote Site',
-      value: 3
-    }
-  ];
+  // const locationOptions = [
+  //   {
+  //     label: 'Head Office',
+  //     value: 1
+  //   },
+  //   {
+  //     label: 'Branch Office',
+  //     value: 2
+  //   },
+  //   {
+  //     label: 'Remote Site',
+  //     value: 3
+  //   }
+  // ];
+
+  const locationOptions = geofenceDropdown?.map(loc => ({
+    label: loc.locationName, 
+    value: loc.locationId,
+  }));
 
   const selectedLocation = watch('location');
 
   const onSubmit = (data) => {
-    const result = selectedEmployees?.map(emp => ({
-      employeeId: emp.empid,
-      location: data?.location
+    const geofenceData = selectedEmployees?.map(emp => ({
+      empId: emp?.empid,
+      locationId: data?.location
     }));
-
-    // console.log("Saved Data:", result);
+    // console.log("===onSubmit=====geofenceData==>>>>>", geofenceData);
+    const response = saveGeofenceLocation(geofenceData);
+    if(response){
+      navigation.goBack();
+    }
   };
 
   return (

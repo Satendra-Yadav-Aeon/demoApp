@@ -6,5 +6,7 @@ export const ASYNC_CONSTANT = {
     MARK_ATTENDANCE_IMAGE: 'markAttendanceImage',
     MANAGE_CHECK_IN: 'manageCheckIn',
     MANAGE_CHECK_DATE: 'manageCheckDate',
-    TASK_IMGAE: 'taskImage'
+    TASK_IMGAE: 'taskImage',
+    USER_LAT: 'userLat',
+    USER_LONG: 'userLong'
 }

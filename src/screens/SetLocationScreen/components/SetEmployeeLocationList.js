@@ -33,6 +33,9 @@ const SetEmployeeLocationList = () => {
       if(employeeData?.empid){
         refetch({admnId: employeeData?.empid});
       }
+      // Reset selection every time screen is focused
+      setSelectedEmployees([]);
+      setSelectAll(false);
     }, [employeeData])
   );
 

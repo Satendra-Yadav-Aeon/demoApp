@@ -44,3 +44,16 @@ export const SET_EMPLOYEE_ATTENDANCE = {
     CAMERA_PERMISSION_REQUIRED: 'Camera permission required',
     LOADING_CAMERA: 'Loading Camera...'
 }
+export const CAMERA_CONSTANT = {
+    CANCEL_LABEL: 'Cancelled',
+    CANCEL_MSG: 'Camera was closed without taking a picture',
+    CAMERA_ERROR: 'Camera Error',
+    UNKNOWN_ERROR_MSG: 'Unknown error',
+    ERROR_TEXT: 'Error',
+    ERROR_MSG: 'Photo not captured',
+    ERROR_MSG_1: 'Missing location or photo'
+}
+export const GEOFENCE_CONSTANT = {
+    LABEL: 'Outside Geofence',
+    MSG: 'You are outside the geofence. Are you sure you want to mark attendance?'
+}

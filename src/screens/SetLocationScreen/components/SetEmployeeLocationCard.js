@@ -6,6 +6,7 @@ import ScreenDimensions from '../../../utils/DimensionUtils';
 import MyImages from '../../../utils/MyImages';
 import { BaseConfigUrl } from '../../../env/BaseConfigUrl';
 import Colors from '../../../assets/colors/colors';
+import { SET_LOCATION_CONSTANT } from '../constants/SetLocationConstants';
 
 const { screenWidth } = ScreenDimensions
 
@@ -31,6 +32,7 @@ const SetEmployeeLocationCard = ({ employee, isSelected, onToggleSelect }) => {
         <View style={styles.nameRoleContainer}>
           <Text style={styles.name}>{employee?.empname}</Text>
           <Text style={styles.dataText}>{employee?.rolename}</Text>
+          <Text style={styles.dataText}>{SET_LOCATION_CONSTANT.WORKING_LOCATION} {employee?.geofenceLocationName}</Text>
         </View>
         <CheckBox
           value={isSelected}

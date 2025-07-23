@@ -33,8 +33,8 @@ const App = () => {
         Geolocation.getCurrentPosition(
           async position => {
             const { latitude, longitude } = position.coords;
-            await setAsyncItem('userLat', latitude);
-            await setAsyncItem('userLong', longitude);
+            await setAsyncItem(ASYNC_CONSTANT.USER_LAT, latitude);
+            await setAsyncItem(ASYNC_CONSTANT.USER_LONG, longitude);
           },
           error => {
             if(error.code === 2 && error.message.includes(MAP_CONSTANT.NO_PROVIDER)){
@@ -69,7 +69,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if(Platform.OS === 'android'){
+    if(Platform.OS === ANDROID_PLATFORM){
       SplashScreen.hide();
     }
   },[])

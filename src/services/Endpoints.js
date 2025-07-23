@@ -19,4 +19,6 @@ export const Endpoints = {
     SAVE_TASK: 'Task/insUpdEmployeeTask',
     GET_TASK_DETAILS: 'Task/GetTaskDtlsForEmp',
     DELETE_TASK: 'Task/delTaskOfEmp',
+    GEOFENCE_DROPDOWN: '/GeoLocation/getLocations',
+    SAVE_GEOFENCE: '/GeoLocation/AddsetLocation',
 }

@@ -57,7 +57,7 @@ export const getSupervisorsEmployeeData = async (payload) => {
 };
 
 export const markAttendanceData = async (payload) => {
-  const { empId, status, checkDate, latitude, longitude ,imgfile, imageName, inOut, attendanceMode, attendenceBy} = payload;
+  const { empId, status, checkDate, latitude, longitude ,imgfile, imageName, inOut, attendanceMode, attendenceBy, withinGeofence} = payload;
 
   const formData = new FormData();
 
@@ -69,6 +69,7 @@ export const markAttendanceData = async (payload) => {
   formData.append('inOut', inOut);
   formData.append('attendanceMode',attendanceMode)
   formData.append('attendenceBy',attendenceBy)
+  formData.append('withinGeofence',withinGeofence)
 
   if (imgfile) {
     const fileType = imgfile.substring(imgfile.lastIndexOf('.') + 1);

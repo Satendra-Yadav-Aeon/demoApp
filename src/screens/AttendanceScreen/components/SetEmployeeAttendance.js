@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import Colors from '../../../assets/colors/colors';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import MyImages from '../../../utils/MyImages';
-import { SET_EMPLOYEE_ATTENDANCE } from '../constants/AttendanceConstant';
+import { CAMERA_CONSTANT, GEOFENCE_CONSTANT, SET_EMPLOYEE_ATTENDANCE } from '../constants/AttendanceConstant';
 import { getAsyncItem, setAsyncItem } from '../../../utils/AsyncStorage';
 import { CHECK_IN_LABEL, CHECK_OUT_LABEL } from '../../DashboardScreen/constants/DashboardConstant';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
@@ -25,12 +25,22 @@ const SetEmployeeAttendance = () => {
   const [imageUri, setImageUri] = useState(null);
   const [lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
-  // const [checkTime, setCheckTime] = useState('');
-  // const [date, setDate] = useState('');
   const[employeeData, setEmployeeData] = useState({})
+  const [geofenceLocation] = useState({
+    latitude: 18.56680248689369,  // Example: Castle Cooperative Housing Society
+    longitude: 73.92150312423335,
+  });
 
   const route = useRoute();
-  const { isCheckIn, attendanceSelf, employee } = route?.params || {};
+  const { isCheckIn, attendanceSelf, employee, employeeDetails } = route?.params || {};
+
+  // console.log('===SetEmployeeAttendance==>>employeeDetails>>>>',employeeDetails);
+  // console.log('===SetEmployeeAttendance==>>employee>>>>',employee);
+  
+  // const [geofenceLocation] = useState({
+  //   latitude: employee ? employee?.geofenceLatitude : employeeDetails?.geofenceLatitude,
+  //   longitude: employee ? employee?.geofenceLongitude : employeeDetails?.geofenceLongitude,
+  // });
 
   useEffect(() => {
     fetchAsyncData();
@@ -43,8 +53,8 @@ const SetEmployeeAttendance = () => {
 
   useEffect(() => {
     const fetchLocation = async () => {
-      const userLat = parseFloat(await getAsyncItem('userLat')) || null;
-      const userLong = parseFloat(await getAsyncItem('userLong')) || null;
+      const userLat = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LAT)) || null;
+      const userLong = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LONG)) || null;
       setLat(userLat);
       setLong(userLong);
     };
@@ -73,18 +83,18 @@ const SetEmployeeAttendance = () => {
 
     launchCamera(options, async (response) => {
       if (response.didCancel) {
-        Alert.alert('Cancelled', 'Camera was closed without taking a picture.');
+        Alert.alert(CAMERA_CONSTANT.CANCEL_LABEL, CAMERA_CONSTANT.CANCEL_MSG);
         return;
       }
 
       if (response.errorCode) {
-        Alert.alert('Camera Error', response.errorMessage || 'Unknown error.');
+        Alert.alert(CAMERA_CONSTANT.CAMERA_ERROR, response.errorMessage || CAMERA_CONSTANT.UNKNOWN_ERROR_MSG);
         return;
       }
 
       const photoUri = response.assets?.[0]?.uri;
       if (!photoUri) {
-        Alert.alert('Error', 'Photo not captured.');
+        Alert.alert(CAMERA_CONSTANT.ERROR_TEXT, CAMERA_CONSTANT.ERROR_MSG);
         return;
       }
 
@@ -119,45 +129,79 @@ const SetEmployeeAttendance = () => {
     captureAndStoreData();
   };
 
-  const handleMarkAttendacne = async() => {
-    console.log('====handleMarkAttendacne=>>called>>>');
-    const empId = attendanceSelf ? employeeData?.empid : employee?.userId;
-    const photoName = imageNameUtils(empId);
-    const markAttendanceData = {
-      empId: empId,
-      status: 1,
-      checkDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
-      latitude: lat,
-      longitude: long,
-      imgfile: imageUri,
-      imageName: photoName,
-      inOut: isCheckIn ? 1 : 2,
-      attendanceMode: attendanceSelf ? 1 : 2,
-      attendenceBy: attendanceSelf ? 'Self' : employeeData?.empid,
+  const getDistanceInMeters = (lat1, lon1, lat2, lon2) => {
+    const toRad = (value) => (value * Math.PI) / 180;
+    const R = 6371e3; // Earth radius in meters
+    const φ1 = toRad(lat1);
+    const φ2 = toRad(lat2); 
+    const Δφ = toRad(lat2 - lat1);
+    const Δλ = toRad(lon2 - lon1);
+
+    const a =
+      Math.sin(Δφ / 2) ** 2 +
+      Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) ** 2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  };
+
+  const handleMarkAttendacne = async () => {
+    if (!lat || !long || !imageUri) {
+      Alert.alert(CAMERA_CONSTANT.ERROR_TEXT, CAMERA_CONSTANT.ERROR_MSG_1);
+      return;
+    }
+
+    const distance = getDistanceInMeters(lat, long, geofenceLocation.latitude, geofenceLocation.longitude);
+    const isWithinGeofence = distance <= 50;
+
+    const proceedWithMarking = async (withinGeofenceFlag) => {
+      const empId = attendanceSelf ? employeeData?.empid : employee?.userId;
+      const photoName = imageNameUtils(empId);
+      const markAttendanceData = {
+        empId,
+        status: 1,
+        checkDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+        latitude: lat,
+        longitude: long,
+        imgfile: imageUri,
+        imageName: photoName,
+        inOut: isCheckIn ? 1 : 2,
+        attendanceMode: attendanceSelf ? 1 : 2,
+        attendenceBy: attendanceSelf ? 'Self' : employeeData?.empid,
+        withinGeofence: withinGeofenceFlag ? 1 : 0,
+      };
+
+      // console.log('====handleMarkAttendacne======markAttendanceData>>>>>>>>>',markAttendanceData);
+
+      const response = await markAttendance(markAttendanceData);
+      if (response) {
+        const checkInKey = `${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${empId}`;
+        const dateKey = `${ASYNC_CONSTANT.MANAGE_CHECK_DATE}_${empId}`;
+        const today = moment().format('YYYY-MM-DD');
+
+        const oldValue = await getAsyncItem(checkInKey);
+        const newValue = oldValue !== 'true';
+
+        await setAsyncItem(checkInKey, newValue.toString());
+        await setAsyncItem(dateKey, today);
+
+        route.params?.onSuccess?.();
+        navigation.goBack();
+      }
     };
 
-
-    console.log('====handleMarkAttendacne======markAttendanceData>>>>>>>>>',markAttendanceData);
-
-    const response = await markAttendance(markAttendanceData);
-    if (response) {
-      const checkInKey = `${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${empId}`;
-      const dateKey = `${ASYNC_CONSTANT.MANAGE_CHECK_DATE}_${empId}`;
-      const today = moment().format('YYYY-MM-DD');
-
-      const oldValue = await getAsyncItem(checkInKey);
-      const newValue = oldValue !== 'true';
-
-      await setAsyncItem(checkInKey, newValue.toString());
-      await setAsyncItem(dateKey, today);
-
-      route.params?.onSuccess?.();
-      navigation.goBack();
-    }
-    
-    
-  }
-  
+    if (isWithinGeofence) {
+      proceedWithMarking(true);
+    } else {
+        Alert.alert(
+          GEOFENCE_CONSTANT.LABEL,
+          GEOFENCE_CONSTANT.MSG,
+          [
+            { text: 'Cancel', style: 'cancel' },
+            { text: 'Yes', onPress: () => proceedWithMarking(false) }
+          ]
+        );
+      }
+  };  
 
   return (
     <View style={styles.container}>
@@ -171,7 +215,7 @@ const SetEmployeeAttendance = () => {
       </View>
       <View style={styles.controls}>
         {imageUri && <Image source={{ uri: imageUri }} style={styles.preview} />}
-        <TouchableOpacity style={styles.checkButtonContainer} onPress={handleMarkAttendacne}>
+        <TouchableOpacity style={styles.checkButtonContainer} onPress={handleMarkAttendacne} disabled={isLoading}>
           <Text style={styles.buttonText}>{isCheckIn ? t(CHECK_IN_LABEL) : t(CHECK_OUT_LABEL)}</Text>
         </TouchableOpacity>
       </View>

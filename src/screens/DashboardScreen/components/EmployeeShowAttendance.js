@@ -13,7 +13,7 @@ import { getTodayFormatted } from '../../../utils/DateUtils';
 
 const { screenWidth, screenHeight } = ScreenDimensions;
 
-const EmployeeShowAttendance = ({checkIn, checkOut}) => {
+const EmployeeShowAttendance = ({checkIn, checkOut, employeeDetails}) => {
   const navigation = useNavigation()
   const {t} = useTranslation();
   const [isCheckIn, setIsCheckIn] = useState(true);
@@ -49,6 +49,7 @@ const EmployeeShowAttendance = ({checkIn, checkOut}) => {
     navigation.navigate(SCREENS.SET_EMPLOYEE_ATTENDANCE, {
       isCheckIn,
       attendanceSelf: true,
+      employeeDetails,
       onSuccess: async () => {
         const newState = !isCheckIn;
         setIsCheckIn(newState);
