@@ -102,6 +102,8 @@ const AdminAttendanceCard = ({ employee, selectedDates }) => {
             checkinLong: employee?.checkinLong,
             checkoutLat: employee?.checkoutLat,
             checkoutLong: employee?.checkoutLong,
+            geofenceLat: employee?.geofenceLatitude,
+            geofenceLong: employee?.geofenceLongitude
           })
         }
       >
