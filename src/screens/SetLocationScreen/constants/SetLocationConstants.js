@@ -4,7 +4,8 @@ export const SET_LOCATION_CONSTANT = {
     SET_GEOFENCE_LOCATION_TITLE: 'Set Geofence Location',
     SELECTED_EMPLOYEES: 'Selected Employees',
     SAVE: 'Save',
-    WORKING_LOCATION: 'Working Loaction:'
+    WORKING_LOCATION: 'Working Loaction:',
+    NO_TIME: '--/--'
 }
 
 export const SET_LOCATION_DROPDOWN = {

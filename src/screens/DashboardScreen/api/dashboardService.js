@@ -24,3 +24,15 @@ export const getEmployeeTodayAttendance = async (payload) => {
   // console.log('==getEmployeeTodayAttendance==>response>>>>',response);
   return response.data;
 };
+
+export const getAdminNotificationData = async (payload) => {
+  const { adminId } = payload;
+
+  const data = { adminId };
+
+  // console.log('====getAdminNotificationData=>>data>>>',data);
+  
+  const response = await axiosInstance.post(Endpoints.GET_ADMIN_NOTIFICATION_DATA, data);
+  // console.log('==getAdminNotificationData==>response>>>>',response);
+  return response.data;
+};

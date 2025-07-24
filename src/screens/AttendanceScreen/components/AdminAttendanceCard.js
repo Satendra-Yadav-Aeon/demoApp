@@ -90,8 +90,8 @@ const AdminAttendanceCard = ({ employee, selectedDates }) => {
           )}
         </View>
       </View>
-       {/* ✅ Show for all employees, pass all 4 lat/long */}
-      {employee?.checkinLat && employee?.checkinLong && (
+       {/* Show for all employees, pass all 4 lat/long */}
+      {employee?.checkinLat && (
         <TouchableOpacity
         style={[styles.flex1, styles.setLocationButton]}
         onPress={() =>

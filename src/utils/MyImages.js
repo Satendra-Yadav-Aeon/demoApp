@@ -28,7 +28,8 @@ const MyImages = {
     close: require('../assets/images/close.png'),
     delete: require('../assets/images/delete.png'),
     setLocation: require('../assets/images/setLocation.png'),
-    geofence: require('../assets/images/geofence.jpg')
+    geofence: require('../assets/images/geofence.jpg'),
+    notification: require('../assets/images/notification.png')
 }
 
 export default MyImages;

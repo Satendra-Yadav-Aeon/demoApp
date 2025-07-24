@@ -21,4 +21,5 @@ export const Endpoints = {
     DELETE_TASK: 'Task/delTaskOfEmp',
     GEOFENCE_DROPDOWN: '/GeoLocation/getLocations',
     SAVE_GEOFENCE: '/GeoLocation/AddsetLocation',
+    GET_ADMIN_NOTIFICATION_DATA: '/GeoLocation/getEmpdetails',
 }

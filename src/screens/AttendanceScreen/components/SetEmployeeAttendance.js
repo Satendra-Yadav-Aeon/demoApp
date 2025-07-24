@@ -26,10 +26,6 @@ const SetEmployeeAttendance = () => {
   const [lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
   const[employeeData, setEmployeeData] = useState({})
-  const [geofenceLocation] = useState({
-    latitude: 18.56680248689369,  // Example: Castle Cooperative Housing Society
-    longitude: 73.92150312423335,
-  });
 
   const route = useRoute();
   const { isCheckIn, attendanceSelf, employee, employeeDetails } = route?.params || {};
@@ -37,10 +33,12 @@ const SetEmployeeAttendance = () => {
   // console.log('===SetEmployeeAttendance==>>employeeDetails>>>>',employeeDetails);
   // console.log('===SetEmployeeAttendance==>>employee>>>>',employee);
   
-  // const [geofenceLocation] = useState({
-  //   latitude: employee ? employee?.geofenceLatitude : employeeDetails?.geofenceLatitude,
-  //   longitude: employee ? employee?.geofenceLongitude : employeeDetails?.geofenceLongitude,
-  // });
+  const [geofenceLocation] = useState({
+    latitude: employee ? employee?.geofenceLatitude : employeeDetails?.geofenceLatitude,
+    longitude: employee ? employee?.geofenceLongitude : employeeDetails?.geofenceLongitude,
+  });
+
+  // console.log('===SetEmployeeAttendance==>>geofenceLocation>>>>',geofenceLocation);
 
   useEffect(() => {
     fetchAsyncData();

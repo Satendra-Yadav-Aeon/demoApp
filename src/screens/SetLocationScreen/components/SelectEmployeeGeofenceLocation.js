@@ -16,20 +16,6 @@ const SelectEmployeeGeofenceLocation = ({ route }) => {
   const { selectedEmployees } = route.params;
   const { control, handleSubmit, watch, formState: { errors } } = useForm();
 
-  // const locationOptions = [
-  //   {
-  //     label: 'Head Office',
-  //     value: 1
-  //   },
-  //   {
-  //     label: 'Branch Office',
-  //     value: 2
-  //   },
-  //   {
-  //     label: 'Remote Site',
-  //     value: 3
-  //   }
-  // ];
 
   const locationOptions = geofenceDropdown?.map(loc => ({
     label: loc.locationName, 
@@ -85,7 +71,7 @@ const SelectEmployeeGeofenceLocation = ({ route }) => {
         )}
       />
 
-      <TouchableOpacity style={styles.saveButton} onPress={handleSubmit(onSubmit)}>
+      <TouchableOpacity style={styles.saveButton} onPress={handleSubmit(onSubmit)} disabled={isLoading}>
         <Text style={styles.saveText}>{SET_LOCATION_CONSTANT.SAVE}</Text>
       </TouchableOpacity>
     </View>
