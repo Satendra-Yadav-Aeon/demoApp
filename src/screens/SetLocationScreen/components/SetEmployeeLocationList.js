@@ -69,7 +69,7 @@ const SetEmployeeLocationList = () => {
 
   const handleSetLocation = () => {
     if (!selectedEmployees.length) {
-      Alert.alert(SET_LOCATION_CONSTANT.NO_EMPLOYEE_SELECTED);
+      Alert.alert(t(SET_LOCATION_CONSTANT.NO_EMPLOYEE_SELECTED));
       return;
     }
     navigation.navigate(SCREENS.EMPLOYEE_GEOFENCE_LOCATION, { selectedEmployees });

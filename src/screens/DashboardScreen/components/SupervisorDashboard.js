@@ -170,7 +170,8 @@ const styles = StyleSheet.create({
       paddingHorizontal: 10,
       borderRadius: 6,
       elevation: 3,
-      width: '20%'
+      width: '20%',
+      marginTop: 15
     },
     languageText: {
       fontSize: 14,

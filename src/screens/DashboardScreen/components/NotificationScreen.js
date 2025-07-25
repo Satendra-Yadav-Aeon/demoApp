@@ -38,7 +38,7 @@ const NotificationScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.headingContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon}/>
         </TouchableOpacity>
@@ -63,6 +63,9 @@ const styles = StyleSheet.create({
     flex: 1, 
     padding: 15,
     backgroundColor: Colors.white 
+  },
+  headingContainer: {
+    marginTop: 30 
   },
   item: {
     padding: 15,

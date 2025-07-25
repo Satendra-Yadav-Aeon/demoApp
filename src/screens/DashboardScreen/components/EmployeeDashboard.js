@@ -165,7 +165,8 @@ const styles = StyleSheet.create({
       paddingVertical: 5,
       paddingHorizontal: 10,
       borderRadius: 6,
-      elevation: 3
+      elevation: 3,
+      marginTop: 15
     },
     languageText: {
       fontSize: 14,

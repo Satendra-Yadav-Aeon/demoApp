@@ -179,7 +179,8 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       gap: 20,
-      zIndex: 10
+      zIndex: 10,
+      marginTop: 15
     },
     notificationWrapper: {
       position: 'relative',
