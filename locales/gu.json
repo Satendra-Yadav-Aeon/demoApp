@@ -144,7 +144,34 @@
     "MANAGE_TASK": "કાર્ય વ્યવસ્થાપન",
     "ADD_TASK_TITLE": "કાર્ય ઉમેરો",
     "UPDATE_TASK_TITLE": "કાર્ય અપડેટ કરો",
-    "DELETE_MSG": "સફળતાપૂર્વક કાઢી નાખ્યું"
-
-
+    "DELETE_MSG": "સફળતાપૂર્વક કાઢી નાખ્યું",
+    "SET_LOCATION": "કર્મચારી કાર્ય સ્થાન",
+    "NO_EMPLOYEE_SELECTED": "કોઈ કર્મચારી પસંદ કરેલ નથી. કૃપા કરીને ઓછામાં ઓછો એક કર્મચારી પસંદ કરો.",
+    "SET_LOCATION_LABEL": "સ્થાન સેટ કરો",
+    "SET_WORKING_LOCATION_TITLE": "કાર્ય સ્થાન સેટ કરો",
+    "SELECTED_EMPLOYEES": "પસંદ કરેલા કર્મચારીઓ",
+    "SAVE": "સાચવો",
+    "WORKING_LOCATION": "કાર્ય સ્થાન:",
+    "DROPDOWN_LABEL": "સ્થાન પસંદ કરો",
+    "DROPDOWN_PLACEHOLDER": "જીફેન્સ સ્થાન પસંદ કરો",
+    "DROPDOWN_REQUIRED_ERROR": "જીફેન્સ સ્થાન આવશ્યક છે",
+    "CAMERA_CANCEL_LABEL": "રદ કરેલું",
+    "CAMERA_CANCEL_MSG": "કેમેરા બંધ કરવામાં આવ્યો હતો ફોટો લીધા વિના",
+    "CAMERA_ERROR": "કેમેરા ભૂલ",
+    "CAMERA_UNKNOWN_ERROR_MSG": "અજ્ઞાત ભૂલ",
+    "CAMERA_ERROR_TEXT": "ભૂલ",
+    "CAMERA_ERROR_MSG": "ફોટો ખેંચાયો નથી",
+    "CAMERA_ERROR_MSG_1": "સ્થાન અથવા ફોટો ગુમ",
+    "GEOFENCE_LABEL": "જીફેન્સ બહાર",
+    "GEOFENCE_MSG": "તમે જીફેન્સ બહાર છો. શું તમે હાજરી નોંધવી ઇચ્છો છો?",
+    "DENIED_LOCATION": "સ્થાન ઉપલબ્ધ નથી!",
+    "LOCATION_NOT_FOUND": "સ્થાન મળ્યું નથી. કૃપા કરીને એપ ફરી શરૂ કરો.",
+    "CAMERA_PERMISSION_REQUIRED": "કેમેરા માટે પરવાનગી જરૂરી છે",
+    "NOTIFICATION_TITLE": "નોટિફિકેશન",
+    "MARK_ALL_READ": "બધાને વાંચેલ તરીકે નિશાન કરો",
+    "notification": {
+        "outside_check": "{{name}} એ {{status}} સ્થાન ({{location}}) બહાર {{time}} વાગ્યે ચેક કર્યું - માર્ક કર્યું {{who}}"
+    },
+    "by_self": "સ્વયં દ્વારા",
+    "by_supervisor": "સુપરવાઇઝર દ્વારા"
 }

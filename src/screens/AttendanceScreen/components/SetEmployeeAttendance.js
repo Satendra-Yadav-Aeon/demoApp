@@ -68,7 +68,7 @@ const SetEmployeeAttendance = () => {
 
   const captureAndStoreData = async () => {
     if (!lat || !long) {
-      Alert.alert(SET_EMPLOYEE_ATTENDANCE.DENIED_LOCATION);
+      Alert.alert(t(SET_EMPLOYEE_ATTENDANCE.DENIED_LOCATION));
       return;
     }
 
@@ -81,18 +81,18 @@ const SetEmployeeAttendance = () => {
 
     launchCamera(options, async (response) => {
       if (response.didCancel) {
-        Alert.alert(CAMERA_CONSTANT.CANCEL_LABEL, CAMERA_CONSTANT.CANCEL_MSG);
+        Alert.alert(t(CAMERA_CONSTANT.CANCEL_LABEL), t(CAMERA_CONSTANT.CANCEL_MSG));
         return;
       }
 
       if (response.errorCode) {
-        Alert.alert(CAMERA_CONSTANT.CAMERA_ERROR, response.errorMessage || CAMERA_CONSTANT.UNKNOWN_ERROR_MSG);
+        Alert.alert(t(CAMERA_CONSTANT.CAMERA_ERROR), response.errorMessage || t(CAMERA_CONSTANT.UNKNOWN_ERROR_MSG));
         return;
       }
 
       const photoUri = response.assets?.[0]?.uri;
       if (!photoUri) {
-        Alert.alert(CAMERA_CONSTANT.ERROR_TEXT, CAMERA_CONSTANT.ERROR_MSG);
+        Alert.alert(t(CAMERA_CONSTANT.ERROR_TEXT), t(CAMERA_CONSTANT.ERROR_MSG));
         return;
       }
 
@@ -117,11 +117,11 @@ const SetEmployeeAttendance = () => {
 
   const handleCameraLaunch = () => {
     if (!lat || !long) {
-      Alert.alert(SET_EMPLOYEE_ATTENDANCE.LOCATION_NOT_FOUND);
+      Alert.alert(t(SET_EMPLOYEE_ATTENDANCE.LOCATION_NOT_FOUND));
       return;
     }
     if (!cameraPermission) {
-      Alert.alert(SET_EMPLOYEE_ATTENDANCE.CAMERA_PERMISSION_REQUIRED);
+      Alert.alert(t(SET_EMPLOYEE_ATTENDANCE.CAMERA_PERMISSION_REQUIRED));
       return;
     }
     captureAndStoreData();
@@ -144,7 +144,7 @@ const SetEmployeeAttendance = () => {
 
   const handleMarkAttendacne = async () => {
     if (!lat || !long || !imageUri) {
-      Alert.alert(CAMERA_CONSTANT.ERROR_TEXT, CAMERA_CONSTANT.ERROR_MSG_1);
+      Alert.alert(t(CAMERA_CONSTANT.ERROR_TEXT), t(CAMERA_CONSTANT.ERROR_MSG_1));
       return;
     }
 
@@ -191,8 +191,8 @@ const SetEmployeeAttendance = () => {
       proceedWithMarking(true);
     } else {
         Alert.alert(
-          GEOFENCE_CONSTANT.LABEL,
-          GEOFENCE_CONSTANT.MSG,
+          t(GEOFENCE_CONSTANT.LABEL),
+          t(GEOFENCE_CONSTANT.MSG),
           [
             { text: 'Cancel', style: 'cancel' },
             { text: 'Yes', onPress: () => proceedWithMarking(false) }

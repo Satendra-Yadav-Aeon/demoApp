@@ -144,7 +144,34 @@
     "MANAGE_TASK": "कार्य व्यवस्थापन",
     "ADD_TASK_TITLE": "कार्य जोडा",
     "UPDATE_TASK_TITLE": "कार्य अद्ययावत करा",
-    "DELETE_MSG": "यशस्वीरित्या हटवले"
-
-
+    "DELETE_MSG": "यशस्वीरित्या हटवले",
+    "SET_LOCATION": "कर्मचारी कामाचे स्थान",
+    "NO_EMPLOYEE_SELECTED": "कोणताही कर्मचारी निवडलेला नाही. कृपया किमान एक कर्मचारी निवडा.",
+    "SET_LOCATION_LABEL": "स्थान सेट करा",
+    "SET_WORKING_LOCATION_TITLE": "कामाचे स्थान सेट करा",
+    "SELECTED_EMPLOYEES": "निवडलेले कर्मचारी",
+    "SAVE": "जतन करा",
+    "WORKING_LOCATION": "कामाचे स्थान:",
+    "DROPDOWN_LABEL": "स्थान निवडा",
+    "DROPDOWN_PLACEHOLDER": "जिओफेन्स स्थान निवडा",
+    "DROPDOWN_REQUIRED_ERROR": "जिओफेन्स स्थान आवश्यक आहे",
+    "CAMERA_CANCEL_LABEL": "रद्द केले",
+    "CAMERA_CANCEL_MSG": "कॅमेरा बंद केला गेला फोटो न घेताच",
+    "CAMERA_ERROR": "कॅमेरा त्रुटी",
+    "CAMERA_UNKNOWN_ERROR_MSG": "अज्ञात त्रुटी",
+    "CAMERA_ERROR_TEXT": "त्रुटी",
+    "CAMERA_ERROR_MSG": "फोटो कॅप्चर केलेला नाही",
+    "CAMERA_ERROR_MSG_1": "स्थान किंवा फोटो नाही",
+    "GEOFENCE_LABEL": "जिओफेन्सच्या बाहेर",
+    "GEOFENCE_MSG": "आपण जिओफेन्सच्या बाहेर आहात. आपण उपस्थिती खरोखरच नोंदवू इच्छिता?",
+    "DENIED_LOCATION": "स्थान उपलब्ध नाही!",
+    "LOCATION_NOT_FOUND": "स्थान सापडले नाही. कृपया अ‍ॅप पुन्हा सुरू करा.",
+    "CAMERA_PERMISSION_REQUIRED": "कॅमेरा परवानगी आवश्यक आहे",
+    "NOTIFICATION_TITLE": "सूचना",
+    "MARK_ALL_READ": "सर्व वाचले म्हणून चिन्हांकित करा",
+    "notification": {
+        "outside_check": "{{name}} ने {{status}} लोकेशन ({{location}}) बाहेर {{time}} वाजता चेक केले - मार्क केले {{who}}"
+    },
+    "by_self": "स्वतःने",
+    "by_supervisor": "पर्यवेक्षकाद्वारे"
 }

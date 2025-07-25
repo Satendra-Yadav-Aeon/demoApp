@@ -33,9 +33,9 @@ const SetEmployeeLocationCard = ({ employee, isSelected, onToggleSelect }) => {
           <Text style={styles.name}>{employee?.empname}</Text>
           <Text style={styles.dataText}>{employee?.rolename}</Text>
           {employee?.geofenceLocationName ? (
-            <Text style={styles.dataText}>{SET_LOCATION_CONSTANT.WORKING_LOCATION} {employee?.geofenceLocationName}</Text>
+            <Text style={styles.dataText}>{t(SET_LOCATION_CONSTANT.WORKING_LOCATION)} {employee?.geofenceLocationName}</Text>
           ) : (
-            <Text style={styles.dataText}>{SET_LOCATION_CONSTANT.WORKING_LOCATION} {SET_LOCATION_CONSTANT.NO_TIME}</Text>
+            <Text style={styles.dataText}>{t(SET_LOCATION_CONSTANT.WORKING_LOCATION)} {SET_LOCATION_CONSTANT.NO_TIME}</Text>
           )}
         </View>
         <CheckBox

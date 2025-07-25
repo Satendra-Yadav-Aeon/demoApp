@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet, Image, TouchableOpacity, Text, Alert } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import CheckBox from '@react-native-community/checkbox';
+import { useTranslation } from 'react-i18next';
 import useGetAllEmployee from '../../EmployeeScreen/hooks/useGetAllEmployee';
 import { getAsyncItem } from '../../../utils/AsyncStorage';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
@@ -14,6 +15,7 @@ import { SCREENS } from '../../../constants/MainConstant';
 
 const SetEmployeeLocationList = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation()
   const {manageEmployeeData, refetch} = useGetAllEmployee()
   const[employeeData, setEmployeeData] = useState({})
   const [selectedEmployees, setSelectedEmployees] = useState([]);
@@ -77,7 +79,7 @@ const SetEmployeeLocationList = () => {
     <View style={styles.container}>
       <View style={styles.headerRow}>
         <TouchableOpacity style={styles.setLocationButton} onPress={handleSetLocation}>
-          <Text style={styles.setLocationText}>{SET_LOCATION_CONSTANT.SET_GEOFENCE}</Text>
+          <Text style={styles.setLocationText}>{t(SET_LOCATION_CONSTANT.SET_LOCATION)}</Text>
         </TouchableOpacity>
         <CheckBox value={selectAll} onValueChange={toggleSelectAll} tintColors={{ true: Colors.red }} style={{marginRight: 15}} />
       </View>

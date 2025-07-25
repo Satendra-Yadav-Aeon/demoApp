@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import CustomDropdown from '../../../common/CustomDropdown';
 import Colors from '../../../assets/colors/colors';
 import { SET_LOCATION_CONSTANT, SET_LOCATION_DROPDOWN } from '../constants/SetLocationConstants';
@@ -11,6 +12,7 @@ import { useSaveGeofenceAPI } from '../hooks/useSaveGeofenceAPI';
 
 const SelectEmployeeGeofenceLocation = ({ route }) => {
   const navigation = useNavigation()
+  const {t} = useTranslation()
   const { geofenceDropdown } = useGeofenceDropdownAPI();
   const {saveGeofenceLocation, isLoading} = useSaveGeofenceAPI();
   const { selectedEmployees } = route.params;
@@ -42,27 +44,27 @@ const SelectEmployeeGeofenceLocation = ({ route }) => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon}/>
         </TouchableOpacity>
-        <Text style={styles.heading}>{SET_LOCATION_CONSTANT.SET_GEOFENCE_LOCATION_TITLE}</Text>
+        <Text style={styles.heading}>{t(SET_LOCATION_CONSTANT.SET_WORKING_LOCATION_TITLE)}</Text>
       </View>
       <Image source={MyImages.geofence} style={styles.geofenceStyle}/>
       <Controller
         control={control}
         name={SET_LOCATION_DROPDOWN.NAME}
-        rules={{ required: SET_LOCATION_DROPDOWN.REQUIRED_ERROR }}
+        rules={{ required: t(SET_LOCATION_DROPDOWN.REQUIRED_ERROR) }}
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <CustomDropdown
-            label={SET_LOCATION_DROPDOWN.LABEL}
+            label={t(SET_LOCATION_DROPDOWN.LABEL)}
             options={locationOptions}
             value={value}
             onChange={onChange}
             error={error?.message}
-            placeholder={SET_LOCATION_DROPDOWN.PLACEHOLDER}
+            placeholder={t(SET_LOCATION_DROPDOWN.PLACEHOLDER)}
             containerStyle={styles.dropdownContainer}
           />
         )}
       />
 
-      <Text style={styles.subHeading}>{SET_LOCATION_CONSTANT.SELECTED_EMPLOYEES}</Text>
+      <Text style={styles.subHeading}>{t(SET_LOCATION_CONSTANT.SELECTED_EMPLOYEES)}</Text>
       <FlatList
         data={selectedEmployees}
         keyExtractor={(item) => item.empid}
@@ -72,7 +74,7 @@ const SelectEmployeeGeofenceLocation = ({ route }) => {
       />
 
       <TouchableOpacity style={styles.saveButton} onPress={handleSubmit(onSubmit)} disabled={isLoading}>
-        <Text style={styles.saveText}>{SET_LOCATION_CONSTANT.SAVE}</Text>
+        <Text style={styles.saveText}>{t(SET_LOCATION_CONSTANT.SAVE)}</Text>
       </TouchableOpacity>
     </View>
   );

@@ -34,26 +34,26 @@ export const SET_EMPLOYEE_ATTENDANCE = {
     BACK_CAMERA: 'back',
     GRANTED_STATUS: 'granted',
     DENIED_CAMERA_PERMISSION: 'Camera permission not granted',
-    DENIED_LOCATION: 'Location not available!',
+    DENIED_LOCATION: 'DENIED_LOCATION',
     CAMERA_NOT_READY: 'Camera not ready!',
     FLASH_OFF: 'off',
     CHECK_IN_SUCCESS: 'Check-In Successful',
     CHECK_OUT_SUCCESS: 'Check-Out Successful',
     FAILED_IMAGE: 'Failed to capture image',
-    LOCATION_NOT_FOUND: 'Location not found. Try restarting the app.',
-    CAMERA_PERMISSION_REQUIRED: 'Camera permission required',
+    LOCATION_NOT_FOUND: 'LOCATION_NOT_FOUND',
+    CAMERA_PERMISSION_REQUIRED: 'CAMERA_PERMISSION_REQUIRED',
     LOADING_CAMERA: 'Loading Camera...'
 }
 export const CAMERA_CONSTANT = {
-    CANCEL_LABEL: 'Cancelled',
-    CANCEL_MSG: 'Camera was closed without taking a picture',
-    CAMERA_ERROR: 'Camera Error',
-    UNKNOWN_ERROR_MSG: 'Unknown error',
-    ERROR_TEXT: 'Error',
-    ERROR_MSG: 'Photo not captured',
-    ERROR_MSG_1: 'Missing location or photo'
+    CANCEL_LABEL: 'CAMERA_CANCEL_LABEL',
+    CANCEL_MSG: 'CAMERA_CANCEL_MSG',
+    CAMERA_ERROR: 'CAMERA_ERROR',
+    UNKNOWN_ERROR_MSG: 'CAMERA_UNKNOWN_ERROR_MSG',
+    ERROR_TEXT: 'CAMERA_ERROR_TEXT',
+    ERROR_MSG: 'CAMERA_ERROR_MSG',
+    ERROR_MSG_1: 'CAMERA_ERROR_MSG_1'
 }
 export const GEOFENCE_CONSTANT = {
-    LABEL: 'Outside Geofence',
-    MSG: 'You are outside the geofence. Are you sure you want to mark attendance?'
+    LABEL: 'GEOFENCE_LABEL',
+    MSG: 'GEOFENCE_MSG'
 }

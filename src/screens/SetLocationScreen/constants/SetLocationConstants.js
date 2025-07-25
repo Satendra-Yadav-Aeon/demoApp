@@ -1,16 +1,16 @@
 export const SET_LOCATION_CONSTANT = {
-    NO_EMPLOYEE_SELECTED: 'No employee selected", "Please select at least one employee.',
-    SET_GEOFENCE: 'Set Geofence',
-    SET_GEOFENCE_LOCATION_TITLE: 'Set Geofence Location',
-    SELECTED_EMPLOYEES: 'Selected Employees',
-    SAVE: 'Save',
-    WORKING_LOCATION: 'Working Loaction:',
+    NO_EMPLOYEE_SELECTED: 'NO_EMPLOYEE_SELECTED',
+    SET_LOCATION: 'SET_LOCATION_LABEL',
+    SET_WORKING_LOCATION_TITLE: 'SET_WORKING_LOCATION_TITLE',
+    SELECTED_EMPLOYEES: 'SELECTED_EMPLOYEES',
+    SAVE: 'SAVE',
+    WORKING_LOCATION: 'WORKING_LOCATION',
     NO_TIME: '--/--'
 }
 
 export const SET_LOCATION_DROPDOWN = {
     NAME: 'location',
-    LABEL: 'Select Location',
-    PLACEHOLDER: 'Select Geofence Location',
-    REQUIRED_ERROR: 'Geofence location is required'
+    LABEL: 'DROPDOWN_LABEL',
+    PLACEHOLDER: 'DROPDOWN_PLACEHOLDER',
+    REQUIRED_ERROR: 'DROPDOWN_REQUIRED_ERROR'
 }

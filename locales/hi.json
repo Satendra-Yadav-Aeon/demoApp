@@ -144,6 +144,34 @@
     "MANAGE_TASK": "कार्य प्रबंधन",
     "ADD_TASK_TITLE": "कार्य जोड़ें",
     "UPDATE_TASK_TITLE": "कार्य अपडेट करें",
-    "DELETE_MSG": "सफलतापूर्वक हटाया गया"
-
+    "DELETE_MSG": "सफलतापूर्वक हटाया गया",
+    "SET_LOCATION": "कर्मचारी कार्य स्थान",
+    "NO_EMPLOYEE_SELECTED": "कोई कर्मचारी चयनित नहीं है। कृपया कम से कम एक कर्मचारी का चयन करें।",
+    "SET_LOCATION_LABEL": "स्थान सेट करें",
+    "SET_WORKING_LOCATION_TITLE": "कार्य स्थान सेट करें",
+    "SELECTED_EMPLOYEES": "चयनित कर्मचारी",
+    "SAVE": "सहेजें",
+    "WORKING_LOCATION": "कार्य स्थान:",
+    "DROPDOWN_LABEL": "स्थान चुनें",
+    "DROPDOWN_PLACEHOLDER": "जिओफेंस स्थान चुनें",
+    "DROPDOWN_REQUIRED_ERROR": "जिओफेंस स्थान आवश्यक है",
+    "CAMERA_CANCEL_LABEL": "रद्द किया गया",
+    "CAMERA_CANCEL_MSG": "कैमरा बंद कर दिया गया बिना फोटो लिए",
+    "CAMERA_ERROR": "कैमरा त्रुटि",
+    "CAMERA_UNKNOWN_ERROR_MSG": "अज्ञात त्रुटि",
+    "CAMERA_ERROR_TEXT": "त्रुटि",
+    "CAMERA_ERROR_MSG": "फोटो कैप्चर नहीं किया गया",
+    "CAMERA_ERROR_MSG_1": "स्थान या फोटो गायब है",
+    "GEOFENCE_LABEL": "जिओफेंस के बाहर",
+    "GEOFENCE_MSG": "आप जिओफेंस के बाहर हैं। क्या आप वाकई उपस्थिति चिह्नित करना चाहते हैं?",
+    "DENIED_LOCATION": "स्थान उपलब्ध नहीं है!",
+    "LOCATION_NOT_FOUND": "स्थान नहीं मिला। कृपया ऐप को पुनः आरंभ करें।",
+    "CAMERA_PERMISSION_REQUIRED": "कैमरा अनुमति आवश्यक है",
+    "NOTIFICATION_TITLE": "सूचना",
+    "MARK_ALL_READ": "सभी को पढ़ा हुआ चिह्नित करें",
+    "notification": {
+        "outside_check": "{{name}} ने {{status}} स्थान ({{location}}) के बाहर {{time}} बजे चेक किया - मार्क किया गया {{who}}"
+    },
+    "by_self": "स्वयं द्वारा",
+    "by_supervisor": "प्रवेशकर्ता द्वारा"
 }

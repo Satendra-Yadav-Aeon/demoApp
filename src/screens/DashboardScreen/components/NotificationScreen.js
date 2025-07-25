@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import MyImages from '../../../utils/MyImages';
 import Colors from '../../../assets/colors/colors';
 import { formatTime } from '../../../utils/formatDateUtils';
@@ -10,13 +11,20 @@ import { NOTIFICATION_CONSTANT } from '../constants/DashboardConstant';
 
 const NotificationScreen = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation()
   const { notifications, markAsRead, markAllAsRead } = useContext(NotificationContext);
 
   const renderItem = ({ item }) => {
     const id = `${item.empid}_${item.checkdate}`;
     const status = item.inout === "1" ? 'IN' : 'OUT';
-    const whoMarked = item.attendanceBy === 'Self' ? 'by self' : 'by supervisor';
-    const message = `${item.empname} checked ${status} outside the location (${item.locationName}) at ${formatTime(item.checkdate)} - marked ${whoMarked}`;
+    const whoMarked = item.attendanceBy === 'Self' ? t('by_self') : t('by_supervisor');
+    const message = t('notification.outside_check', {
+      name: item.empname,
+      status,
+      location: item.locationName,
+      time: formatTime(item.checkdate),
+      who: whoMarked
+    });
 
     return (
       <TouchableOpacity
@@ -34,10 +42,10 @@ const NotificationScreen = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon}/>
         </TouchableOpacity>
-        <Text style={styles.heading}>{NOTIFICATION_CONSTANT.TITLE}</Text>
+        <Text style={styles.heading}>{t(NOTIFICATION_CONSTANT.NOTIFICATION_TITLE)}</Text>
       </View>
       <TouchableOpacity onPress={markAllAsRead} style={styles.button}>
-        <Text style={styles.buttonText}>{NOTIFICATION_CONSTANT.MARK_ALL_READ}</Text>
+        <Text style={styles.buttonText}>{t(NOTIFICATION_CONSTANT.MARK_ALL_READ)}</Text>
       </TouchableOpacity>
       <FlatList
         data={notifications}
