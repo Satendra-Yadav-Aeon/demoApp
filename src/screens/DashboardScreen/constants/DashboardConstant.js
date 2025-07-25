@@ -16,5 +16,6 @@ export const MANAGE_TASK = 'MANAGE_TASK';
 export const SELF_TASK = 'SELF_TASK';
 export const CHECK_TASK = 'CHECK_TASK';
 export const NOTIFICATION_CONSTANT = {
-    TITLE: 'Notification'
+    TITLE: 'Notification',
+    MARK_ALL_READ: 'Mark All Read'
 }

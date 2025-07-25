@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import Colors from '../../../assets/colors/colors'
@@ -12,6 +12,7 @@ import CustomChangeLanguage from '../../../common/CustomChangeLanguage'
 import { getLanguageLabel } from '../../../utils/getLanguageLabel'
 import useGetEmployeeDetailsById from '../hooks/useGetEmployeeDetailsById'
 import { BaseConfigUrl } from '../../../env/BaseConfigUrl'
+import { NotificationContext } from '../context/NotificationContext'
 
 const AdminDashboard = () => {
   const navigation = useNavigation()
@@ -20,6 +21,7 @@ const AdminDashboard = () => {
   const[employeeData, setEmployeeData] = useState({})
   const [isLangModalVisible, setLangModalVisible] = useState(false);
   const[capturedImageUri, setCapturedImageUri] = useState()
+  const { unreadCount, refetchNotification } = useContext(NotificationContext);
     
   useEffect(() => {
     fetchAsyncData();
@@ -34,6 +36,7 @@ const AdminDashboard = () => {
     React.useCallback(() => {
       if (employeeData?.empid) {
         refetch({ empid: employeeData?.empid });
+        refetchNotification({ adminId: employeeData.empid });
       }
     }, [employeeData])
   );
@@ -66,9 +69,23 @@ const AdminDashboard = () => {
   return (
     <View style={styles.container}>
       <View style={styles.firstHalf}>
-        <TouchableOpacity onPress={() => setLangModalVisible(true)} style={styles.languageButton}>
-          <Text style={styles.languageText}>{getLanguageLabel(i18n.language)}</Text>
-        </TouchableOpacity>
+        <View style={styles.topRightContainer}>
+          <TouchableOpacity onPress={() => setLangModalVisible(true)} style={styles.languageButton}>
+            <Text style={styles.languageText}>{getLanguageLabel(i18n.language)}</Text>
+          </TouchableOpacity>
+          {/* Notification Icon with Count */}
+          <TouchableOpacity
+            onPress={() => navigation.navigate(SCREENS.NOTIFICATION)}
+            style={styles.notificationWrapper}
+          >
+            <Image source={MyImages.notification} style={styles.notificationIcon}/>
+            {unreadCount > 0 && (
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>{unreadCount}</Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity onPress={() => navigation.navigate(SCREENS.PROFILE, {employee: employeeDetails})} style={styles.profileContainer}>
           {capturedImageUri ? (
             <Image source={{uri: capturedImageUri}} style={styles.roundImage}/>
@@ -103,24 +120,10 @@ const styles = StyleSheet.create({
       flex:5,
       backgroundColor: Colors.bgColor
     },
-    textStyle: {
-      fontSize: 30
-    },
-    settingContainer: {
-      position: 'absolute',
-      top: 25,
-      right: 15,
-      backgroundColor: Colors.bgColor,
-      height: 40,
-      width: 40,
-      borderRadius: 30,
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    settingIcon: {
-      width:24, 
-      height:24, 
-      tintColor: Colors.black
+    notificationIcon: {
+      width:30, 
+      height:30, 
+      tintColor: Colors.white,
     },
     profileContainer: {
       position: 'absolute',
@@ -149,16 +152,11 @@ const styles = StyleSheet.create({
       color: Colors.white
     },
     languageButton: {
-      position: 'absolute',
-      top: 40,
-      right: 20,
-      zIndex: 10,
       backgroundColor: Colors.white,
       paddingVertical: 5,
       paddingHorizontal: 10,
       borderRadius: 6,
       elevation: 3,
-      width: '20%'
     },
     languageText: {
       fontSize: 14,
@@ -173,5 +171,32 @@ const styles = StyleSheet.create({
       borderWidth: 2,
       borderColor: Colors.white,
       marginTop: 10
-    }
-})
+    },
+    topRightContainer: {
+      position: 'absolute',
+      top: 40,
+      right: 20,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 20,
+      zIndex: 10
+    },
+    notificationWrapper: {
+      position: 'relative',
+      marginRight: 10,
+    },
+    badge: {
+      position: 'absolute',
+      top: -4,
+      right: -4,
+      backgroundColor: 'red',
+      borderRadius: 8,
+      paddingHorizontal: 4,
+      minWidth: 16,
+      alignItems: 'center',
+    },
+    badgeText: {
+      color: 'white',
+      fontSize: 14,
+    },
+    })

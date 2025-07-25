@@ -12,6 +12,7 @@ import Routes from './src/navigations/Routes';
 import './i18n';
 import { loadSavedLanguage } from './src/utils/i18nLoader';
 import { ASYNC_CONSTANT } from './src/constants/AsyncConstant';
+import { NotificationProvider } from './src/screens/DashboardScreen/context/NotificationContext';
 
 
 const App = () => {
@@ -77,8 +78,10 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Provider store={store}>
+        <NotificationProvider>
         <Routes/>
         <Toast/>
+        </NotificationProvider>
       </Provider> 
     </SafeAreaView>
   )

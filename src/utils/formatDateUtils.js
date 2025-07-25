@@ -15,9 +15,14 @@ export const formatDateTime = (dateString) => {
   return `${fullYear}-${month}-${day} ${timePart}`;
 };
 
-export const formatTime = (datetime) => {
-  const [_, time] = datetime.split(' ');
-  const [hour, minute] = time.split(':');
+export const formatTime = (datetime = '') => {
+  if (!datetime.includes(' ')) return 'Invalid time';
+
+  const [, time] = datetime.split(' ');
+
+  if (!time) return 'Invalid time';
+  
+  const [hour = '00', minute = '00'] = time.split(':');
   const hourNum = parseInt(hour);
   const ampm = hourNum >= 12 ? 'PM' : 'AM';
   const formattedHour = hourNum % 12 === 0 ? 12 : hourNum % 12;

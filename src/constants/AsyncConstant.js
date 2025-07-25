@@ -8,5 +8,6 @@ export const ASYNC_CONSTANT = {
     MANAGE_CHECK_DATE: 'manageCheckDate',
     TASK_IMGAE: 'taskImage',
     USER_LAT: 'userLat',
-    USER_LONG: 'userLong'
+    USER_LONG: 'userLong',
+    READ_NOTIFICATIONS: 'READ_NOTIFICATIONS'
 }
