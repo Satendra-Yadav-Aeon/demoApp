@@ -5,11 +5,15 @@ import Colors from '../../../assets/colors/colors';
 import MyImages from '../../../utils/MyImages';
 
 const PrivacyPolicy = () => {
+  const privacyPolicy =
+      Platform.OS === 'android'
+        ? { uri: 'file:///android_asset/attendrixPrivacyPolicy.html' } // Android
+        : require('../../../assets/html/attendrixPrivacyPolicy.html'); // iOS
   return (
     <View style={styles.container}>
       <WebView
         originWhitelist={['*']}
-        source={MyImages.privacyPolicy}
+        source={privacyPolicy}
       />
     </View>
   );

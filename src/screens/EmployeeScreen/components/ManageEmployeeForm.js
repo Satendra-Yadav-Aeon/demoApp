@@ -141,7 +141,7 @@ const ManageEmployeeForm = () => {
      if (mode === MANAGE_EMPLOYEE_CONSTANT.UPDATE_MODE && employee?.empid) {
       saveData.empid = employee?.empid;
     }
-    console.log('==onSubmit====ManageEmployeeForm==>saveData>>>>',saveData);
+    // console.log('==onSubmit====ManageEmployeeForm==>saveData>>>>',saveData);
     const response = saveEmployee(saveData);
     if(response){
       navigation.goBack();
