@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/splash_icon"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/icon"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:src="@drawable/screen"
         android:layout_centerInParent="true"
         android:scaleType="fitCenter" />
 </RelativeLayout>
