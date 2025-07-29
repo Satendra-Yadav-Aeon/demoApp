@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bgColor,
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,
-    paddingTop:20
+    paddingTop:20,
+    marginBottom: 20
   },
   emptyContainer: {
     flex: 1,

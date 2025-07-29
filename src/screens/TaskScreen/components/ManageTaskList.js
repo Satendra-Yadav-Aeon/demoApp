@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bgColor,
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,
+    marginBottom: 20
   },
   addIcon: {
     alignItems: 'flex-end',

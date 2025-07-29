@@ -50,7 +50,8 @@ const MonthAttendance = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bgColor
+    backgroundColor: Colors.bgColor,
+    marginBottom: 20
   },
   emptyContainer: {
     flex: 1,
