@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     gap: 10
   },
   dateText: {
-    flex: 0.3,
+    flex: 0.35,
     flexWrap: 'wrap',
     fontSize: 16,
     fontWeight: 'bold'

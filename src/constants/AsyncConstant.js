@@ -9,5 +9,6 @@ export const ASYNC_CONSTANT = {
     TASK_IMGAE: 'taskImage',
     USER_LAT: 'userLat',
     USER_LONG: 'userLong',
-    READ_NOTIFICATIONS: 'READ_NOTIFICATIONS'
+    READ_NOTIFICATIONS: 'READ_NOTIFICATIONS',
+    HAS_SEEN_INTRO: 'hasSeenIntro'
 }
