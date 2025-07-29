@@ -22,7 +22,8 @@ export const SCREENS = {
     ADMIN_TASK: 'AdminTask',
     SET_LOCATION: 'SetLocation',
     EMPLOYEE_GEOFENCE_LOCATION: 'SelectEmployeeGeofenceLocation',
-    NOTIFICATION: 'Notification'
+    NOTIFICATION: 'Notification',
+    INTRO: 'IntroScreen'
 }
 export const AM_TIME_LABEL = 'AM';
 export const PM_TIME_LABEL = 'PM';
