@@ -97,7 +97,7 @@ export default EmployeeShowAttendance
 
 const styles = StyleSheet.create({
   overlay: {
-    position: 'absolute',
+    position: 'fixed',
     top: screenHeight * 0.28,
     width: screenWidth,
     alignItems: 'center',

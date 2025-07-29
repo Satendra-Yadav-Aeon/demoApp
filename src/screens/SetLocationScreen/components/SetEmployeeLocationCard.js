@@ -42,6 +42,7 @@ const SetEmployeeLocationCard = ({ employee, isSelected, onToggleSelect }) => {
           value={isSelected}
           onValueChange={() => onToggleSelect(employee)}
           tintColors={{ true: Colors.red }}
+          style={{marginBottom: 60}}
         />
       </View>
     </View>
