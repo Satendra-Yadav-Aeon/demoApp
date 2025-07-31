@@ -8,7 +8,9 @@ import { isArrayLength } from '../../../utils/ValidationUtils';
 import useGetSupervisorsEmployeeAPI from '../hooks/useGetSupervisorsEmployeeAPI';
 import { getAsyncItem } from '../../../utils/AsyncStorage';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
+import ScreenDimensions from '../../../utils/DimensionUtils';
 
+const {screenWidth} = ScreenDimensions
 const MarkAttendanceEmployeeList = () => {
   const {supervisorsEmployeeList, refetchSupervisorEmployeeList} = useGetSupervisorsEmployeeAPI();
   const[employeeData, setEmployeeData] = useState({})
@@ -64,19 +66,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20
   },
-  addIcon: {
-    alignItems: 'flex-end',
-    margin: 15,
-  },
-  addIconStyle: {
-    height: 50,
-    width: 50,
-    tintColor: Colors.red
-  },
   emptyContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: screenWidth*1
   },
   noDataIcon: {
     height: 100,

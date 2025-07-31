@@ -97,14 +97,15 @@ export default EmployeeShowAttendance
 
 const styles = StyleSheet.create({
   overlay: {
-    position: 'fixed',
-    top: screenHeight * 0.28,
-    width: screenWidth,
+    position: 'absolute',
+    top: '68%',
+    left: 0,
+    right: 0,
     alignItems: 'center',
     zIndex: 10,
   },
   card: {
-    width: screenWidth * 0.85,
+    width: '85%',
     height: screenHeight * 0.25,
     backgroundColor: Colors.bgColor,
     borderRadius: 20,

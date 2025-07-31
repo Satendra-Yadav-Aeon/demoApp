@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-date-picker'
 import { useTranslation } from 'react-i18next';
 import { useFocusEffect } from '@react-navigation/native';
 import { useAdminAttendance } from '../context/AdminAttendanceContext';
@@ -67,11 +67,17 @@ const AttendanceCountCard = () => {
             <Image source={MyImages.calendar} style={styles.calendarIcon}/>
         </TouchableOpacity>
         {showPicker && (
-            <DateTimePicker
-            mode={ATTENDANCE_COUNT_CARD_CONSTANT.DATE_MODE}
-            value={moment(selectedDate, DATE_FORMAT_A).toDate()}
-            display={ATTENDANCE_COUNT_CARD_CONSTANT.DEFAULT}
-            onChange={onDateChange}
+            <DatePicker
+              modal
+              open={showPicker}
+              mode="date"
+              date={moment(selectedDate, DATE_FORMAT_A).toDate()}
+              onConfirm={(date) => {
+                setShowPicker(false);
+                setSelectedDate(moment(date).format(DATE_FORMAT_A));
+                setSelectedDates(moment(date).format(DATE_FORMAT_A));
+              }}
+              onCancel={() => setShowPicker(false)}
             />
         )}
         <View style={styles.cardContainer}>

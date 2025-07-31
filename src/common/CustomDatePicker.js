@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import DatePicker from 'react-native-date-picker';
 import Colors from '../assets/colors/colors';
-import { DISPLAY_DEFAULT, DISPLAY_SPINNER, IOS_PLATFORM } from '../constants/MainConstant';
 
-const CustomDatePicker = ({ label, value, onChange, error, minimumDate, placeholder, mode = 'date', disabled }) => {
-  const [showDate, setShowDate] = useState(false);
-  const [showTime, setShowTime] = useState(false);
-  const [tempDate, setTempDate] = useState(value ? new Date(value) : new Date());
+const CustomDatePicker = ({
+  label,
+  value,
+  onChange,
+  error,
+  minimumDate,
+  placeholder,
+  mode = 'date',
+  disabled,
+}) => {
+  const [open, setOpen] = useState(false);
 
   const formatDateTime = (date, mode) => {
     const pad = (n) => (n < 10 ? `0${n}` : n);
@@ -22,76 +28,37 @@ const CustomDatePicker = ({ label, value, onChange, error, minimumDate, placehol
     return `${dd}-${mm}-${yyyy} ${hh}:${min}:${ss}`;
   };
 
-
-  const handlePress = () => {
-    if (Platform.OS === 'android' && mode === 'datetime') {
-      setShowDate(true);
-    } else {
-      setShowDate(true);
-    }
-  };
-
-  const handleDateChange = (event, selectedDate) => {
-    if (Platform.OS === 'android') setShowDate(false);
-    if (selectedDate) {
-      if (mode === 'datetime' && Platform.OS === 'android') {
-        setTempDate(selectedDate);
-        setShowTime(true); // show time picker next
-      } else {
-        const finalDate = formatDateTime(selectedDate, mode);
-        onChange(finalDate);
-      }
-    }
-  };
-
-  const handleTimeChange = (event, selectedTime) => {
-    setShowTime(false);
-    if (selectedTime) {
-      const fullDate = new Date(
-        tempDate.getFullYear(),
-        tempDate.getMonth(),
-        tempDate.getDate(),
-        selectedTime.getHours(),
-        selectedTime.getMinutes()
-      );
-      const finalDateTime = formatDateTime(fullDate, mode);
-      onChange(finalDateTime);
-    }
+  const handleConfirm = (selectedDate) => {
+    setOpen(false);
+    const finalDate = formatDateTime(selectedDate, mode);
+    onChange(finalDate);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
+      {label && <Text style={styles.label}>{label}</Text>}
 
       <TouchableOpacity
-        style={[styles.input, disabled && { backgroundColor: Colors.lightGrey }]}
-        onPress={!disabled ? handlePress : null}
+        style={styles.input}
+        onPress={() => !disabled && setOpen(true)}
+        disabled={disabled}
       >
         <Text style={value ? styles.valueText : styles.placeholderText}>
           {value || placeholder}
         </Text>
       </TouchableOpacity>
 
-      {!disabled && showDate && (
-        <DateTimePicker
-          value={value ? new Date(value) : new Date()}
-          mode={mode === 'datetime' && Platform.OS === 'android' ? 'date' : mode}
-          display={Platform.OS === IOS_PLATFORM ? DISPLAY_SPINNER : DISPLAY_DEFAULT}
-          onChange={handleDateChange}
-          minimumDate={minimumDate}
-        />
-      )}
-
-      {!disabled && showTime && (
-        <DateTimePicker
-          value={tempDate}
-          mode="time"
-          display={Platform.OS === IOS_PLATFORM ? DISPLAY_SPINNER : DISPLAY_DEFAULT}
-          onChange={handleTimeChange}
-        />
-      )}
-
       {error && <Text style={styles.error}>{error}</Text>}
+
+      <DatePicker
+        modal
+        open={open}
+        date={value ? new Date(value) : new Date()}
+        mode={mode}
+        minimumDate={minimumDate}
+        onConfirm={handleConfirm}
+        onCancel={() => setOpen(false)}
+      />
     </View>
   );
 };
@@ -99,14 +66,14 @@ const CustomDatePicker = ({ label, value, onChange, error, minimumDate, placehol
 export default CustomDatePicker;
 
 const styles = StyleSheet.create({
-  container: { 
-    margin: 15 
-   },
-  label: { 
-    fontSize: 18, 
+  container: {
+    margin: 15,
+  },
+  label: {
+    fontSize: 18,
     color: Colors.black,
-    marginBottom: 4, 
-    fontWeight: 'bold' 
+    marginBottom: 4,
+    fontWeight: 'bold',
   },
   input: {
     borderWidth: 1,
@@ -115,10 +82,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
   },
-  error: { 
-    color: Colors.red_1, 
-    marginTop: 4, 
-    fontSize: 14 
+  error: {
+    color: Colors.red_1,
+    marginTop: 4,
+    fontSize: 14,
   },
   valueText: {
     color: Colors.black,
