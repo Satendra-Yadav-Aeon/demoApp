@@ -47,7 +47,7 @@ const EmployeeCategory = ({ role }) => {
   return (
     <TouchableOpacity style={styles.card} onPress={() => navigation.navigate(item?.screen)}>
       <Image source={item?.icon} style={styles.icon}/>
-      <Text style={styles.cardText}>{item?.title}</Text>
+      <Text style={styles.cardText} adjustsFontSizeToFit={true}>{item?.title}</Text>
     </TouchableOpacity>
   );
   };
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     color: Colors.black,
     marginTop: 10,
     width: '100%',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   icon: {
     width: 60, 

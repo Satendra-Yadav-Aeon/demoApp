@@ -80,7 +80,7 @@ const SetEmployeeLocationList = () => {
     <View style={styles.container}>
       <View style={styles.headerRow}>
         <TouchableOpacity style={styles.setLocationButton} onPress={handleSetLocation}>
-          <Text style={styles.setLocationText}>{t(SET_LOCATION_CONSTANT.SET_LOCATION)}</Text>
+          <Text style={styles.setLocationText} adjustsFontSizeToFit={true}>{t(SET_LOCATION_CONSTANT.SET_LOCATION)}</Text>
         </TouchableOpacity>
         <CheckBox value={selectAll} onValueChange={toggleSelectAll} tintColors={{ true: Colors.red }} style={{marginRight: 15}} />
       </View>

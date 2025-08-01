@@ -120,7 +120,7 @@ const GeofenceMap = () => {
         )}
         <Marker coordinate={midPoint(checkinLocation, geofenceLocation)}>
           <View style={styles.distanceLabel}>
-            <Text style={styles.distanceText}>{checkinToGeofenceKm.toFixed(2)} km</Text>
+            <Text style={styles.distanceText} adjustsFontSizeToFit={true}>{checkinToGeofenceKm.toFixed(2)} km</Text>
           </View>
         </Marker>
 

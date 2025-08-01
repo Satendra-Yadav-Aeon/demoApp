@@ -71,7 +71,7 @@ const AdminDashboard = () => {
       <View style={styles.firstHalf}>
         <View style={styles.topRightContainer}>
           <TouchableOpacity onPress={() => setLangModalVisible(true)} style={styles.languageButton}>
-            <Text style={styles.languageText}>{getLanguageLabel(i18n.language)}</Text>
+            <Text style={styles.languageText} adjustsFontSizeToFit={true}>{getLanguageLabel(i18n.language)}</Text>
           </TouchableOpacity>
           {/* Notification Icon with Count */}
           <TouchableOpacity

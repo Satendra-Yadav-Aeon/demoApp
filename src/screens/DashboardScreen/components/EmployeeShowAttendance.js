@@ -67,9 +67,9 @@ const EmployeeShowAttendance = ({checkIn, checkOut, employeeDetails}) => {
         <View style={styles.checkSection}>
           <View style={styles.checkInContainer}>
           <Image source={MyImages.checkIn} style={styles.checkIcons} />
-          <Text style={styles.labelText}>{t(CHECK_IN_LABEL)}</Text>
+          <Text style={styles.labelText} adjustsFontSizeToFit={true}>{t(CHECK_IN_LABEL)}</Text>
           </View>
-          <Text style={styles.timeText}>
+          <Text style={styles.timeText} adjustsFontSizeToFit={true}>
             {checkIn}
           </Text>
         </View>
@@ -78,9 +78,9 @@ const EmployeeShowAttendance = ({checkIn, checkOut, employeeDetails}) => {
         <View style={styles.checkSection}>
           <View style={styles.checkOutContainer}>
           <Image source={MyImages.checkOut} style={styles.checkIcons} />
-          <Text style={styles.labelText}>{t(CHECK_OUT_LABEL)}</Text>
+          <Text style={styles.labelText} adjustsFontSizeToFit={true}>{t(CHECK_OUT_LABEL)}</Text>
           </View>
-          <Text style={styles.timeText}>
+          <Text style={styles.timeText} adjustsFontSizeToFit={true}>
             {checkOut}
           </Text>
         </View>

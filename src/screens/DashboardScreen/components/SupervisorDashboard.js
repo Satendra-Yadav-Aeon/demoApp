@@ -78,7 +78,7 @@ const SupervisorDashboard = () => {
     <View style={styles.container}>
       <View style={styles.firstHalf}>
         <TouchableOpacity onPress={() => setLangModalVisible(true)} style={styles.languageButton}>
-          <Text style={styles.languageText}>{getLanguageLabel(i18n.language)}</Text>
+          <Text style={styles.languageText} adjustsFontSizeToFit={true}>{getLanguageLabel(i18n.language)}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate(SCREENS.PROFILE, {employee: employeeDetails})} style={styles.profileContainer}>
           {capturedImageUri ? (

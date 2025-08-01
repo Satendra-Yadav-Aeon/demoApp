@@ -31,7 +31,7 @@ const NotificationScreen = () => {
         onPress={() => markAsRead(id)}
         style={[styles.item, item.isRead ? styles.read : styles.unread]}
       >
-        <Text style={styles.msgText}>{message}</Text>
+        <Text style={styles.msgText} adjustsFontSizeToFit={true}>{message}</Text>
       </TouchableOpacity>
     );
   };
@@ -98,12 +98,13 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     borderRadius: 6,
     marginBottom: 50,
-    marginTop: 30
+    marginTop: 30,
   },
   buttonText: {
     color: Colors.white,
     fontSize: 16,
-    fontWeight: '500'
+    fontWeight: '500',
+    textAlign: 'center'
   },
   goBackIcon: {
     width: 30,

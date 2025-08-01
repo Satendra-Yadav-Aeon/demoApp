@@ -63,7 +63,7 @@ const CustomDropdown = ({
               onPress={() => setModalVisible(false)}
               style={styles.closeButton}
             >
-              <Text style={styles.closeText}>{CLOSE_TXT}</Text>
+              <Text style={styles.closeText} adjustsFontSizeToFit={true}>{CLOSE_TXT}</Text>
             </TouchableOpacity>
           </View>
         </View>

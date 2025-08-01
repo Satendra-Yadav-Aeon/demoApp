@@ -81,7 +81,7 @@ const SelectEmployeeGeofenceLocation = ({ route }) => {
       />
 
       <TouchableOpacity style={styles.saveButton} onPress={handleSubmit(onSubmit)} disabled={isLoading}>
-        <Text style={styles.saveText}>{t(SET_LOCATION_CONSTANT.SAVE)}</Text>
+        <Text style={styles.saveText} adjustsFontSizeToFit={true}>{t(SET_LOCATION_CONSTANT.SAVE)}</Text>
       </TouchableOpacity>
     </View>
   );

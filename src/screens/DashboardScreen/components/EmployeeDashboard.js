@@ -74,7 +74,7 @@ const EmployeeDashboard = () => {
     <View style={styles.container}>
       <View style={styles.firstHalf}>
         <TouchableOpacity onPress={() => setLangModalVisible(true)} style={styles.languageButton}>
-          <Text style={styles.languageText}>{getLanguageLabel(i18n.language)}</Text>
+          <Text style={styles.languageText} adjustsFontSizeToFit={true}>{getLanguageLabel(i18n.language)}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate(SCREENS.PROFILE, {employee: employeeDetails})} style={styles.profileContainer}>
           {capturedImageUri ? (
@@ -169,9 +169,10 @@ const styles = StyleSheet.create({
       marginTop: 15
     },
     languageText: {
-      fontSize: 14,
+      fontSize: 18,
       fontWeight: 'bold',
       color: Colors.black,
+      textAlign: 'center',
     },
     roundImage: {
       width: 70,
