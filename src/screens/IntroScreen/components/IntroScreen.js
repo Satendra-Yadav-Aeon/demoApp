@@ -3,15 +3,12 @@ import { StyleSheet, View } from 'react-native';
 import Video from 'react-native-video';
 import { useNavigation } from '@react-navigation/native';
 import { SCREENS } from '../../../constants/MainConstant';
-import { setAsyncItem } from '../../../utils/AsyncStorage';
-import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 import { requestLocationPermission } from '../../../utils/requestLocationPermission';
 
 const IntroScreen = () => {
   const navigation = useNavigation();
 
   const handleVideoEnd = async () => {
-    await setAsyncItem(ASYNC_CONSTANT.HAS_SEEN_INTRO, 'true');
     // Ask for location permission
     await requestLocationPermission();
     // Navigate to login screen
