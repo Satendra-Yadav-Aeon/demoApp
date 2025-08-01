@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet, Image, TouchableOpacity, Text, Alert } from 'react-native';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import CheckBox from '@react-native-community/checkbox';
 import { useTranslation } from 'react-i18next';
 import useGetAllEmployee from '../../EmployeeScreen/hooks/useGetAllEmployee';
@@ -15,6 +15,7 @@ import { SCREENS } from '../../../constants/MainConstant';
 
 const SetEmployeeLocationList = () => {
   const navigation = useNavigation();
+  const route = useRoute()
   const {t} = useTranslation()
   const {manageEmployeeData, refetch} = useGetAllEmployee()
   const[employeeData, setEmployeeData] = useState({})
@@ -38,7 +39,7 @@ const SetEmployeeLocationList = () => {
       // Reset selection every time screen is focused
       setSelectedEmployees([]);
       setSelectAll(false);
-    }, [employeeData])
+    }, [employeeData, route.params?.shouldRefresh])
   );
 
   const renderEmptyData = () => {

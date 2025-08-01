@@ -9,6 +9,7 @@ import { SET_LOCATION_CONSTANT, SET_LOCATION_DROPDOWN } from '../constants/SetLo
 import MyImages from '../../../utils/MyImages';
 import useGeofenceDropdownAPI from '../hooks/useGeofenceDropdownAPI';
 import { useSaveGeofenceAPI } from '../hooks/useSaveGeofenceAPI';
+import { SCREENS } from '../../../constants/MainConstant';
 
 const SelectEmployeeGeofenceLocation = ({ route }) => {
   const navigation = useNavigation()
@@ -33,8 +34,14 @@ const SelectEmployeeGeofenceLocation = ({ route }) => {
     }));
     // console.log("===onSubmit=====geofenceData==>>>>>", geofenceData);
     const response = saveGeofenceLocation(geofenceData);
-    if(response){
-      navigation.goBack();
+    if (response) {
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: SCREENS.DASHBOARD },
+          { name: SCREENS.SET_LOCATION, params: { shouldRefresh: true } },
+        ],
+      });
     }
   };
 

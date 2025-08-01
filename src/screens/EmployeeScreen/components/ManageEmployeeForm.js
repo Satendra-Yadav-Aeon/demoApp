@@ -15,7 +15,7 @@ import useEmployeeRole from '../hooks/useEmployeeRole';
 import useAdminRoleLists from '../hooks/useAdminRoleLists';
 import useSupervisorRoleLists from '../hooks/useSupervisorRoleLists';
 import { useSaveEmployee } from '../hooks/useSaveEmployee';
-import { ROLES, SMALL_LOADER } from '../../../constants/MainConstant';
+import { ROLES, SCREENS, SMALL_LOADER } from '../../../constants/MainConstant';
 import { SUBMIT_BUTTON_TEXT } from '../../LoginScreen/constants/LoginConstant';
 import { getAsyncItem } from '../../../utils/AsyncStorage';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
@@ -143,8 +143,14 @@ const ManageEmployeeForm = () => {
     }
     // console.log('==onSubmit====ManageEmployeeForm==>saveData>>>>',saveData);
     const response = saveEmployee(saveData);
-    if(response){
-      navigation.goBack();
+    if (response) {
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: SCREENS.DASHBOARD },
+          { name: SCREENS.MANAGE_EMPLOYEE, params: { shouldRefresh: true } },
+        ],
+      });
     }
   };
 

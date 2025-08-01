@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { SCREENS } from '../../../constants/MainConstant';
 import MyImages from '../../../utils/MyImages';
 import Colors from '../../../assets/colors/colors';
@@ -14,6 +14,7 @@ import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 
 const ManageEmployeeList = () => {
   const navigation = useNavigation();
+  const route = useRoute();
   const {manageEmployeeData, refetch} = useGetAllEmployee()
   const[employeeData, setEmployeeData] = useState({})
 
@@ -31,7 +32,7 @@ const ManageEmployeeList = () => {
       if(employeeData?.empid){
         refetch({admnId: employeeData?.empid});
       }
-    }, [employeeData])
+    }, [employeeData, route.params?.shouldRefresh])
   );
 
   const handleAddEmployee = () => {
