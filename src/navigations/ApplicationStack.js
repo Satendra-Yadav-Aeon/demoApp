@@ -31,6 +31,8 @@ import AdminTask from '../screens/TaskScreen/components/AdminTask'
 import SetEmployeeLocation from '../screens/SetLocationScreen/components/SetEmployeeLocation'
 import SelectEmployeeGeofenceLocation from '../screens/SetLocationScreen/components/SelectEmployeeGeofenceLocation'
 import NotificationScreen from '../screens/DashboardScreen/components/NotificationScreen'
+import AttendanceReport from '../screens/ReportScreen/components/AttendanceReport'
+import TaskReport from '../screens/ReportScreen/components/TaskReport'
 
 const Stack = createNativeStackNavigator()
 const ApplicationStack = () => {
@@ -105,6 +107,8 @@ const ApplicationStack = () => {
         <Stack.Screen name={SCREENS.SET_LOCATION} component={SetEmployeeLocation}/>
         <Stack.Screen name={SCREENS.EMPLOYEE_GEOFENCE_LOCATION} component={SelectEmployeeGeofenceLocation}/>
         <Stack.Screen name={SCREENS.NOTIFICATION} component={NotificationScreen}/>
+        <Stack.Screen name={SCREENS.ATTENDANCE_REPORT} component={AttendanceReport}/>
+        <Stack.Screen name={SCREENS.TASK_REPORT} component={TaskReport}/>
       </Stack.Navigator>
   )
 }

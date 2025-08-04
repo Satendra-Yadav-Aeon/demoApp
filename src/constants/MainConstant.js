@@ -23,7 +23,9 @@ export const SCREENS = {
     SET_LOCATION: 'SetLocation',
     EMPLOYEE_GEOFENCE_LOCATION: 'SelectEmployeeGeofenceLocation',
     NOTIFICATION: 'Notification',
-    INTRO: 'IntroScreen'
+    INTRO: 'IntroScreen',
+    ATTENDANCE_REPORT: 'AttendanceReport',
+    TASK_REPORT: 'TaskReport'
 }
 export const AM_TIME_LABEL = 'AM';
 export const PM_TIME_LABEL = 'PM';
