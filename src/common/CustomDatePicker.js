@@ -12,6 +12,7 @@ const CustomDatePicker = ({
   placeholder,
   mode = 'date',
   disabled,
+  labelStyle
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -36,7 +37,7 @@ const CustomDatePicker = ({
 
   return (
     <View style={styles.container}>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
 
       <TouchableOpacity
         style={styles.input}

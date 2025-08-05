@@ -22,4 +22,6 @@ export const Endpoints = {
     GEOFENCE_DROPDOWN: '/GeoLocation/getLocations',
     SAVE_GEOFENCE: '/GeoLocation/AddsetLocation',
     GET_ADMIN_NOTIFICATION_DATA: '/GeoLocation/getEmpdetails',
+    GET_ATTENDANCE_REPORT: '/report/AttendanceReport',
+    GET_TASK_REPORT: '/report/taskReport',
 }

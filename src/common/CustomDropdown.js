@@ -18,6 +18,7 @@ const CustomDropdown = ({
   error,
   placeholder,
   containerStyle,
+  labelStyle
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -26,7 +27,7 @@ const CustomDropdown = ({
 
   return (
     <View style={[styles.container, containerStyle]}>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, labelStyle]}>{label}</Text>
 
       <TouchableOpacity
         style={styles.inputBox}

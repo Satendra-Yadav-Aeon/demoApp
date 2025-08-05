@@ -7,6 +7,7 @@ import Colors from '../../../assets/colors/colors';
 import { formatTime } from '../../../utils/formatDateUtils';
 import { NotificationContext } from '../context/NotificationContext';
 import { NOTIFICATION_CONSTANT } from '../constants/DashboardConstant';
+import { isArrayLength } from '../../../utils/ValidationUtils';
 
 
 const NotificationScreen = () => {
@@ -36,6 +37,14 @@ const NotificationScreen = () => {
     );
   };
 
+  const renderEmptyData = () => {
+    return(
+      <View style={styles.emptyContainer}>
+        <Image source={MyImages.noData} style={styles.noDataIcon}/>
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.headingContainer}>
@@ -47,11 +56,15 @@ const NotificationScreen = () => {
       <TouchableOpacity onPress={markAllAsRead} style={styles.button}>
         <Text style={styles.buttonText}>{t(NOTIFICATION_CONSTANT.MARK_ALL_READ)}</Text>
       </TouchableOpacity>
-      <FlatList
-        data={notifications}
-        renderItem={renderItem}
-        keyExtractor={(item, i) => `${item.empid}_${item.checkdate}_${i}`}
-      />
+      {isArrayLength(notifications) ? (
+        <FlatList
+          data={notifications}
+          renderItem={renderItem}
+          keyExtractor={(item, i) => `${item.empid}_${item.checkdate}_${i}`}
+        />
+      ) : (
+        renderEmptyData()
+      )}
     </View>
   );
 };
@@ -116,5 +129,14 @@ const styles = StyleSheet.create({
     color: Colors.black,
     fontSize: 16,
     fontWeight: '400'
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noDataIcon: {
+    height: 100,
+    width: 100,
   }
 });
