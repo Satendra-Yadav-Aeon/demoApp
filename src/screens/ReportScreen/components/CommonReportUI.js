@@ -39,13 +39,13 @@ const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileNam
     </View>
   );
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item, index }) => (
   <View style={styles.row}>
-    <Text style={[styles.cell, { width: columnWidths[1] }]} numberOfLines={1}>{item.name || '--/--'}</Text>
-    <Text style={[styles.cell, { width: columnWidths[2] }]} numberOfLines={1}>{item.role || '--/--'}</Text>
-    <Text style={[styles.cell, { width: columnWidths[3] }]} numberOfLines={1}>{item.checkin || '--/--'}</Text>
-    <Text style={[styles.cell, { width: columnWidths[4] }]} numberOfLines={1}>{item.checkout || '--/--'}</Text>
-    <Text style={[styles.cell, { width: columnWidths[5] }]} numberOfLines={1}>{item.status || '--/--'}</Text>
+    <Text style={[styles.cell, { width: columnWidths[1] }]} numberOfLines={1}>{index + 1}</Text>
+    <Text style={[styles.cell, { width: columnWidths[2] }]} numberOfLines={1}>{item.name || '--/--'}</Text>
+    <Text style={[styles.cell, { width: columnWidths[3] }]} numberOfLines={1}>{item.role || '--/--'}</Text>
+    <Text style={[styles.cell, { width: columnWidths[4] }]} numberOfLines={1}>{item.checkin || '--/--'}</Text>
+    <Text style={[styles.cell, { width: columnWidths[5] }]} numberOfLines={1}>{item.checkout || '--/--'}</Text>
     <Text style={[styles.cell, { width: columnWidths[6] }]} numberOfLines={1}>{item.total_hrs || '--/--'}</Text>
     <Text style={[styles.cell, { width: columnWidths[7] }]} numberOfLines={1}>{item.attendanceby || '--/--'}</Text>
   </View>
@@ -55,12 +55,12 @@ const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileNam
   const downloadExcel = async () => {
     try {
       // Prepare data
-      const dataToExport = reportData?.map(row => ({
+      const dataToExport = reportData?.map((row,index) => ({
+        'Sr No': index + 1,
         'Employee Name': row.name,
         'Role': row.role,
         'CheckIn': row.checkin,
         'CheckOut': row.checkout,
-        'Status': row.status,
         'Total Hrs': row.total_hrs,
         'Marked By': row.attendanceby,
       }));
@@ -118,7 +118,7 @@ const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileNam
               <FlatList
                 data={reportData}
                 renderItem={renderItem}
-                keyExtractor={item => item.empid.toString()}
+                keyExtractor={(_, index) => index.toString()}
                 ItemSeparatorComponent={() => <View style={{ height: 6 }} />}
                 contentContainerStyle={{ paddingTop: 10 }}
               />

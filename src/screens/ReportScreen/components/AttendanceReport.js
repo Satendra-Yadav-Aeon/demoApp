@@ -46,7 +46,7 @@ const AttendanceReport = () => {
     value: emp?.empid
   }))
 
-  const headers = ['Employee Name', 'Role', 'CheckIn', 'CheckOut', 'Status', 'Total Hrs', 'Marked By'];
+  const headers = ['Sr No','Employee Name', 'Role', 'CheckIn', 'CheckOut', 'Total Hrs', 'Marked By'];
 
   const columnWidths = [150, 150, 150, 150, 150, 150, 150]
 
