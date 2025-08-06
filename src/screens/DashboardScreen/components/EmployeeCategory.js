@@ -12,7 +12,7 @@ const { screenHeight, screenWidth } = ScreenDimensions
 
 const cardWidth = screenWidth * 0.35;
 
-const EmployeeCategory = ({ role }) => {
+const EmployeeCategory = ({ role, ListFooterComponent}) => {
   const navigation = useNavigation()
   const {t} = useTranslation()
 
@@ -63,6 +63,7 @@ const EmployeeCategory = ({ role }) => {
         numColumns={2}
         columnWrapperStyle={styles.row}
         contentContainerStyle={styles.flatListContent}
+        ListFooterComponent={ListFooterComponent}
       />
     </View>
   )

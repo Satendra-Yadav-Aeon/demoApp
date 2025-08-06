@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages'
 import EmployeeCategory from './EmployeeCategory'
@@ -22,6 +23,8 @@ const AdminDashboard = () => {
   const [isLangModalVisible, setLangModalVisible] = useState(false);
   const[capturedImageUri, setCapturedImageUri] = useState()
   const { unreadCount, refetchNotification } = useContext(NotificationContext);
+  const [isFullMapVisible, setFullMapVisible] = useState(false);
+
     
   useEffect(() => {
     fetchAsyncData();
@@ -99,8 +102,45 @@ const AdminDashboard = () => {
         </View>
       </View>
       <View style={styles.secondHalf}>
-        <EmployeeCategory role={ROLES.ADMIN}/>
+        <EmployeeCategory
+          role={ROLES.ADMIN}
+          ListFooterComponent={
+            <TouchableOpacity onPress={() => setFullMapVisible(true)}>
+              <View style={styles.mapContainer}>
+                <MapView
+                  style={styles.map}
+                  provider={PROVIDER_GOOGLE}
+                  initialRegion={{
+                    latitude: 18.568742978011688,
+                    longitude: 73.90839965318092,
+                    latitudeDelta: 0.01,
+                    longitudeDelta: 0.01,
+                  }}
+                  scrollEnabled={false}
+                  zoomEnabled={false}
+                />
+              </View>
+            </TouchableOpacity>
+          }
+        />
       </View>
+      {isFullMapVisible && (
+        <View style={styles.fullMapContainer}>
+          <MapView
+            style={styles.fullMap}
+            provider={PROVIDER_GOOGLE}
+            initialRegion={{
+              latitude: 18.568742978011688,
+              longitude: 73.90839965318092,
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01,
+            }}
+          />
+          <TouchableOpacity style={styles.closeButton} onPress={() => setFullMapVisible(false)}>
+            <Text style={styles.closeButtonText}>✕</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       <CustomChangeLanguage visible={isLangModalVisible} onClose={() => setLangModalVisible(false)} />
     </View>
   )
@@ -199,5 +239,39 @@ const styles = StyleSheet.create({
     badgeText: {
       color: 'white',
       fontSize: 14,
+    },
+    mapContainer: {
+      height: 200,
+      borderRadius: 10,
+      overflow: 'hidden',
+      marginVertical: 20,
+    },
+    map: {
+      width: '100%',
+      height: '100%',
+    },
+    fullMapContainer: {
+      ...StyleSheet.absoluteFillObject,
+      zIndex: 100,
+      backgroundColor: Colors.white,
+    },
+    fullMap: {
+      flex: 1,
+    },
+    closeButton: {
+      position: 'absolute',
+      top: 40,
+      right: 20,
+      backgroundColor: Colors.red_1,
+      borderRadius: 20,
+      width: 40,
+      height: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 101,
+    },
+    closeButtonText: {
+      color: Colors.white,
+      fontSize: 24,
     },
     })
