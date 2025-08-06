@@ -111,7 +111,6 @@ const AttendanceReport = () => {
                   value={value}
                   onChange={onChange}
                   error={error?.message}
-                  minimumDate={new Date()}
                   placeholder={t(FROM_DATE_CONSTANT.PLACEHOLDER)}
                   labelStyle={styles.labelStyle}
                 />
@@ -127,7 +126,6 @@ const AttendanceReport = () => {
                   value={value}
                   onChange={onChange}
                   error={error?.message}
-                  minimumDate={new Date()}
                   placeholder={t(TO_DATE_CONSTANT.PLACEHOLDER)}
                   labelStyle={styles.labelStyle}
                 />

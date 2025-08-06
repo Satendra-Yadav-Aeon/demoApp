@@ -24,114 +24,125 @@ const GeofenceMap = () => {
     !isNaN(parseFloat(lat)) &&
     !isNaN(parseFloat(lng));
 
+  const parseCoordinate = (value) => {
+    const parsed = parseFloat(value);
+    return isNaN(parsed) ? null : parsed;
+  };
+
   const checkinLocation = {
-    latitude: parseFloat(checkinLat),
-    longitude: parseFloat(checkinLong),
+    latitude: parseCoordinate(checkinLat),
+    longitude: parseCoordinate(checkinLong),
   };
 
   const hasCheckout = isValidLatLng(checkoutLat, checkoutLong);
 
   const checkoutLocation = hasCheckout
     ? {
-        latitude: parseFloat(checkoutLat),
-        longitude: parseFloat(checkoutLong),
+        latitude: parseCoordinate(checkoutLat),
+        longitude: parseCoordinate(checkoutLong),
       }
     : null;
 
-  const geofenceLocation = {
-    latitude: parseFloat(geofenceLat),
-    longitude: parseFloat(geofenceLong),
-  };
+  const hasGeofence = isValidLatLng(geofenceLat, geofenceLong);
 
-  // Calculate distance in km
-  const checkinToGeofenceKm = getDistance(checkinLocation, geofenceLocation) / 1000;
-  const checkoutToGeofenceKm = hasCheckout
-    ? getDistance(checkoutLocation, geofenceLocation) / 1000
+  const geofenceLocation = hasGeofence
+    ? {
+        latitude: parseCoordinate(geofenceLat),
+        longitude: parseCoordinate(geofenceLong),
+      }
+    : null;
+
+  const checkinToGeofenceKm = hasGeofence
+    ? getDistance(checkinLocation, geofenceLocation) / 1000
     : 0;
 
-  const midPoint = (loc1, loc2) => ({
-    latitude: (loc1.latitude + loc2.latitude) / 2,
-    longitude: (loc1.longitude + loc2.longitude) / 2,
-  });
-   
-  // console.log('=====GeofenceMap=>>>>checkinLat>>checkinLong>>>',checkinLat, checkinLong);
-  // console.log('=====GeofenceMap=>>>>checkoutLat>>checkinLong>>>',checkoutLat, checkoutLong);
-  // console.log('=====GeofenceMap=>>>>geofenceLat>>geofenceLong>>>',geofenceLat, geofenceLong);
+  const checkoutToGeofenceKm =
+    hasCheckout && hasGeofence
+      ? getDistance(checkoutLocation, geofenceLocation) / 1000
+      : 0;
+
+  const midPoint = (loc1, loc2) => {
+    if (!loc1 || !loc2 || !loc1.latitude || !loc2.latitude || !loc1.longitude || !loc2.longitude) {
+      return null;
+    }
+    return {
+      latitude: (loc1.latitude + loc2.latitude) / 2,
+      longitude: (loc1.longitude + loc2.longitude) / 2,
+    };
+  };
+
+  const initialRegion = {
+    latitude: checkinLocation.latitude || 0,
+    longitude: checkinLocation.longitude || 0,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  };
 
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        provider={PROVIDER_GOOGLE}
-        initialRegion={{
-          ...checkinLocation,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        }}
-      >
+      <MapView style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={initialRegion}>
         {/* Check-in marker */}
-        <Marker
-          coordinate={checkinLocation}
-          title="Check-In Location"
-          pinColor="green"
-        />
+        <Marker coordinate={checkinLocation} title="Check-In Location" pinColor="green" />
 
         {/* Check-out marker */}
         {hasCheckout && (
-          <Marker
-            coordinate={checkoutLocation}
-            title="Check-Out Location"
-            pinColor="blue"
-          />
+          <Marker coordinate={checkoutLocation} title="Check-Out Location" pinColor="blue" />
         )}
 
-        {/* Geofence circle */}
-        <Circle
-          center={geofenceLocation}
-          radius={50}
-          strokeWidth={2}
-          strokeColor="rgba(255, 204, 0, 0.8)"
-          fillColor="rgba(255, 255, 0, 0.3)"
-        />
+        {/* Geofence-related elements */}
+        {hasGeofence && (
+          <>
+            {/* Geofence circle */}
+            <Circle
+              center={geofenceLocation}
+              radius={50}
+              strokeWidth={2}
+              strokeColor="rgba(255, 204, 0, 0.8)"
+              fillColor="rgba(255, 255, 0, 0.3)"
+            />
 
-        {/* Marker inside geofence */}
-        <Marker
-          coordinate={geofenceLocation}
-          title="Geofence Location"
-          pinColor="red"
-        />
+            {/* Geofence marker */}
+            <Marker coordinate={geofenceLocation} title="Geofence Location" pinColor="red" />
 
-        {/* Red line from Check-in to Geofence */}
-        <Polyline
-          coordinates={[checkinLocation, geofenceLocation]}
-          strokeColor="red"
-          strokeWidth={2}
-          lineDashPattern={[5, 5]}
-        />
+            {/* Red line from Check-in to Geofence */}
+            <Polyline
+              coordinates={[checkinLocation, geofenceLocation]}
+              strokeColor="red"
+              strokeWidth={2}
+              lineDashPattern={[5, 5]}
+            />
 
-        {/* Red line from Check-out to Geofence */} 
-        {hasCheckout && (
-          <Polyline
-            coordinates={[checkoutLocation, geofenceLocation]}
-            strokeColor="red"
-            strokeWidth={2}
-            lineDashPattern={[5, 5]}
-          />
-        )}
-        <Marker coordinate={midPoint(checkinLocation, geofenceLocation)}>
-          <View style={styles.distanceLabel}>
-            <Text style={styles.distanceText} adjustsFontSizeToFit={true}>{checkinToGeofenceKm.toFixed(2)} km</Text>
-          </View>
-        </Marker>
+            {/* Red line from Check-out to Geofence */}
+            {hasCheckout && (
+              <Polyline
+                coordinates={[checkoutLocation, geofenceLocation]}
+                strokeColor="red"
+                strokeWidth={2}
+                lineDashPattern={[5, 5]}
+              />
+            )}
 
-        {hasCheckout && (
-          <Marker coordinate={midPoint(checkoutLocation, geofenceLocation)}>
-            <View style={styles.distanceLabel}>
-              <Text style={styles.distanceText}>
-                {checkoutToGeofenceKm.toFixed(2)} km
-              </Text>
-            </View>
-          </Marker>
+            {/* Distance labels */}
+            {midPoint(checkinLocation, geofenceLocation) && (
+              <Marker coordinate={midPoint(checkinLocation, geofenceLocation)}>
+                <View style={styles.distanceLabel}>
+                  <Text style={styles.distanceText}>
+                    {checkinToGeofenceKm.toFixed(2)} km
+                  </Text>
+                </View>
+              </Marker>
+            )}
+
+            {hasCheckout && midPoint(checkoutLocation, geofenceLocation) && (
+              <Marker coordinate={midPoint(checkoutLocation, geofenceLocation)}>
+                <View style={styles.distanceLabel}>
+                  <Text style={styles.distanceText}>
+                    {checkoutToGeofenceKm.toFixed(2)} km
+                  </Text>
+                </View>
+              </Marker>
+            )}
+          </>
         )}
       </MapView>
     </View>

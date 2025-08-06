@@ -26,19 +26,33 @@ const SetEmployeeAttendance = () => {
   const [lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
   const[employeeData, setEmployeeData] = useState({})
+  const [geofenceLocation, setGeofenceLocation] = useState(null);
+  const [hasGeofence, setHasGeofence] = useState(false);
+
 
   const route = useRoute();
   const { isCheckIn, attendanceSelf, employee, employeeDetails } = route?.params || {};
 
-  // console.log('===SetEmployeeAttendance==>>employeeDetails>>>>',employeeDetails);
-  // console.log('===SetEmployeeAttendance==>>employee>>>>',employee);
-  
-  const [geofenceLocation] = useState({
-    latitude: employee ? employee?.geofenceLatitude : employeeDetails?.geofenceLatitude,
-    longitude: employee ? employee?.geofenceLongitude : employeeDetails?.geofenceLongitude,
-  });
+  useEffect(() => {
+    const lat = employee ? employee?.geofenceLatitude : employeeDetails?.geofenceLatitude;
+    const long = employee ? employee?.geofenceLongitude : employeeDetails?.geofenceLongitude;
 
-  // console.log('===SetEmployeeAttendance==>>geofenceLocation>>>>',geofenceLocation);
+    const parsedLat = parseFloat(lat);
+    const parsedLong = parseFloat(long);
+
+    const isValid = !isNaN(parsedLat) && !isNaN(parsedLong);
+
+    if (isValid) {
+      setGeofenceLocation({
+        latitude: parsedLat,
+        longitude: parsedLong,
+      });
+      setHasGeofence(true);
+    } else {
+      setGeofenceLocation(null);
+      setHasGeofence(false);
+    }
+  }, []);
 
   useEffect(() => {
     fetchAsyncData();
@@ -148,8 +162,17 @@ const SetEmployeeAttendance = () => {
       return;
     }
 
-    const distance = getDistanceInMeters(lat, long, geofenceLocation.latitude, geofenceLocation.longitude);
-    const isWithinGeofence = distance <= 50;
+    let isWithinGeofence = false;
+
+    if (hasGeofence && geofenceLocation) {
+      const distance = getDistanceInMeters(
+        lat,
+        long,
+        geofenceLocation.latitude,
+        geofenceLocation.longitude
+      );
+      isWithinGeofence = distance <= 50;
+    }
 
     const proceedWithMarking = async (withinGeofenceFlag) => {
       const empId = attendanceSelf ? employeeData?.empid : employee?.userId;
@@ -187,9 +210,12 @@ const SetEmployeeAttendance = () => {
       }
     };
 
-    if (isWithinGeofence) {
-      proceedWithMarking(true);
-    } else {
+    // If no geofence set at all, skip the check
+      if (!hasGeofence) {
+        proceedWithMarking(true);
+      } else if (isWithinGeofence) {
+        proceedWithMarking(true);
+      }  else {
         Alert.alert(
           t(GEOFENCE_CONSTANT.LABEL),
           t(GEOFENCE_CONSTANT.MSG),
