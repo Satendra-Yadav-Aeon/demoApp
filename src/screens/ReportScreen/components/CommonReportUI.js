@@ -71,6 +71,9 @@ const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileNam
 
 
   const downloadExcel = async () => {
+    if(!isArrayLength(reportData)){
+      return Alert.alert('Error', 'No data Available !')
+    }
     try {
       // Prepare data
       let dataToExport = []

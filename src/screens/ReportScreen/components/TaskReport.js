@@ -13,6 +13,9 @@ import Colors from '../../../assets/colors/colors'
 import CommonReportUI from './CommonReportUI'
 import CustomDropdown from '../../../common/CustomDropdown'
 import CustomDatePicker from '../../../common/CustomDatePicker'
+import useGetSupervisorsEmployeeAPI from '../../AttendanceScreen/hooks/useGetSupervisorsEmployeeAPI'
+import { isArrayLength } from '../../../utils/ValidationUtils'
+import { ROLES } from '../../../constants/MainConstant'
 
 const TaskReport = () => {
   const navigation = useNavigation();
@@ -22,6 +25,7 @@ const TaskReport = () => {
   const arrowButton = oepnFilter ? MyImages.upArrow : MyImages.downArrow
   const { control, handleSubmit, reset, formState: { errors } } = useForm();
   const {manageEmployeeData, refetch} = useGetAllEmployee()
+  const {supervisorsEmployeeList, refetchSupervisorEmployeeList} = useGetSupervisorsEmployeeAPI();
   const[employeeData, setEmployeeData] = useState({})
 
   useEffect(() => {
@@ -35,16 +39,28 @@ const TaskReport = () => {
 
   useFocusEffect(
     React.useCallback(() => {
-      if(employeeData?.empid){
+      if(employeeData?.rolename === ROLES.SUPERVISOR){
+        refetchSupervisorEmployeeList({userId: employeeData?.empid});
+      }else{
         refetch({admnId: employeeData?.empid});
       }
     }, [employeeData])
   );
 
-  const employeeOptions = manageEmployeeData?.map(emp => ({
-    label: emp?.empname,
-    value: emp?.empid
-  }))
+  let employeeOptions = []
+  if(isArrayLength(manageEmployeeData)){
+    employeeOptions = manageEmployeeData?.map(emp => ({
+      label: emp?.empname,
+      value: emp?.empid
+    }))
+  }
+
+  if(isArrayLength(supervisorsEmployeeList)){
+    employeeOptions = supervisorsEmployeeList?.map(emp => ({
+      label: emp?.name,
+      value: emp?.userId
+    }))
+  }
 
   const headers = ['Sr No','Employee Name', 'Role', 'Task', 'Description', 'Start Date', 'End Date', 'Status', 'Marked By'];
 
