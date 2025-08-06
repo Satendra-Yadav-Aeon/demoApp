@@ -39,23 +39,55 @@ const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileNam
     </View>
   );
 
-  const renderItem = ({ item, index }) => (
-  <View style={styles.row}>
-    <Text style={[styles.cell, { width: columnWidths[1] }]} numberOfLines={1}>{index + 1}</Text>
-    <Text style={[styles.cell, { width: columnWidths[2] }]} numberOfLines={1}>{item.name || '--/--'}</Text>
-    <Text style={[styles.cell, { width: columnWidths[3] }]} numberOfLines={1}>{item.role || '--/--'}</Text>
-    <Text style={[styles.cell, { width: columnWidths[4] }]} numberOfLines={1}>{item.checkin || '--/--'}</Text>
-    <Text style={[styles.cell, { width: columnWidths[5] }]} numberOfLines={1}>{item.checkout || '--/--'}</Text>
-    <Text style={[styles.cell, { width: columnWidths[6] }]} numberOfLines={1}>{item.total_hrs || '--/--'}</Text>
-    <Text style={[styles.cell, { width: columnWidths[7] }]} numberOfLines={1}>{item.attendanceby || '--/--'}</Text>
-  </View>
-);
+  const renderItem = ({ item, index }) => {
+    if(item?.task){
+      return(
+         <View style={styles.row}>
+        <Text style={[styles.cell, { width: columnWidths[1] }]} numberOfLines={1}>{index + 1}</Text>
+        <Text style={[styles.cell, { width: columnWidths[2] }]} numberOfLines={1}>{item.name || '--/--'}</Text>
+        <Text style={[styles.cell, { width: columnWidths[3] }]} numberOfLines={1}>{item.role || '--/--'}</Text>
+        <Text style={[styles.cell, { width: columnWidths[4] }]} numberOfLines={1}>{item.task || '--/--'}</Text>
+        <Text style={[styles.cell, { width: columnWidths[5] }]} numberOfLines={1}>{item.description || '--/--'}</Text>
+        <Text style={[styles.cell, { width: columnWidths[6] }]} numberOfLines={1}>{item.startdate || '--/--'}</Text>
+        <Text style={[styles.cell, { width: columnWidths[7] }]} numberOfLines={1}>{item.enddate || '--/--'}</Text>
+        <Text style={[styles.cell, { width: columnWidths[8] }]} numberOfLines={1}>{item.status || '--/--'}</Text>
+        <Text style={[styles.cell, { width: columnWidths[9] }]} numberOfLines={1}>{item.assignBy || '--/--'}</Text>
+      </View>
+      )
+    }else{
+      return(
+         <View style={styles.row}>
+        <Text style={[styles.cell, { width: columnWidths[1] }]} numberOfLines={1}>{index + 1}</Text>
+        <Text style={[styles.cell, { width: columnWidths[2] }]} numberOfLines={1}>{item.name || '--/--'}</Text>
+        <Text style={[styles.cell, { width: columnWidths[3] }]} numberOfLines={1}>{item.role || '--/--'}</Text>
+        <Text style={[styles.cell, { width: columnWidths[4] }]} numberOfLines={1}>{item.checkin || '--/--'}</Text>
+        <Text style={[styles.cell, { width: columnWidths[5] }]} numberOfLines={1}>{item.checkout || '--/--'}</Text>
+        <Text style={[styles.cell, { width: columnWidths[6] }]} numberOfLines={1}>{item.total_hrs || '--/--'}</Text>
+        <Text style={[styles.cell, { width: columnWidths[7] }]} numberOfLines={1}>{item.attendanceby || '--/--'}</Text>
+      </View>
+      )
+    }
+  };
 
 
   const downloadExcel = async () => {
     try {
       // Prepare data
-      const dataToExport = reportData?.map((row,index) => ({
+      let dataToExport = []
+      if (reportData?.[0]?.task){
+        dataToExport = reportData?.map((row,index) => ({
+        'Sr No': index + 1,
+        'Employee Name': row.name,
+        'Role': row.role,
+        'Task': row.task,
+        'Description': row.description,
+        'Start Date': row.startdate,
+        'End Date': row.enddate,
+        'Status': row.status,
+        'Marked By': row.assignBy,
+      }));
+      }else{
+        dataToExport = reportData?.map((row,index) => ({
         'Sr No': index + 1,
         'Employee Name': row.name,
         'Role': row.role,
@@ -64,7 +96,7 @@ const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileNam
         'Total Hrs': row.total_hrs,
         'Marked By': row.attendanceby,
       }));
-
+      }     
       // Create a worksheet
       const worksheet = XLSX.utils.json_to_sheet(dataToExport);
 
