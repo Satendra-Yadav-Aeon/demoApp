@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'
 import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages'
 import EmployeeCategory from './EmployeeCategory'
@@ -14,6 +14,7 @@ import { getLanguageLabel } from '../../../utils/getLanguageLabel'
 import useGetEmployeeDetailsById from '../hooks/useGetEmployeeDetailsById'
 import { BaseConfigUrl } from '../../../env/BaseConfigUrl'
 import { NotificationContext } from '../context/NotificationContext'
+import useGetBackgroundLocation from '../hooks/useGetBackgroundLocation'
 
 const AdminDashboard = () => {
   const navigation = useNavigation()
@@ -24,6 +25,7 @@ const AdminDashboard = () => {
   const[capturedImageUri, setCapturedImageUri] = useState()
   const { unreadCount, refetchNotification } = useContext(NotificationContext);
   const [isFullMapVisible, setFullMapVisible] = useState(false);
+  const { backgroundLocationData, refetchBackgroundLocation } = useGetBackgroundLocation();
 
     
   useEffect(() => {
@@ -40,6 +42,7 @@ const AdminDashboard = () => {
       if (employeeData?.empid) {
         refetch({ empid: employeeData?.empid });
         refetchNotification({ adminId: employeeData.empid });
+        refetchBackgroundLocation({ adminid: employeeData.empid });
       }
     }, [employeeData])
   );
@@ -118,7 +121,19 @@ const AdminDashboard = () => {
                   }}
                   scrollEnabled={false}
                   zoomEnabled={false}
-                />
+                >
+                  {backgroundLocationData?.map((item, index) => (
+                    <Marker
+                      key={index}
+                      coordinate={{
+                        latitude: parseFloat(item.currentlat),
+                        longitude: parseFloat(item.currentlong),
+                      }}
+                      title={item.name}
+                      description={item.role}
+                    />
+                  ))}
+                </MapView>
               </View>
             </TouchableOpacity>
           }
@@ -135,7 +150,19 @@ const AdminDashboard = () => {
               latitudeDelta: 0.01,
               longitudeDelta: 0.01,
             }}
-          />
+          >
+            {backgroundLocationData?.map((item, index) => (
+              <Marker
+                key={index}
+                coordinate={{
+                  latitude: parseFloat(item.currentlat),
+                  longitude: parseFloat(item.currentlong),
+                }}
+                title={item.name}
+                description={item.role}
+              />
+            ))}
+          </MapView>
           <TouchableOpacity style={styles.closeButton} onPress={() => setFullMapVisible(false)}>
             <Text style={styles.closeButtonText}>✕</Text>
           </TouchableOpacity>

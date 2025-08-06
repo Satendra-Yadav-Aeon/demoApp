@@ -36,3 +36,27 @@ export const getAdminNotificationData = async (payload) => {
   // console.log('==getAdminNotificationData==>response>>>>',response);
   return response.data;
 };
+
+export const saveBackgroundLocationData = async (payload) => {
+  const { empid, currentlat, currentlong } = payload;
+
+  const data = { empid , currentlat, currentlong};
+
+  // console.log('====saveBackgroundLocationData=>>data>>>',data);
+  
+  const response = await axiosInstance.post(Endpoints.SAVE_BACKGROUND_LOCATION, data);
+  // console.log('==saveBackgroundLocationData==>response>>>>',response);
+  return response.data;
+};
+
+export const getBackgroundLocationData = async (payload) => {
+  const { adminid } = payload;
+
+  const data = { adminid };
+
+  // console.log('====getBackgroundLocationData=>>data>>>',data);
+  
+  const response = await axiosInstance.post(Endpoints.GET_BACKGROUND_LOCATION, data);
+  // console.log('==getBackgroundLocationData==>response>>>>',response);
+  return response.data;
+};

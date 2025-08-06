@@ -32,6 +32,8 @@ const MyImages = {
     notification: require('../assets/images/notification.png'),
     downArrow: require('../assets/images/down-arrow.png'),
     upArrow: require('../assets/images/up-arrow.png'),
+    power: require('../assets/images/power.png'),
+    powerOn: require('../assets/images/power-on.png'),
 }
 
 export default MyImages;
