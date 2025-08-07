@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import BackgroundService from 'react-native-background-actions';
 import Colors from '../../../assets/colors/colors'
 import MyImages from '../../../utils/MyImages'
 import EmployeeCategory from './EmployeeCategory'
@@ -16,7 +15,6 @@ import useGetEmployeeDetailsById from '../hooks/useGetEmployeeDetailsById'
 import useGetEmployeeTodayAttendance from '../hooks/useGetEmployeeTodayAttendance'
 import { extractAttendanceTimes } from '../../../utils/extractAttendanceTimesUtils'
 import { BaseConfigUrl } from '../../../env/BaseConfigUrl'
-import { useSaveBackgroundLocation } from '../hooks/useSaveBackgroundLocation';
 
 
 const EmployeeDashboard = () => {
@@ -27,17 +25,10 @@ const EmployeeDashboard = () => {
   const[employeeData, setEmployeeData] = useState({})
   const [isLangModalVisible, setLangModalVisible] = useState(false);
   const[capturedImageUri, setCapturedImageUri] = useState()
-  const [currentLat, setCurrentLat] = useState(null);
-  const [currentLong, setCurrentLong] = useState(null);
-  const {saveBackgroundLocation} = useSaveBackgroundLocation()
-
-  const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), time));
-
   const { firstCheckIn, lastCheckOut } = extractAttendanceTimes(empAttendance);
     
   useEffect(() => {
     fetchAsyncData();
-    fetchLocation();
   },[])
 
   const fetchAsyncData = async() => {
@@ -77,61 +68,6 @@ const EmployeeDashboard = () => {
       }, [employeeDetails, employeeData])
   );
 
-  const fetchLocation = async () => {
-    const userLat = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LAT)) || null;
-    const userLong = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LONG)) || null;
-    setCurrentLat(userLat);
-    setCurrentLong(userLong);
-  };
-
-  const veryIntensiveTask = async (taskDataArguments) => {
-    const saveBackgroundData = {
-      empid: employeeData?.empid,
-      currentlat: String(currentLat),
-      currentlong: String(currentLong)
-    }
-    
-    // console.log('===veryIntensiveTask=>>saveBackgroundData>>',saveBackgroundData);
-    
-      // Example of an infinite loop task
-      const { delay } = taskDataArguments;
-      await new Promise( async (resolve) => {
-          for (let i = 0; BackgroundService.isRunning(); i++) {
-              console.log(i);
-              await saveBackgroundLocation(saveBackgroundData);
-              await sleep(delay);
-          }
-      });
-  };
-
-
-  const options = {
-      taskName: 'Example',
-      taskTitle: 'Attendrix Background Location',
-      taskDesc: 'Attendrix background location Service enabled',
-      taskIcon: {
-          name: 'screen',
-          type: 'drawable',
-          package: 'com.demoapp'
-      },
-      color: '#ff00ff',
-      linkingURI: 'yourSchemeHere://chat/jane', // See Deep Linking for more info
-      parameters: {
-          delay: 5000,
-      },
-  };
-
-  const startBackgroundLocationService = async() => {
-    await BackgroundService.start(veryIntensiveTask, options);
-    await BackgroundService.updateNotification({taskDesc: 'Attendrix background location service running '});
-  }
-
-  const stopBackgroundLocationService = async() => {
-    await BackgroundService.stop();
-  }
-   
-    // console.log('====EmployeeDashboard===>>>empAttendance>>>>',employeeData);
-
   return (
     <View style={styles.container}>
       <View style={styles.firstHalf}>
@@ -153,14 +89,6 @@ const EmployeeDashboard = () => {
       </View>
       <View style={styles.secondHalf}>
         <EmployeeCategory role={ROLES.EMPLOYEE}/>
-        <View style={styles.powerButtons}>
-          <TouchableOpacity onPress={startBackgroundLocationService}>
-            <Image source={MyImages.power} style={styles.powerIcon}/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={stopBackgroundLocationService}>
-            <Image source={MyImages.powerOn} style={styles.powerIcon}/>
-          </TouchableOpacity>
-        </View>         
       </View>
       <CustomChangeLanguage visible={isLangModalVisible} onClose={() => setLangModalVisible(false)} />
     </View>
@@ -251,14 +179,5 @@ const styles = StyleSheet.create({
       borderWidth: 2,
       borderColor: Colors.white,
       marginTop: 10
-    },
-    powerButtons: {
-      flexDirection: 'row', 
-      justifyContent: 'space-between'
-    },
-    powerIcon: {
-      width: 45, 
-      height: 45,
-      margin: 50,
     },
 })

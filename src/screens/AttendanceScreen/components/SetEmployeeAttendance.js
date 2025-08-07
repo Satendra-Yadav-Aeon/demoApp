@@ -5,6 +5,7 @@ import moment from 'moment';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import ImageResizer from 'react-native-image-resizer';
 import { useTranslation } from 'react-i18next';
+import BackgroundService from 'react-native-background-actions';
 import Colors from '../../../assets/colors/colors';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import MyImages from '../../../utils/MyImages';
@@ -14,6 +15,7 @@ import { CHECK_IN_LABEL, CHECK_OUT_LABEL } from '../../DashboardScreen/constants
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 import imageNameUtils from '../../../utils/imageNameUtils';
 import { useMarkAttendanceAPI } from '../hooks/useMarkAttendanceAPI';
+import { useSaveBackgroundLocation } from '../../DashboardScreen/hooks/useSaveBackgroundLocation';
 
 const { screenHeight, screenWidth } = ScreenDimensions;
 
@@ -28,10 +30,12 @@ const SetEmployeeAttendance = () => {
   const[employeeData, setEmployeeData] = useState({})
   const [geofenceLocation, setGeofenceLocation] = useState(null);
   const [hasGeofence, setHasGeofence] = useState(false);
+  const {saveBackgroundLocation} = useSaveBackgroundLocation()
 
 
   const route = useRoute();
   const { isCheckIn, attendanceSelf, employee, employeeDetails } = route?.params || {};
+  const sleep = (time) => new Promise(resolve => setTimeout(resolve, time));
 
   useEffect(() => {
     const lat = employee ? employee?.geofenceLatitude : employeeDetails?.geofenceLatitude;
@@ -156,6 +160,43 @@ const SetEmployeeAttendance = () => {
     return R * c;
   };
 
+  const veryIntensiveTask = async (taskDataArguments) => {
+    const saveBackgroundData = {
+      empid: employeeData?.empid,
+      currentlat: String(lat),
+      currentlong: String(long)
+    }
+    
+    // console.log('===veryIntensiveTask=>>saveBackgroundData>>',saveBackgroundData);
+    
+      // Example of an infinite loop task
+      const { delay } = taskDataArguments;
+      await new Promise( async (resolve) => {
+          for (let i = 0; BackgroundService.isRunning(); i++) {
+              console.log(i);
+              await saveBackgroundLocation(saveBackgroundData);
+              await sleep(delay);
+          }
+      });
+  };
+
+
+  const options = {
+      taskName: 'Example',
+      taskTitle: 'Attendrix Background Location',
+      taskDesc: 'Attendrix background location Service enabled',
+      taskIcon: {
+          name: 'screen',
+          type: 'drawable',
+          package: 'com.demoapp'
+      },
+      color: '#ff00ff',
+      linkingURI: 'yourSchemeHere://chat/jane', // See Deep Linking for more info
+      parameters: {
+          delay: 5000,
+      },
+  };
+
   const handleMarkAttendacne = async () => {
     if (!lat || !long || !imageUri) {
       Alert.alert(t(CAMERA_CONSTANT.ERROR_TEXT), t(CAMERA_CONSTANT.ERROR_MSG_1));
@@ -204,6 +245,19 @@ const SetEmployeeAttendance = () => {
 
         await setAsyncItem(checkInKey, newValue.toString());
         await setAsyncItem(dateKey, today);
+
+          // Control background service
+        if (attendanceSelf === true) {
+          const isRunning =  BackgroundService.isRunning();
+          if (isCheckIn === true && !isRunning) {
+            await BackgroundService.start(veryIntensiveTask, options);
+            await BackgroundService.updateNotification({
+              taskDesc: 'Attendrix background location running...',
+            });
+          } else if (isCheckIn === false && isRunning) {
+            await BackgroundService.stop();
+          }
+        }
 
         route.params?.onSuccess?.();
         navigation.goBack();

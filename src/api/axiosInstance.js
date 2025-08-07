@@ -29,11 +29,11 @@ axiosInstance.interceptors.request.use(
 // Response interceptor
 axiosInstance.interceptors.response.use(
   response => {
-    console.log('==axiosInstance===response>>>>>',response);
+    // console.log('==axiosInstance===response>>>>>',response);
     return response;
   },
   error => {
-    console.log('==axiosInstance===error>>>>>',error);
+    // console.log('==axiosInstance===error>>>>>',error);
     return Promise.reject(error);
   }
 );
