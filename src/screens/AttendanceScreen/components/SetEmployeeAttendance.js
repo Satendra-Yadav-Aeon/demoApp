@@ -193,7 +193,7 @@ const SetEmployeeAttendance = () => {
       color: '#ff00ff',
       linkingURI: 'yourSchemeHere://chat/jane', // See Deep Linking for more info
       parameters: {
-          delay: 5000,
+          delay: 3600000,
       },
   };
 

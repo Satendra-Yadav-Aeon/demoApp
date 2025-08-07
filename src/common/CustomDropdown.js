@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Modal,
   ScrollView,
+  TextInput,
 } from 'react-native';
 import { CLOSE_TXT, SLIDE_ANIMATION } from '../constants/MainConstant';
 import Colors from '../assets/colors/colors';
@@ -18,12 +19,23 @@ const CustomDropdown = ({
   error,
   placeholder,
   containerStyle,
-  labelStyle
+  labelStyle,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
   const selectedLabel =
     options?.find(option => option.value === value)?.label || placeholder;
+
+  const filteredOptions = options?.filter(option =>
+    option.label.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const handleSelect = (val) => {
+    onChange(val);
+    setModalVisible(false);
+    setSearchText('');
+  };
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -45,26 +57,40 @@ const CustomDropdown = ({
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>{placeholder}</Text>
 
+            <TextInput
+              placeholder="Search..."
+              value={searchText}
+              onChangeText={setSearchText}
+              style={styles.searchInput}
+              placeholderTextColor={Colors.grey}
+            />
+
             <ScrollView style={styles.optionList}>
-              {options?.map((item, index) => (
+              {filteredOptions?.map((item, index) => (
                 <TouchableOpacity
                   key={index}
                   style={styles.optionItem}
-                  onPress={() => {
-                    onChange(item.value);
-                    setModalVisible(false);
-                  }}
+                  onPress={() => handleSelect(item.value)}
                 >
                   <Text style={styles.optionText}>{item.label}</Text>
                 </TouchableOpacity>
               ))}
+
+              {filteredOptions?.length === 0 && (
+                <Text style={styles.noOptionText}>No options found</Text>
+              )}
             </ScrollView>
 
             <TouchableOpacity
-              onPress={() => setModalVisible(false)}
+              onPress={() => {
+                setModalVisible(false);
+                setSearchText('');
+              }}
               style={styles.closeButton}
             >
-              <Text style={styles.closeText} adjustsFontSizeToFit={true}>{CLOSE_TXT}</Text>
+              <Text style={styles.closeText} adjustsFontSizeToFit={true}>
+                {CLOSE_TXT}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -117,6 +143,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
+  searchInput: {
+    borderWidth: 1,
+    borderColor: Colors.grey,
+    borderRadius: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    marginBottom: 10,
+    color: Colors.black,
+    fontSize: 16,
+  },
   optionList: {
     marginVertical: 10,
   },
@@ -128,6 +164,12 @@ const styles = StyleSheet.create({
   optionText: {
     fontSize: 16,
     color: Colors.black,
+  },
+  noOptionText: {
+    textAlign: 'center',
+    color: Colors.grey,
+    fontSize: 16,
+    padding: 10,
   },
   closeButton: {
     marginTop: 15,

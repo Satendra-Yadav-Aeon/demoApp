@@ -85,7 +85,7 @@ const AttendanceReport = () => {
 
   const onSubmit = async(data) => {
     const requestData = {
-      empid: data?.employee,
+      empid: data?.employee ? data?.employee : null,
       fromdate: data?.fromDate,
       todate: data?.toDate
     }
@@ -112,14 +112,12 @@ const AttendanceReport = () => {
             <Controller
               control={control}
               name={EMPLOYEE_CONSTANT.NAME}
-              rules={{ required: t(EMPLOYEE_CONSTANT.REQUIRED_ERROR) }}
-              render={({ field: { value, onChange }, fieldState: { error } }) => (
+              render={({ field: { value, onChange } }) => (
                 <CustomDropdown
                   label={t(EMPLOYEE_CONSTANT.LABEL)}
                   value={value}
                   onChange={onChange}
                   options={employeeOptions}
-                  error={error?.message}
                   placeholder={t(EMPLOYEE_CONSTANT.PLACEHOLDER)}
                   labelStyle={styles.labelStyle}
                 />
