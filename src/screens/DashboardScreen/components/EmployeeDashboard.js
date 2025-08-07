@@ -87,8 +87,8 @@ const EmployeeDashboard = () => {
   const veryIntensiveTask = async (taskDataArguments) => {
     const saveBackgroundData = {
       empid: employeeData?.empid,
-      currentlat: currentLat,
-      currentlong: currentLong
+      currentlat: String(currentLat),
+      currentlong: String(currentLong)
     }
     
     // console.log('===veryIntensiveTask=>>saveBackgroundData>>',saveBackgroundData);

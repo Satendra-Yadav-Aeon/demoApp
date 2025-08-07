@@ -24,6 +24,6 @@ export const Endpoints = {
     GET_ADMIN_NOTIFICATION_DATA: '/GeoLocation/getEmpdetails',
     GET_ATTENDANCE_REPORT: '/report/AttendanceReport',
     GET_TASK_REPORT: '/report/taskReport',
-    SAVE_BACKGROUND_LOCATION: '/Live_LocReports/AddLive_loc',
+    SAVE_BACKGROUND_LOCATION: '/report/AddLive_loc',
     GET_BACKGROUND_LOCATION: '/report/LivelocReport'
 }
