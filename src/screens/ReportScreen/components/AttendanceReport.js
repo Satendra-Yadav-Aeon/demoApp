@@ -62,7 +62,15 @@ const AttendanceReport = () => {
     }))
   }
 
-  const headers = ['Sr No','Employee Name', 'Role', 'CheckIn', 'CheckOut', 'Total Hrs', 'Marked By'];
+   const headers = [
+    t('SR_NO'),
+    t('EMPLOYEE_NAME'),
+    t('ROLE'),
+    t('CHECK_IN'),
+    t('CHECK_OUT'),
+    t('TOTAL_HOURS'),
+    t('MARKED_BY')
+  ];
 
   const columnWidths = [150, 150, 150, 150, 150, 150, 150]
 
@@ -91,12 +99,12 @@ const AttendanceReport = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon}/>
         </TouchableOpacity>
-        <Text style={styles.heading}>{REPORT_CONSTANT.ATTENDANCE_REPORT}</Text>
+        <Text style={styles.heading}>{t(REPORT_CONSTANT.ATTENDANCE_REPORT)}</Text>
       </View>
       <View style={styles.bodyContainer}>
         <View style={styles.filterBox}>
         <TouchableOpacity style={styles.filterBtn} onPress={() => setOpenFilter(!oepnFilter)}>
-          <Text style={styles.fliterTxt}>{REPORT_CONSTANT.FILTERS}</Text>
+          <Text style={styles.fliterTxt} adjustsFontSizeToFit={true}>{t(REPORT_CONSTANT.FILTERS)}</Text>
           <Image source={arrowButton} style={styles.downArrowIcon}/>
         </TouchableOpacity>
         {oepnFilter && (
@@ -149,10 +157,10 @@ const AttendanceReport = () => {
             />
           <View style={styles.filterOptionBtn}>
             <TouchableOpacity style={styles.clearBtn} onPress={handleClearFilters}>
-              <Text style={styles.clearTxt} adjustsFontSizeToFit={true}>{REPORT_CONSTANT.CLEAR}</Text>
+              <Text style={styles.clearTxt} adjustsFontSizeToFit={true}>{t(REPORT_CONSTANT.CLEAR)}</Text>
             </TouchableOpacity>
               <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit(onSubmit)}>
-              <Text style={styles.submitTxt} adjustsFontSizeToFit={true}>{REPORT_CONSTANT.SUBMIT}</Text>
+              <Text style={styles.submitTxt} adjustsFontSizeToFit={true}>{t(REPORT_CONSTANT.SUBMIT)}</Text>
             </TouchableOpacity>
           </View>
           </View>

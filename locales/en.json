@@ -173,5 +173,44 @@
         "outside_check": "{{name}} checked {{status}} outside the location ({{location}}) at {{time}} - marked {{who}}"
     },
     "by_self": "by self",
-    "by_supervisor": "by supervisor"
+    "by_supervisor": "by supervisor",
+    "REPORT_CONSTANT": {
+        "REPORT_TITLE": "Reports",
+        "ATTENDANCE_REPORT": "Attendance Report",
+        "TASK_REPORT": "Task Report",
+        "FILTERS": "Filters",
+        "EMPLOYEE": "Employee",
+        "CLEAR": "Clear",
+        "SUBMIT": "Submit",
+        "EXPORT": "Export"
+    },
+    "EMPLOYEE_CONSTANT": {
+        "LABEL": "Employee",
+        "PLACEHOLDER": "Select Employee",
+        "REQUIRED_ERROR": "Employee is required"
+    },
+    "FROM_DATE_CONSTANT": {
+        "LABEL": "From Date",
+        "PLACEHOLDER": "Select From Date",
+        "REQUIRED_ERROR": "From Date is required"
+    },
+    "TO_DATE_CONSTANT": {
+        "LABEL": "To Date",
+        "PLACEHOLDER": "Select To Date",
+        "REQUIRED_ERROR": "To Date is required"
+    },
+    "TASK_HEADERS": ["Sr No", "Employee Name", "Role", "Task", "Description", "Start Date", "End Date", "Status", "Marked By"],
+    "SUCCESS": "Success",
+    "SUCCESS_MSGS": "Excel sheet downloaded successfully!",
+    "ERROR": "Error",
+    "ERROR_MSGS": "Failed to download Excel file.",
+    "NO_DATA_MSG": "No data Available!",
+    "SR_NO": "Sr No",
+    "EMPLOYEE_NAME": "Employee Name",
+    "TOTAL_HOURS": "Total Hrs",
+    "MARKED_BY": "Marked By",
+    "TASK": "Task",
+    "DESCRIPTION": "Description",
+    "START_DATE": "Start Date",
+    "END_DATE": "End Date"
 }

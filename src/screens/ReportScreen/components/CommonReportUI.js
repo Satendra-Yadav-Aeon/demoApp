@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import * as XLSX from 'xlsx';
 import RNFS from 'react-native-fs';
+import { useTranslation } from 'react-i18next';
 import Colors from '../../../assets/colors/colors';
 import { isArrayLength } from '../../../utils/ValidationUtils';
 import MyImages from '../../../utils/MyImages';
@@ -23,6 +24,7 @@ import { REPORT_CONSTANT } from '../constants/ReportConstant';
 
 const {screenWidth} = ScreenDimensions
 const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileName, isLoading}) => {
+  const {t} = useTranslation();
 
   const renderHeader = () => (
     <View style={[styles.row, styles.header]}>
@@ -72,33 +74,33 @@ const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileNam
 
   const downloadExcel = async () => {
     if(!isArrayLength(reportData)){
-      return Alert.alert('Error', 'No data Available !')
+      return Alert.alert(t('ERROR'), t('NO_DATA_MSG'))
     }
     try {
       // Prepare data
       let dataToExport = []
       if (reportData?.[0]?.task){
-        dataToExport = reportData?.map((row,index) => ({
-        'Sr No': index + 1,
-        'Employee Name': row.name,
-        'Role': row.role,
-        'Task': row.task,
-        'Description': row.description,
-        'Start Date': row.startdate,
-        'End Date': row.enddate,
-        'Status': row.status,
-        'Marked By': row.assignBy,
-      }));
+        dataToExport = reportData?.map((row, index) => ({
+          [t('SR_NO')]: index + 1,
+          [t('EMPLOYEE_NAME')]: row.name,
+          [t('ROLE')]: row.role,
+          [t('TASK')]: row.task,
+          [t('DESCRIPTION')]: row.description,
+          [t('START_DATE')]: row.startdate,
+          [t('END_DATE')]: row.enddate,
+          [t('STATUS')]: row.status,
+          [t('MARKED_BY')]: row.assignBy,
+        }));
       }else{
-        dataToExport = reportData?.map((row,index) => ({
-        'Sr No': index + 1,
-        'Employee Name': row.name,
-        'Role': row.role,
-        'CheckIn': row.checkin,
-        'CheckOut': row.checkout,
-        'Total Hrs': row.total_hrs,
-        'Marked By': row.attendanceby,
-      }));
+        dataToExport = reportData?.map((row, index) => ({
+          [t('SR_NO')]: index + 1,
+          [t('EMPLOYEE_NAME')]: row.name,
+          [t('ROLE')]: row.role,
+          [t('CHECK_IN')]: row.checkin,
+          [t('CHECK_OUT')]: row.checkout,
+          [t('TOTAL_HOURS')]: row.total_hrs,
+          [t('MARKED_BY')]: row.attendanceby,
+        }));
       }     
       // Create a worksheet
       const worksheet = XLSX.utils.json_to_sheet(dataToExport);
@@ -117,9 +119,9 @@ const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileNam
       // Write file
       await RNFS.writeFile(filePath, wbout, 'base64');
 
-      Alert.alert('Success', 'Excel sheet downloade successfully !')
+      Alert.alert(t('SUCCESS'), t('SUCCESS_MSGS'));
     } catch (error) {
-      Alert.alert('Error', 'Failed to download Excel file.');
+      Alert.alert(t('ERROR'), t('ERROR_MSGS'));
     }
   };
 
@@ -143,7 +145,7 @@ const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileNam
     <View style={{ flex: 1, marginTop: 30 }}>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={downloadExcel}>
-          <Text style={styles.buttonText} adjustsFontSizeToFit={true}>{REPORT_CONSTANT.EXPORT}</Text>
+          <Text style={styles.buttonText} adjustsFontSizeToFit={true}>{t(REPORT_CONSTANT.EXPORT)}</Text>
         </TouchableOpacity>
       </View>
       <ScrollView horizontal>

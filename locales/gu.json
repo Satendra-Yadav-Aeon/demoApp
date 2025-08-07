@@ -173,5 +173,45 @@
         "outside_check": "{{name}} એ {{status}} સ્થાન ({{location}}) બહાર {{time}} વાગ્યે ચેક કર્યું - માર્ક કર્યું {{who}}"
     },
     "by_self": "સ્વયં દ્વારા",
-    "by_supervisor": "સુપરવાઇઝર દ્વારા"
+    "by_supervisor": "સુપરવાઇઝર દ્વારા",
+    "REPORT_CONSTANT": {
+        "REPORT_TITLE": "અહેવાલો",
+        "ATTENDANCE_REPORT": "હાજરી અહેવાલ",
+        "TASK_REPORT": "કાર્ય અહેવાલ",
+        "FILTERS": "ફિલ્ટર્સ",
+        "EMPLOYEE": "કર્મચારી",
+        "CLEAR": "સાફ કરો",
+        "SUBMIT": "સબમિટ કરો",
+        "EXPORT": "નિકાસ કરો"
+    },
+    "EMPLOYEE_CONSTANT": {
+        "LABEL": "કર્મચારી",
+        "PLACEHOLDER": "કર્મચારી પસંદ કરો",
+        "REQUIRED_ERROR": "કર્મચારી જરૂરી છે"
+    },
+    "FROM_DATE_CONSTANT": {
+        "LABEL": "શરૂ તારીખ",
+        "PLACEHOLDER": "શરૂ તારીખ પસંદ કરો",
+        "REQUIRED_ERROR": "શરૂ તારીખ જરૂરી છે"
+    },
+    "TO_DATE_CONSTANT": {
+        "LABEL": "અંત તારીખ",
+        "PLACEHOLDER": "અંત તારીખ પસંદ કરો",
+        "REQUIRED_ERROR": "અંત તારીખ જરૂરી છે"
+    },
+    "ATTENDANCE_HEADERS": ["ક્રમ સંખ્યા", "કર્મચારીનું નામ", "ભૂમિકા", "ચેક-ઇન", "ચેક-આઉટ", "કુલ કલાક", "કોઈ દ્વારા ચિહ્નિત"],
+    "TASK_HEADERS": ["ક્રમ સંખ્યા", "કર્મચારીનું નામ", "ભૂમિકા", "કાર્ય", "વર્ણન", "શરૂ તારીખ", "અંત તારીખ", "સ્થિતિ", "કોઈ દ્વારા ચિહ્નિત"],
+    "SUCCESS": "સફળતા",
+    "SUCCESS_MSGS": "એક્સેલ શીટ સફળતાપૂર્વક ડાઉનલોડ થઈ!",
+    "ERROR": "ભૂલ",
+    "ERROR_MSGS": "એક્સેલ ફાઇલ ડાઉનલોડ કરવામાં નિષ્ફળ.",
+    "NO_DATA_MSG": "કોઈ માહિતી ઉપલબ્ધ નથી!",
+    "SR_NO": "ક્રમ ક્રમાંક",
+    "EMPLOYEE_NAME": "કર્મચારીનું નામ",
+    "TOTAL_HOURS": "કુલ કલાકો",
+    "MARKED_BY": "માર્ક કરનાર",
+    "TASK": "કાર્ય",
+    "DESCRIPTION": "વર્ણન",
+    "START_DATE": "શરૂઆતની તારીખ",
+    "END_DATE": "અંતિમ તારીખ"
 }

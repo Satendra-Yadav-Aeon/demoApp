@@ -16,14 +16,14 @@ const Report = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon}/>
         </TouchableOpacity>
-        <Text style={styles.heading}>{REPORT_CONSTANT.REPORT_TITLE}</Text>
+        <Text style={styles.heading}>{t(REPORT_CONSTANT.REPORT_TITLE)}</Text>
       </View>
       <View style={styles.bodyContainer}>
       <TouchableOpacity style={styles.reportButtons} onPress={() => navigation.navigate(SCREENS.ATTENDANCE_REPORT)}>
-        <Text style={styles.btnText}>{REPORT_CONSTANT.ATTENDANCE_REPORT}</Text>
+        <Text style={styles.btnText}>{t(REPORT_CONSTANT.ATTENDANCE_REPORT)}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.reportButtons} onPress={() => navigation.navigate(SCREENS.TASK_REPORT)}>
-        <Text style={styles.btnText}>{REPORT_CONSTANT.TASK_REPORT}</Text>
+        <Text style={styles.btnText}>{t(REPORT_CONSTANT.TASK_REPORT)}</Text>
       </TouchableOpacity>
       </View>
     </View>

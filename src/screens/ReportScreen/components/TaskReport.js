@@ -62,7 +62,17 @@ const TaskReport = () => {
     }))
   }
 
-  const headers = ['Sr No','Employee Name', 'Role', 'Task', 'Description', 'Start Date', 'End Date', 'Status', 'Marked By'];
+  const headers = [
+    t('SR_NO'),
+    t('EMPLOYEE_NAME'),
+    t('ROLE'),
+    t('TASK'),
+    t('DESCRIPTION'),
+    t('START_DATE'),
+    t('END_DATE'),
+    t('STATUS'),
+    t('MARKED_BY')
+  ];
 
   const columnWidths = [150, 150, 150, 150, 150, 150, 150, 150, 150]
 
@@ -91,12 +101,12 @@ const TaskReport = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon}/>
         </TouchableOpacity>
-        <Text style={styles.heading}>{REPORT_CONSTANT.TASK_REPORT}</Text>
+        <Text style={styles.heading}>{t(REPORT_CONSTANT.TASK_REPORT)}</Text>
       </View>
       <View style={styles.bodyContainer}>
         <View style={styles.filterBox}>
         <TouchableOpacity style={styles.filterBtn} onPress={() => setOpenFilter(!oepnFilter)}>
-          <Text style={styles.fliterTxt}>{REPORT_CONSTANT.FILTERS}</Text>
+          <Text style={styles.fliterTxt} adjustsFontSizeToFit={true}>{t(REPORT_CONSTANT.FILTERS)}</Text>
           <Image source={arrowButton} style={styles.downArrowIcon}/>
         </TouchableOpacity>
         {oepnFilter && (
@@ -149,10 +159,10 @@ const TaskReport = () => {
             />
           <View style={styles.filterOptionBtn}>
             <TouchableOpacity style={styles.clearBtn} onPress={handleClearFilters}>
-              <Text style={styles.clearTxt} adjustsFontSizeToFit={true}>{REPORT_CONSTANT.CLEAR}</Text>
+              <Text style={styles.clearTxt} adjustsFontSizeToFit={true}>{t(REPORT_CONSTANT.CLEAR)}</Text>
             </TouchableOpacity>
               <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit(onSubmit)}>
-              <Text style={styles.submitTxt} adjustsFontSizeToFit={true}>{REPORT_CONSTANT.SUBMIT}</Text>
+              <Text style={styles.submitTxt} adjustsFontSizeToFit={true}>{t(REPORT_CONSTANT.SUBMIT)}</Text>
             </TouchableOpacity>
           </View>
           </View>
