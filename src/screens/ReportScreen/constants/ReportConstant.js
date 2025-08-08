@@ -39,3 +39,8 @@ export const ATTENDANCE_HEADERS = [
   'TOTAL_HOURS',
   'MARKED_BY'
 ];
+
+export const GRAPH_CONSTANT = {
+  TOTAL_HRS: 'Total Hrs',
+  EMP_ATTENDANCE_DATES: 'Employee Attendance Dates'
+}

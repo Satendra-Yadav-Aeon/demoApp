@@ -22,7 +22,7 @@ import { REPORT_CONSTANT } from '../constants/ReportConstant';
 
 
 
-const {screenWidth} = ScreenDimensions
+const {screenWidth, screenHeight} = ScreenDimensions
 const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileName, isLoading}) => {
   const {t} = useTranslation();
 
@@ -142,14 +142,14 @@ const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileNam
   }
 
   return (
-    <View style={{ flex: 1, marginTop: 30 }}>
+    <View style={styles.exportContainer}>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={downloadExcel}>
           <Text style={styles.buttonText} adjustsFontSizeToFit={true}>{t(REPORT_CONSTANT.EXPORT)}</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal>
           {isArrayLength(reportData) ? (
+            <ScrollView horizontal>
             <View style={{marginTop: 40}}>
               {renderHeader()}
               <FlatList
@@ -160,10 +160,10 @@ const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileNam
                 contentContainerStyle={{ paddingTop: 10 }}
               />
             </View>
+             </ScrollView>
           ) : (
             renderEmptyData()
           )}
-      </ScrollView>
     </View>
   );
 };
@@ -199,13 +199,16 @@ const styles = StyleSheet.create({
     color: '#333',
     paddingVertical: 6,
   },
+  exportContainer: {
+    flex: 1, 
+    marginTop: 30
+  },
   buttonContainer: {
-    marginTop: 10,
     alignItems: 'flex-end'
   },
   button: {
     backgroundColor: Colors.red,
-    padding: 12,
+    padding: 10,
     borderRadius: 6,
   },
   buttonText: {
@@ -218,7 +221,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: screenWidth*1
+    marginTop: 10,
+    minHeight: screenHeight* 0.5
   },
   noDataIcon: {
     height: 100,

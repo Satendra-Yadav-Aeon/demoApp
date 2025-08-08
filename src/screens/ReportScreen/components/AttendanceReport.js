@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { Controller, useForm } from 'react-hook-form'
@@ -16,6 +16,8 @@ import useGetAllEmployee from '../../EmployeeScreen/hooks/useGetAllEmployee'
 import useGetSupervisorsEmployeeAPI from '../../AttendanceScreen/hooks/useGetSupervisorsEmployeeAPI'
 import { ROLES } from '../../../constants/MainConstant'
 import { isArrayLength } from '../../../utils/ValidationUtils'
+import { calculateTotalHoursPerEmployeePerDate } from '../../../utils/extractAttendanceTimesUtils'
+import AttendanceBarChart from './AttendanceBarChart'
 
 const AttendanceReport = () => {
   const navigation = useNavigation();
@@ -27,6 +29,7 @@ const AttendanceReport = () => {
   const {manageEmployeeData, refetch} = useGetAllEmployee()
   const {supervisorsEmployeeList, refetchSupervisorEmployeeList} = useGetSupervisorsEmployeeAPI();
   const[employeeData, setEmployeeData] = useState({})
+  const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
     fetchAsyncData();
@@ -46,6 +49,11 @@ const AttendanceReport = () => {
       }
     }, [employeeData])
   );
+
+  useEffect(() => {
+    const calculated = calculateTotalHoursPerEmployeePerDate(attendanceData);
+    setChartData(calculated);
+  }, [attendanceData]);
 
   let employeeOptions = []
   if(isArrayLength(manageEmployeeData)){
@@ -95,6 +103,7 @@ const AttendanceReport = () => {
   }
   return (
     <View style={styles.container}>
+      <ScrollView>
       <View style={styles.headingContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon}/>
@@ -164,15 +173,17 @@ const AttendanceReport = () => {
           </View>
         )}
         </View>
-        <CommonReportUI 
-          reportData={attendanceData} 
-          headers={headers} 
-          columnWidths={columnWidths} 
-          Title='Attendance Report' 
-          reportFileName='Attendance_Report'
-          isLoading={isLoading}
-        />
+        <AttendanceBarChart chartData={chartData}/>
       </View>
+      <CommonReportUI 
+        reportData={attendanceData} 
+        headers={headers} 
+        columnWidths={columnWidths} 
+        Title='Attendance Report' 
+        reportFileName='Attendance_Report'
+        isLoading={isLoading}
+      />
+      </ScrollView>
     </View>
   )
 }

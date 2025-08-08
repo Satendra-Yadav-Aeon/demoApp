@@ -18,3 +18,36 @@ export const extractAttendanceTimes = (employeeAttendance) => {
     lastCheckOut,
   };
 };
+
+
+// Converts total_hrs string like "1.40" to float hours
+export const parseHours = (str) => {
+  const [hours, minutes] = str.split('.').map(Number);
+  return hours + (minutes / 60);
+};
+
+export const calculateTotalHoursPerEmployeePerDate = (data) => {
+  const result = {};
+
+  data.forEach(entry => {
+    const empId = entry.empid;
+    const name = entry.name;
+    const date = entry.checkin.split(' ')[0]; // extract only the date
+
+    const key = `${empId}_${date}`;
+
+    if (!result[key]) {
+      result[key] = {
+        empId,
+        name,
+        date,
+        totalHours: 0,
+      };
+    }
+
+    result[key].totalHours += parseHours(entry.total_hrs);
+  });
+
+  // Convert to array
+  return Object.values(result);
+};
