@@ -8,6 +8,13 @@ import { GRAPH_CONSTANT } from '../constants/ReportConstant';
 
 const { screenWidth } = ScreenDimensions;
 
+const Legend = ({ color, label }) => (
+  <View style={styles.legendItem}>
+    <View style={[styles.legendColor, { backgroundColor: color }]} />
+    <Text style={styles.legendText} adjustsFontSizeToFit={true}>{label}</Text>
+  </View>
+);
+
 const TaskStackedBarChart = ({ chartData }) => {
   const {t} = useTranslation();
 
@@ -44,7 +51,8 @@ const TaskStackedBarChart = ({ chartData }) => {
           <StackedBarChart
             data={{
               labels: filteredData?.map(item => item.label),
-              legend: ["Finished", "Working", "Cancelled"],
+              // legend: ["Finished", "Working", "Cancelled"],
+              legend: [],
               data: filteredData?.map(item => item.values),
               barColors: ["#4CAF50", "#FFC107", "#F44336"],
             }}
@@ -58,6 +66,12 @@ const TaskStackedBarChart = ({ chartData }) => {
             }}
             style={{padding: 40}}
           />
+          {/* Custom legend */}
+          <View style={styles.legendContainer}>
+            <Legend color="#4CAF50" label='Finished' />
+            <Legend color="#FFC107" label='Working' />
+            <Legend color="#F44336" label='Cancelled' />
+          </View>
         </View>
       </ScrollView>
 
@@ -87,5 +101,27 @@ const styles = StyleSheet.create({
     textAlign: 'center', 
     marginTop: 10, 
     fontWeight: 'bold'
-  }
+  },
+  legendContainer: {
+    flexDirection: 'row',
+    marginTop: 10,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  legendItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 15,
+    marginBottom: 5,
+  },
+  legendColor: {
+    width: 14,
+    height: 14,
+    marginRight: 6,
+    borderRadius: 2,
+  },
+  legendText: {
+    fontSize: 14,
+    color: '#333',
+  },
 })
