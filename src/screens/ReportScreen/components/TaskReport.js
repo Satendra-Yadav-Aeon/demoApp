@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { Controller, useForm } from 'react-hook-form'
@@ -16,6 +16,8 @@ import CustomDatePicker from '../../../common/CustomDatePicker'
 import useGetSupervisorsEmployeeAPI from '../../AttendanceScreen/hooks/useGetSupervisorsEmployeeAPI'
 import { isArrayLength } from '../../../utils/ValidationUtils'
 import { ROLES } from '../../../constants/MainConstant'
+import TaskStackedBarChart from './TaskStackedBarChart'
+import { prepareTaskChartData } from '../../../utils/extractAttendanceTimesUtils'
 
 const TaskReport = () => {
   const navigation = useNavigation();
@@ -62,6 +64,8 @@ const TaskReport = () => {
     }))
   }
 
+  const chartData = prepareTaskChartData(taskData);
+
   const headers = [
     t('SR_NO'),
     t('EMPLOYEE_NAME'),
@@ -97,6 +101,7 @@ const TaskReport = () => {
   }
   return (
     <View style={styles.container}>
+      <ScrollView>
       <View style={styles.headingContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon}/>
@@ -166,15 +171,17 @@ const TaskReport = () => {
           </View>
         )}
         </View>
-        <CommonReportUI
-          reportData={taskData} 
-          headers={headers} 
-          columnWidths={columnWidths} 
-          Title='Task Report' 
-          reportFileName='Task_Report'
-          isLoading={isLoading}
-        />
+        <TaskStackedBarChart chartData={chartData} />
       </View>
+      <CommonReportUI
+        reportData={taskData} 
+        headers={headers} 
+        columnWidths={columnWidths} 
+        Title='Task Report' 
+        reportFileName='Task_Report'
+        isLoading={isLoading}
+      />
+      </ScrollView>
     </View>
   )
 }

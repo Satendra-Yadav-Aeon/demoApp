@@ -51,3 +51,25 @@ export const calculateTotalHoursPerEmployeePerDate = (data) => {
   // Convert to array
   return Object.values(result);
 };
+
+export const prepareTaskChartData = (taskData) => {
+  const grouped = {};
+
+  taskData.forEach(task => {
+    const date = task.startdate.split(" ")[0]; // e.g. "11-07-2025"
+    const key = `${task.name}-${date}`;
+
+    if (!grouped[key]) grouped[key] = { name: task.name, date, Finished: 0, Working: 0, Cancelled: 0 };
+
+    if (task.status.toLowerCase().includes("finish")) grouped[key].Finished++;
+    else if (task.status.toLowerCase().includes("work")) grouped[key].Working++;
+    else if (task.status.toLowerCase().includes("cancel")) grouped[key].Cancelled++;
+  });
+
+  const labels = Object.values(grouped).map(item => `${item.name.slice(0,3).toLowerCase()}-${item.date.slice(0,5)}`);
+  const finished = Object.values(grouped).map(item => item.Finished);
+  const working = Object.values(grouped).map(item => item.Working);
+  const cancelled = Object.values(grouped).map(item => item.Cancelled);
+
+  return { labels, datasets: [finished, working, cancelled] };
+};

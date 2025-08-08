@@ -1,0 +1,78 @@
+import React from 'react';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { StackedBarChart } from 'react-native-chart-kit';
+import ScreenDimensions from '../../../utils/DimensionUtils';
+import Colors from '../../../assets/colors/colors';
+import { GRAPH_CONSTANT } from '../constants/ReportConstant';
+
+const { screenWidth } = ScreenDimensions;
+
+const TaskStackedBarChart = ({ chartData }) => {
+
+  if (Object.keys(chartData?.labels).length === 0) {
+    return null;
+  }
+
+  return (
+    <View style={styles.container}>
+      {/* Y-axis title */}
+      <Text style={styles.yAxisLabel}>
+        {GRAPH_CONSTANT.NO_TASK}
+      </Text>
+
+      {/* Chart */}
+      <ScrollView horizontal>
+        <View>
+          <StackedBarChart
+            data={{
+              labels: chartData?.labels,
+              legend: ["Finished", "Working", "Cancelled"],
+              data: chartData?.datasets?.map((_, i) => [
+                chartData.datasets[0][i],
+                chartData.datasets[1][i],
+                chartData.datasets[2][i],
+              ]),
+              barColors: ["#4CAF50", "#FFC107", "#F44336"],
+            }}
+            width={Math.max(screenWidth, chartData?.labels.length * 100 + 100, 400)}
+            // height={250}
+            height={Math.min(chartData?.labels.length * 40 + 100, 400)}
+            chartConfig={{
+              backgroundGradientFrom: "#fff",
+              backgroundGradientTo: "#fff",
+              decimalPlaces: 0,
+              color: (opacity = 1) => `rgba(0,0,0,${opacity})`,
+            }}
+            style={{padding: 20}}
+          />
+        </View>
+      </ScrollView>
+
+      {/* X-axis title */}
+      <Text style={styles.xAxisLabel}>{GRAPH_CONSTANT.EMP_TASK_DATES}</Text>
+    </View>
+  );
+};
+
+export default TaskStackedBarChart;
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: Colors.red
+  },
+  yAxisLabel: {
+    position: 'absolute', 
+    top: '40%', 
+    left: -40, 
+    transform: [{ rotate: '-90deg' }], 
+    fontWeight: 'bold'
+  },
+  xAxisLabel: {
+    textAlign: 'center', 
+    marginTop: 10, 
+    fontWeight: 'bold'
+  }
+})
