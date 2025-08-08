@@ -212,5 +212,9 @@
     "TASK": "Task",
     "DESCRIPTION": "Description",
     "START_DATE": "Start Date",
-    "END_DATE": "End Date"
+    "END_DATE": "End Date",
+    "TOTAL_HRS": "Total Hrs",
+    "EMP_ATTENDANCE_DATES": "Employee Attendance Dates",
+    "NO_TASK": "Number of Tasks",
+    "EMP_TASK_DATES": "Employee Task Dates"
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import { StackedBarChart } from 'react-native-chart-kit';
+import { useTranslation } from 'react-i18next';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import Colors from '../../../assets/colors/colors';
 import { GRAPH_CONSTANT } from '../constants/ReportConstant';
@@ -8,16 +9,33 @@ import { GRAPH_CONSTANT } from '../constants/ReportConstant';
 const { screenWidth } = ScreenDimensions;
 
 const TaskStackedBarChart = ({ chartData }) => {
+  const {t} = useTranslation();
 
   if (Object.keys(chartData?.labels).length === 0) {
+    return null;
+  }
+
+   // Filter out bars where all values are 0
+  const filteredData = chartData?.labels
+    .map((label, i) => ({
+      label,
+      values: [
+        chartData.datasets[0][i] || 0,
+        chartData.datasets[1][i] || 0,
+        chartData.datasets[2][i] || 0,
+      ],  
+    }))
+    .filter(item => item.values.reduce((sum, val) => sum + val, 0) > 0);
+
+  if (filteredData.length === 0) {
     return null;
   }
 
   return (
     <View style={styles.container}>
       {/* Y-axis title */}
-      <Text style={styles.yAxisLabel}>
-        {GRAPH_CONSTANT.NO_TASK}
+      <Text style={styles.yAxisLabel} adjustsFontSizeToFit={true}>
+        {t(GRAPH_CONSTANT.NO_TASK)}
       </Text>
 
       {/* Chart */}
@@ -25,17 +43,12 @@ const TaskStackedBarChart = ({ chartData }) => {
         <View>
           <StackedBarChart
             data={{
-              labels: chartData?.labels,
+              labels: filteredData?.map(item => item.label),
               legend: ["Finished", "Working", "Cancelled"],
-              data: chartData?.datasets?.map((_, i) => [
-                chartData.datasets[0][i],
-                chartData.datasets[1][i],
-                chartData.datasets[2][i],
-              ]),
+              data: filteredData?.map(item => item.values),
               barColors: ["#4CAF50", "#FFC107", "#F44336"],
             }}
             width={Math.max(screenWidth, chartData?.labels.length * 100 + 100, 400)}
-            // height={250}
             height={Math.min(chartData?.labels.length * 40 + 100, 400)}
             chartConfig={{
               backgroundGradientFrom: "#fff",
@@ -43,13 +56,13 @@ const TaskStackedBarChart = ({ chartData }) => {
               decimalPlaces: 0,
               color: (opacity = 1) => `rgba(0,0,0,${opacity})`,
             }}
-            style={{padding: 20}}
+            style={{padding: 40}}
           />
         </View>
       </ScrollView>
 
       {/* X-axis title */}
-      <Text style={styles.xAxisLabel}>{GRAPH_CONSTANT.EMP_TASK_DATES}</Text>
+      <Text style={styles.xAxisLabel} adjustsFontSizeToFit={true}>{t(GRAPH_CONSTANT.EMP_TASK_DATES)}</Text>
     </View>
   );
 };
@@ -66,7 +79,7 @@ const styles = StyleSheet.create({
   yAxisLabel: {
     position: 'absolute', 
     top: '40%', 
-    left: -40, 
+    left: -20, 
     transform: [{ rotate: '-90deg' }], 
     fontWeight: 'bold'
   },

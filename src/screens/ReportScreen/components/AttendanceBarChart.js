@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
+import { useTranslation } from 'react-i18next';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import { isArrayLength } from '../../../utils/ValidationUtils';
 import Colors from '../../../assets/colors/colors';
@@ -9,6 +10,8 @@ import { GRAPH_CONSTANT } from '../constants/ReportConstant';
 const { screenWidth } = ScreenDimensions;
 
 const AttendanceBarChart = ({ chartData }) => {
+  const {t} = useTranslation();
+
   if (!isArrayLength(chartData)) {
     return null;
   }
@@ -24,7 +27,7 @@ const AttendanceBarChart = ({ chartData }) => {
   return (
     <View style={styles.container}>
       {/* Y Axis Label */}
-      <Text style={styles.yAxisLabel}>{GRAPH_CONSTANT.TOTAL_HRS}</Text>
+      <Text style={styles.yAxisLabel} adjustsFontSizeToFit={true}>{t(GRAPH_CONSTANT.TOTAL_HRS)}</Text>
 
       <ScrollView horizontal>
         <View>
@@ -51,7 +54,7 @@ const AttendanceBarChart = ({ chartData }) => {
           />
 
           {/* X Axis Label */}
-          <Text style={styles.xAxisLabel}>{GRAPH_CONSTANT.EMP_ATTENDANCE_DATES}</Text>
+          <Text style={styles.xAxisLabel} adjustsFontSizeToFit={true}>{t(GRAPH_CONSTANT.EMP_ATTENDANCE_DATES)}</Text>
         </View>
       </ScrollView>
     </View>

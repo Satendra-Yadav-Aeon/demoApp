@@ -213,5 +213,9 @@
     "TASK": "कार्य",
     "DESCRIPTION": "विवरण",
     "START_DATE": "प्रारंभ तिथि",
-    "END_DATE": "समाप्ति तिथि"
+    "END_DATE": "समाप्ति तिथि",
+    "TOTAL_HRS": "कुल घंटे",
+    "EMP_ATTENDANCE_DATES": "कर्मचारी उपस्थिति तिथियां",
+    "NO_TASK": "कार्य की संख्या",
+    "EMP_TASK_DATES": "कर्मचारी कार्य तिथियां"
 }
