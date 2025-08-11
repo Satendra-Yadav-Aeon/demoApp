@@ -9,15 +9,17 @@ import {
   Alert,
   Image,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import * as XLSX from 'xlsx';
 import RNFS from 'react-native-fs';
+import Share from 'react-native-share';
 import { useTranslation } from 'react-i18next';
 import Colors from '../../../assets/colors/colors';
 import { isArrayLength } from '../../../utils/ValidationUtils';
 import MyImages from '../../../utils/MyImages';
 import ScreenDimensions from '../../../utils/DimensionUtils';
-import { LARGE_LOADER } from '../../../constants/MainConstant';
+import { IOS_PLATFORM, LARGE_LOADER } from '../../../constants/MainConstant';
 import { REPORT_CONSTANT } from '../constants/ReportConstant';
 
 
@@ -114,12 +116,25 @@ const CommonReportUI = ({reportData, headers, columnWidths, title, reportFileNam
 
       // File path
       const fileName = `${reportFileName}_${Date.now()}.xlsx`;
-      const filePath = `${RNFS.DownloadDirectoryPath}/${fileName}`;
+      const filePath =
+      Platform.OS === IOS_PLATFORM
+        ? `${RNFS.DocumentDirectoryPath}/${fileName}`
+        : `${RNFS.DownloadDirectoryPath}/${fileName}`;
       
       // Write file
       await RNFS.writeFile(filePath, wbout, 'base64');
 
+      if (Platform.OS === IOS_PLATFORM) {
+      // Share file via iOS share sheet
+      await Share.open({
+        url: `file://${filePath}`,
+        type:
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        failOnCancel: false,
+      });
+    } else {
       Alert.alert(t('SUCCESS'), t('SUCCESS_MSGS'));
+    }
     } catch (error) {
       Alert.alert(t('ERROR'), t('ERROR_MSGS'));
     }
