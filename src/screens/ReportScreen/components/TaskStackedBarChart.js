@@ -57,7 +57,7 @@ const TaskStackedBarChart = ({ chartData }) => {
               barColors: ["#4CAF50", "#FFC107", "#F44336"],
             }}
             width={Math.max(screenWidth, chartData?.labels.length * 100 + 100, 400)}
-            height={Math.min(chartData?.labels.length * 40 + 100, 400)}
+            height={400}
             chartConfig={{
               backgroundGradientFrom: "#fff",
               backgroundGradientTo: "#fff",

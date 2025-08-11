@@ -32,8 +32,7 @@ const AttendanceBarChart = ({ chartData }) => {
               datasets: [{ data: chartValues }],
             }}
             width={Math.max(screenWidth, chartLabels.length * 50 + 400)}
-            // height={400}
-            height={Math.min(chartLabels.length * 40 + 100, 550)}
+            height={550}
             yAxisSuffix="h"
             chartConfig={{
               backgroundGradientFrom: '#fff',
