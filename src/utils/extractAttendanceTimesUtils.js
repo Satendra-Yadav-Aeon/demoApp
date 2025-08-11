@@ -19,33 +19,42 @@ export const extractAttendanceTimes = (employeeAttendance) => {
   };
 };
 
-
-// Converts total_hrs string like "1.40" to float hours
 export const parseHours = (str) => {
-  const [hours, minutes] = str.split('.').map(Number);
-  return hours + (minutes / 60);
+  if (str == null || str === '') return 0;
+  // primary: treat as decimal hours (e.g. "0.05" => 0.05)
+  const n = parseFloat(str);
+  if (!Number.isNaN(n)) return n;
+
+  // fallback: support "H:MM" if ever present
+  if (typeof str === 'string' && str.includes(':')) {
+    const [h = 0, m = 0] = str.split(':').map(Number);
+    return (h || 0) + ((m || 0) / 60);
+  }
+
+  return 0;
 };
 
-export const calculateTotalHoursPerEmployeePerDate = (data) => {
+export const calculateTotalHoursPerEmployeePerMonth = (data) => {
   const result = {};
 
   data.forEach(entry => {
-    const empId = entry.empid;
-    const name = entry.name;
-    const date = entry.checkin.split(' ')[0]; // extract only the date
+    if (!entry?.checkin || !entry?.name) return;
 
-    const key = `${empId}_${date}`;
+    const [day, month, year] = entry.checkin.split(' ')[0].split('-'); // DD-MM-YYYY
+    if (!day || !month || !year) return;
+
+    // const empInitial = entry.name.slice(0, 3).toLowerCase(); // vas
+    const empInitial = entry.name.toLowerCase();
+    const key = `${empInitial}-${year}-${month}`;
 
     if (!result[key]) {
       result[key] = {
-        empId,
-        name,
-        date,
+        label: key,
         totalHours: 0,
       };
     }
 
-    result[key].totalHours += parseHours(entry.total_hrs);
+    result[key].totalHours += parseHours(entry.total_hrs || "0.00");
   });
 
   // Convert to array

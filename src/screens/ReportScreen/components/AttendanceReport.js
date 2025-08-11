@@ -16,7 +16,7 @@ import useGetAllEmployee from '../../EmployeeScreen/hooks/useGetAllEmployee'
 import useGetSupervisorsEmployeeAPI from '../../AttendanceScreen/hooks/useGetSupervisorsEmployeeAPI'
 import { ROLES } from '../../../constants/MainConstant'
 import { isArrayLength } from '../../../utils/ValidationUtils'
-import { calculateTotalHoursPerEmployeePerDate } from '../../../utils/extractAttendanceTimesUtils'
+import { calculateTotalHoursPerEmployeePerMonth } from '../../../utils/extractAttendanceTimesUtils'
 import AttendanceBarChart from './AttendanceBarChart'
 
 const AttendanceReport = () => {
@@ -51,7 +51,7 @@ const AttendanceReport = () => {
   );
 
   useEffect(() => {
-    const calculated = calculateTotalHoursPerEmployeePerDate(attendanceData);
+    const calculated = calculateTotalHoursPerEmployeePerMonth(attendanceData);
     setChartData(calculated);
   }, [attendanceData]);
 

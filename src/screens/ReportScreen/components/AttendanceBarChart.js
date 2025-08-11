@@ -16,13 +16,8 @@ const AttendanceBarChart = ({ chartData }) => {
     return null;
   }
 
-  const chartLabels = chartData?.map(item => {
-    const initials = item.name?.slice(0, 3).toLowerCase();
-    const [year, month, day] = item.date?.split('-');
-    return `${initials}-${day}-${month}`;
-  });
-
-  const chartValues = chartData?.map(item => parseFloat(item.totalHours.toFixed(2)));
+  const chartLabels = chartData?.map(i => i.label);
+  const chartValues = chartData?.map(i => +i.totalHours.toFixed(2));
 
   return (
     <View style={styles.container}>
@@ -38,7 +33,7 @@ const AttendanceBarChart = ({ chartData }) => {
             }}
             width={Math.max(screenWidth, chartLabels.length * 50 + 400)}
             // height={400}
-            height={Math.min(chartLabels.length * 40 + 100, 400)}
+            height={Math.min(chartLabels.length * 40 + 100, 550)}
             yAxisSuffix="h"
             chartConfig={{
               backgroundGradientFrom: '#fff',
