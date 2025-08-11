@@ -10,6 +10,7 @@ prepare_react_native_project!
 
 rn_maps_path = '../node_modules/react-native-maps'
 pod 'react-native-maps/Google', :path => rn_maps_path
+pod 'RCT-Folly', :podspec => '../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec', :modular_headers => true
 
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
