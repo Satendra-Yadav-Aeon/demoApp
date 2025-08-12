@@ -217,5 +217,7 @@
     "TOTAL_HRS": "કુલ કલાકો",
     "EMP_ATTENDANCE_DATES": "કર્મચારી હાજરી તારીખો",
     "NO_TASK": "કાર્યોની સંખ્યા",
-    "EMP_TASK_DATES": "કર્મચારી કાર્ય તારીખો"
+    "EMP_TASK_DATES": "કર્મચારી કાર્ય તારીખો",
+    "MOCK_LOCATION_LABEL": "મોક લોકેશન મળી",
+    "MOCK_LOCATION_MSG": "હાજરી નોંધવા માટે કૃપા કરીને મોક લોકેશન બંધ કરો"
 }

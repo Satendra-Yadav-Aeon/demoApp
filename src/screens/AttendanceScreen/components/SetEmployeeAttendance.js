@@ -6,10 +6,11 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import ImageResizer from 'react-native-image-resizer';
 import { useTranslation } from 'react-i18next';
 import BackgroundService from 'react-native-background-actions';
+import { isMockingLocation } from 'react-native-turbo-mock-location-detector'
 import Colors from '../../../assets/colors/colors';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import MyImages from '../../../utils/MyImages';
-import { CAMERA_CONSTANT, GEOFENCE_CONSTANT, SET_EMPLOYEE_ATTENDANCE } from '../constants/AttendanceConstant';
+import { CAMERA_CONSTANT, GEOFENCE_CONSTANT, MOCK_LOCATION_CONSTANT, SET_EMPLOYEE_ATTENDANCE } from '../constants/AttendanceConstant';
 import { getAsyncItem, setAsyncItem } from '../../../utils/AsyncStorage';
 import { CHECK_IN_LABEL, CHECK_OUT_LABEL } from '../../DashboardScreen/constants/DashboardConstant';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
@@ -198,6 +199,22 @@ const SetEmployeeAttendance = () => {
   };
 
   const handleMarkAttendacne = async () => {
+    // Check for mocked location before anything else
+    try {
+      const { isLocationMocked } = await isMockingLocation();
+      if (isLocationMocked) {
+        Alert.alert(
+          t(MOCK_LOCATION_CONSTANT.LABEL),
+          t(MOCK_LOCATION_CONSTANT.MSG),
+          [{ text: 'OK' }],
+          { cancelable: false }
+        );
+        return; // Block attendance
+      }
+    } catch (error) {
+      // console.log('Error checking mock location:', error);
+    }
+    
     if (!lat || !long || !imageUri) {
       Alert.alert(t(CAMERA_CONSTANT.ERROR_TEXT), t(CAMERA_CONSTANT.ERROR_MSG_1));
       return;
