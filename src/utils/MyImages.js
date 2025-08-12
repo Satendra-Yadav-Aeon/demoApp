@@ -34,6 +34,9 @@ const MyImages = {
     upArrow: require('../assets/images/up-arrow.png'),
     power: require('../assets/images/power.png'),
     powerOn: require('../assets/images/power-on.png'),
+    clock: require('../assets/images/clock.png'),
+    location: require('../assets/images/location.png'),
+    information: require('../assets/images/information.png'),
 }
 
 export default MyImages;

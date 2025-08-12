@@ -88,3 +88,9 @@ export const SCREEN_LOCALIZATION = {
     CAPTURE_IMAGE: 'CAPTURE_IMAGE'
 }
 export const CLOSE_TXT = 'Close'
+export const BLOCK_ALERT_CONSTANT = {
+    TIME_BLOCK: 'timeMock',
+    LOCATION_BLOCK: 'locationMock',
+    DEFAULT_MSG: 'Something went wrong'
+
+}

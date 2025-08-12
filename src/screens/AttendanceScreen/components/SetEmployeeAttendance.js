@@ -10,13 +10,14 @@ import { isMockingLocation } from 'react-native-turbo-mock-location-detector'
 import Colors from '../../../assets/colors/colors';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import MyImages from '../../../utils/MyImages';
-import { CAMERA_CONSTANT, GEOFENCE_CONSTANT, MOCK_LOCATION_CONSTANT, SET_EMPLOYEE_ATTENDANCE } from '../constants/AttendanceConstant';
+import { CAMERA_CONSTANT, GEOFENCE_CONSTANT, MOCK_LOCATION_CONSTANT, MOCK_TIME_CONSTANT, SET_EMPLOYEE_ATTENDANCE } from '../constants/AttendanceConstant';
 import { getAsyncItem, setAsyncItem } from '../../../utils/AsyncStorage';
 import { CHECK_IN_LABEL, CHECK_OUT_LABEL } from '../../DashboardScreen/constants/DashboardConstant';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 import imageNameUtils from '../../../utils/imageNameUtils';
 import { useMarkAttendanceAPI } from '../hooks/useMarkAttendanceAPI';
 import { useSaveBackgroundLocation } from '../../DashboardScreen/hooks/useSaveBackgroundLocation';
+import { isDeviceTimeTampered } from '../../../utils/trustedTime';
 
 const { screenHeight, screenWidth } = ScreenDimensions;
 
@@ -199,6 +200,17 @@ const SetEmployeeAttendance = () => {
   };
 
   const handleMarkAttendacne = async () => {
+     // Check device time first
+    const timeTampered = await isDeviceTimeTampered();
+    if (timeTampered) {
+      Alert.alert(
+        t(MOCK_TIME_CONSTANT.LABEL),
+        t(MOCK_TIME_CONSTANT.MSG),
+        [{ text: 'OK' }],
+        { cancelable: false }
+      );
+      return; // Stop attendance marking
+    }
     // Check for mocked location before anything else
     try {
       const { isLocationMocked } = await isMockingLocation();

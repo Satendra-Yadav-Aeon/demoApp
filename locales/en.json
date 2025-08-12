@@ -218,5 +218,7 @@
     "NO_TASK": "Number of Tasks",
     "EMP_TASK_DATES": "Employee Task Dates",
     "MOCK_LOCATION_LABEL": "Mock Location Detected",
-    "MOCK_LOCATION_MSG": "Please disable mock location to mark attendance"
+    "MOCK_LOCATION_MSG": "Please disable mock location to mark attendance",
+    "MOCK_TIME_LABEL": "Date and Time Mismatch",
+    "MOCK_TIME_MSG": "The system time does not match the actual time. Please update date/time and reopen the app to proceed."
 }

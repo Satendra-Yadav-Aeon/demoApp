@@ -10,4 +10,5 @@ export const ASYNC_CONSTANT = {
     USER_LAT: 'userLat',
     USER_LONG: 'userLong',
     READ_NOTIFICATIONS: 'READ_NOTIFICATIONS',
+    TRUSTED_TIME_SNAPSHOTS: 'trustedTimeSnapshot'
 }
