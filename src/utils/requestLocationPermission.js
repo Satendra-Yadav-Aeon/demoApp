@@ -5,17 +5,23 @@ import { ASYNC_CONSTANT } from '../constants/AsyncConstant';
 import { setAsyncItem } from './AsyncStorage';
 
 export const requestLocationPermission = async () => {
+  let granted;
   if (Platform.OS === ANDROID_PLATFORM) {
-    const granted = await PermissionsAndroid.request(
+      granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
     );
+    // console.log('===requestLocationPermission====>granted>>>>', granted);
     if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
       Alert.alert(MAP_CONSTANT.LOCATION_PERMISSSION_DENIED);
       return;
     }
+    return granted;
+  }else{
+    // iOS always "granted" after requestAuthorization if user allows it
+    Geolocation.requestAuthorization();
+    granted = 'ios_auto';
   }
 
-  Geolocation.requestAuthorization(); // For iOS
 
   try {
     Geolocation.getCurrentPosition(

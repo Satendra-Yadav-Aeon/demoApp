@@ -4,7 +4,6 @@ import Toast from 'react-native-toast-message';
 import { Provider } from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
 import SplashScreen from 'react-native-splash-screen';
-import { isMockingLocation } from 'react-native-turbo-mock-location-detector';
 import { ANDROID_PLATFORM, BLOCK_ALERT_CONSTANT, LARGE_LOADER } from './src/constants/MainConstant';
 import store from './src/redux/store';
 import { setAsyncItem } from './src/utils/AsyncStorage';
@@ -27,13 +26,6 @@ const App = () => {
       const timeTampered = await isDeviceTimeTampered();
       if (timeTampered) {
         setBlockType(BLOCK_ALERT_CONSTANT.TIME_BLOCK);
-        setLoading(false);
-        return;
-      }
-
-      const { isLocationMocked } = await isMockingLocation();
-      if (isLocationMocked) {
-        setBlockType(BLOCK_ALERT_CONSTANT.LOCATION_BLOCK);
         setLoading(false);
         return;
       }
@@ -97,7 +89,8 @@ const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1, 
     justifyContent: 'center', 
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: Colors.white
   }
 })
 

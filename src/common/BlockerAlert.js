@@ -24,28 +24,6 @@ const BlockerAlert = ({ visible, type }) => {
     };
   }, [visible]);
 
-  // Icon & message based on type
-  // const getAlertContent = () => {
-  //   switch (type) {
-  //     case 'timeMock':
-  //       return {
-  //         icon: require('../assets/images/clock.png'),
-  //         message:
-  //           'The system time does not match the actual time.\nPlease update date/time and reopen the app to proceed.',
-  //       };
-  //     case 'locationMock':
-  //       return {
-  //         icon: require('../assets/images/location.png'),
-  //         message:
-  //           'Mock location detected.\nPlease disable mock location and restart the app.',
-  //       };
-  //     default:
-  //       return {
-  //         icon: require('../assets/images/information.png'),
-  //         message: 'Something went wrong.',
-  //       };
-  //   }
-  // };
 
   const getAlertContent = () => {
     switch (type) {
