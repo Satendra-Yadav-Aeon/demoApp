@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Alert, Image, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Alert, Image, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import { launchCamera } from 'react-native-image-picker';
 import moment from 'moment';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -18,6 +18,7 @@ import imageNameUtils from '../../../utils/imageNameUtils';
 import { useMarkAttendanceAPI } from '../hooks/useMarkAttendanceAPI';
 import { useSaveBackgroundLocation } from '../../DashboardScreen/hooks/useSaveBackgroundLocation';
 import { isDeviceTimeTampered } from '../../../utils/trustedTime';
+import { LARGE_LOADER } from '../../../constants/MainConstant';
 
 const { screenHeight, screenWidth } = ScreenDimensions;
 
@@ -32,6 +33,7 @@ const SetEmployeeAttendance = () => {
   const[employeeData, setEmployeeData] = useState({})
   const [geofenceLocation, setGeofenceLocation] = useState(null);
   const [hasGeofence, setHasGeofence] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {saveBackgroundLocation} = useSaveBackgroundLocation()
 
 
@@ -200,105 +202,118 @@ const SetEmployeeAttendance = () => {
   };
 
   const handleMarkAttendacne = async () => {
-     // Check device time first
-    const timeTampered = await isDeviceTimeTampered();
-    if (timeTampered) {
-      Alert.alert(
-        t(MOCK_TIME_CONSTANT.LABEL),
-        t(MOCK_TIME_CONSTANT.MSG),
-        [{ text: 'OK' }],
-        { cancelable: false }
-      );
-      return; // Stop attendance marking
-    }
-    // Check for mocked location before anything else
     try {
-      const { isLocationMocked } = await isMockingLocation();
-      if (isLocationMocked) {
+      // Start loader instantly
+      setLoading(true);
+
+      // Run both checks in parallel
+      const [timeTampered, mockResult] = await Promise.all([
+        isDeviceTimeTampered(),
+        isMockingLocation().catch(() => ({ isLocationMocked: false })) // fail-safe
+      ]);
+
+      // Stop loader BEFORE showing any alert so alert shows instantly
+      if (timeTampered) {
+        setLoading(false);
+        Alert.alert(
+          t(MOCK_TIME_CONSTANT.LABEL),
+          t(MOCK_TIME_CONSTANT.MSG),
+          [{ text: 'OK' }],
+          { cancelable: false }
+        );
+        return;
+      }
+
+      if (mockResult?.isLocationMocked) {
+        setLoading(false);
         Alert.alert(
           t(MOCK_LOCATION_CONSTANT.LABEL),
           t(MOCK_LOCATION_CONSTANT.MSG),
           [{ text: 'OK' }],
           { cancelable: false }
         );
-        return; // Block attendance
+        return;
       }
-    } catch (error) {
-      // console.log('Error checking mock location:', error);
-    }
-    
-    if (!lat || !long || !imageUri) {
-      Alert.alert(t(CAMERA_CONSTANT.ERROR_TEXT), t(CAMERA_CONSTANT.ERROR_MSG_1));
-      return;
-    }
 
-    let isWithinGeofence = false;
+      // Basic validations
+      if (!lat || !long || !imageUri) {
+        setLoading(false);
+        Alert.alert(
+          t(CAMERA_CONSTANT.ERROR_TEXT),
+          t(CAMERA_CONSTANT.ERROR_MSG_1)
+        );
+        return;
+      }
 
-    if (hasGeofence && geofenceLocation) {
-      const distance = getDistanceInMeters(
-        lat,
-        long,
-        geofenceLocation.latitude,
-        geofenceLocation.longitude
-      );
-      isWithinGeofence = distance <= 50;
-    }
+      // Geofence check
+      let isWithinGeofence = false;
+      if (hasGeofence && geofenceLocation) {
+        const distance = getDistanceInMeters(
+          lat,
+          long,
+          geofenceLocation.latitude,
+          geofenceLocation.longitude
+        );
+        isWithinGeofence = distance <= 50;
+      }
 
-    const proceedWithMarking = async (withinGeofenceFlag) => {
-      const empId = attendanceSelf ? employeeData?.empid : employee?.userId;
-      const photoName = imageNameUtils(empId);
-      const markAttendanceData = {
-        empId,
-        status: 1,
-        checkDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
-        latitude: lat,
-        longitude: long,
-        imgfile: imageUri,
-        imageName: photoName,
-        inOut: isCheckIn ? 1 : 2,
-        attendanceMode: attendanceSelf ? 1 : 2,
-        attendenceBy: attendanceSelf ? 'Self' : employeeData?.empid,
-        withinGeofence: withinGeofenceFlag ? 1 : 0,
-      };
+      const proceedWithMarking = async (withinGeofenceFlag) => {
+        const empId = attendanceSelf ? employeeData?.empid : employee?.userId;
+        const photoName = imageNameUtils(empId);
 
-      // console.log('====handleMarkAttendacne======markAttendanceData>>>>>>>>>',markAttendanceData);
+        const markAttendanceData = {
+          empId,
+          status: 1,
+          checkDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+          latitude: lat,
+          longitude: long,
+          imgfile: imageUri,
+          imageName: photoName,
+          inOut: isCheckIn ? 1 : 2,
+          attendanceMode: attendanceSelf ? 1 : 2,
+          attendenceBy: attendanceSelf ? 'Self' : employeeData?.empid,
+          withinGeofence: withinGeofenceFlag ? 1 : 0,
+        };
 
-      const response = await markAttendance(markAttendanceData);
-      if (response) {
-        const checkInKey = `${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${empId}`;
-        const dateKey = `${ASYNC_CONSTANT.MANAGE_CHECK_DATE}_${empId}`;
-        const today = moment().format('YYYY-MM-DD');
+        const response = await markAttendance(markAttendanceData);
+        if (response) {
+          const checkInKey = `${ASYNC_CONSTANT.MANAGE_CHECK_IN}_${empId}`;
+          const dateKey = `${ASYNC_CONSTANT.MANAGE_CHECK_DATE}_${empId}`;
+          const today = moment().format('YYYY-MM-DD');
 
-        const oldValue = await getAsyncItem(checkInKey);
-        const newValue = oldValue !== 'true';
+          const oldValue = await getAsyncItem(checkInKey);
+          const newValue = oldValue !== 'true';
 
-        await setAsyncItem(checkInKey, newValue.toString());
-        await setAsyncItem(dateKey, today);
+          await setAsyncItem(checkInKey, newValue.toString());
+          await setAsyncItem(dateKey, today);
 
           // Control background service
-        if (attendanceSelf === true) {
-          const isRunning =  BackgroundService.isRunning();
-          if (isCheckIn === true && !isRunning) {
-            await BackgroundService.start(veryIntensiveTask, options);
-            await BackgroundService.updateNotification({
-              taskDesc: 'Attendrix background location running...',
-            });
-          } else if (isCheckIn === false && isRunning) {
-            await BackgroundService.stop();
+          if (attendanceSelf === true) {
+            const isRunning = BackgroundService.isRunning();
+            if (isCheckIn && !isRunning) {
+              await BackgroundService.start(veryIntensiveTask, options);
+              await BackgroundService.updateNotification({
+                taskDesc: 'Attendrix background location running...',
+              });
+            } else if (!isCheckIn && isRunning) {
+              await BackgroundService.stop();
+            }
           }
+
+          route.params?.onSuccess?.();
+          navigation.goBack();
         }
+      };
 
-        route.params?.onSuccess?.();
-        navigation.goBack();
-      }
-    };
+      // Stop loader before possible alert prompts
+      setLoading(false);
 
-    // If no geofence set at all, skip the check
+      // Geofence decisions
       if (!hasGeofence) {
         proceedWithMarking(true);
       } else if (isWithinGeofence) {
         proceedWithMarking(true);
-      }  else {
+      } else {
         Alert.alert(
           t(GEOFENCE_CONSTANT.LABEL),
           t(GEOFENCE_CONSTANT.MSG),
@@ -308,10 +323,19 @@ const SetEmployeeAttendance = () => {
           ]
         );
       }
-  };  
+    } catch (err) {
+      setLoading(false);
+      console.error('Error in handleMarkAttendacne:', err);
+    }
+  };
 
   return (
     <View style={styles.container}>
+      {loading && (
+        <View style={styles.loaderOverlay}>
+          <ActivityIndicator size={LARGE_LOADER} color={Colors.red} />
+        </View>
+      )}
       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon} />
@@ -395,5 +419,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: Colors.white,
     fontSize: 22,
+  },
+  loaderOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 999,
   }
 });

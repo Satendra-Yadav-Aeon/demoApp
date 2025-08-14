@@ -15,7 +15,7 @@ export const requestLocationPermission = async () => {
       Alert.alert(MAP_CONSTANT.LOCATION_PERMISSSION_DENIED);
       return;
     }
-    return granted;
+    // return granted;
   }else{
     // iOS always "granted" after requestAuthorization if user allows it
     Geolocation.requestAuthorization();
@@ -47,4 +47,5 @@ export const requestLocationPermission = async () => {
   } catch (err) {
     // console.error('Unexpected geolocation error:', err);
   }
+  return granted;
 };
