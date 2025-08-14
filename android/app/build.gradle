@@ -86,9 +86,9 @@ android {
     buildToolsVersion buildToolsVersion
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.demoapp"
+    namespace "com.aeon.attendrix"
     defaultConfig {
-        applicationId "com.demoapp"
+        applicationId "com.aeon.attendrix"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

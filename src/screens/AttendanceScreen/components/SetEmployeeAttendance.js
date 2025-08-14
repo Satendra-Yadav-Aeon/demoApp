@@ -192,7 +192,7 @@ const SetEmployeeAttendance = () => {
       taskIcon: {
           name: 'screen',
           type: 'drawable',
-          package: 'com.demoapp'
+          package: 'com.aeon.attendrix'
       },
       color: '#ff00ff',
       linkingURI: 'yourSchemeHere://chat/jane', // See Deep Linking for more info

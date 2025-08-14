@@ -1,4 +1,4 @@
-package com.demoapp
+package com.aeon.attendrix
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
@@ -13,7 +13,7 @@ class MainActivity : ReactActivity() {
    * Returns the name of the main component registered from JavaScript. This is used to schedule
    * rendering of the component.
    */
-  override fun getMainComponentName(): String = "demoApp"
+  override fun getMainComponentName(): String = "attendrix"
   override fun onCreate(savedInstanceState: Bundle?) {
       SplashScreen.show(this) // Show native splash screen
       super.onCreate(savedInstanceState)

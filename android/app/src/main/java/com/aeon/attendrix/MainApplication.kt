@@ -1,4 +1,4 @@
-package com.demoapp
+package com.aeon.attendrix
 
 import android.app.Application
 import com.facebook.react.PackageList
