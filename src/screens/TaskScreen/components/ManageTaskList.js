@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { getAsyncItem } from '../../../utils/AsyncStorage';
 import { ASYNC_CONSTANT } from '../../../constants/AsyncConstant';
 import { SCREENS } from '../../../constants/MainConstant';
@@ -13,6 +13,7 @@ import useGetTaskDetailsAPI from '../hooks/useGetTaskDetailsAPI';
 
 const ManageTaskList = ({employee}) => {
   const navigation = useNavigation();
+  const route = useRoute();
   const {taskData, refetchTaskDetails} = useGetTaskDetailsAPI()
   const[employeeData, setEmployeeData] = useState({})
 
@@ -31,7 +32,8 @@ const ManageTaskList = ({employee}) => {
           empId = data?.empid;
         }
         if (empId && isActive) {
-          refetchTaskDetails({ empId });
+          await refetchTaskDetails({ empId });
+          navigation.setParams({ shouldRefresh: false });
         }
       };
 
@@ -39,7 +41,7 @@ const ManageTaskList = ({employee}) => {
       return () => {
         isActive = false;
       };
-    }, [employee])
+    }, [employee, route.params?.shouldRefresh])
   );
 
   const handleAddEmployee = () => {

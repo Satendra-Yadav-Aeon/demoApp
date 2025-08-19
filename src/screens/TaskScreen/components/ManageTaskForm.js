@@ -121,7 +121,25 @@ const ManageTaskForm = () => {
     // console.log('==onSubmit====ManageTaskForm==>saveData>>>>',saveData);
     const response = saveTask(saveData);
     if(response){
-      navigation.goBack();
+      if (employee) {
+        navigation.reset({
+          index: 2,
+          routes: [
+            { name: SCREENS.DASHBOARD },
+            { name: SCREENS.SUPERVISOR_ATTENDANCE },
+            { name: SCREENS.EMPLOYEE_TASK, params: { shouldRefresh: true, employee }},
+          ],
+        });
+      } else {
+        navigation.reset({
+          index: 1,
+          routes: [
+            { name: SCREENS.DASHBOARD },
+            { name: SCREENS.EMPLOYEE_TASK, params: { shouldRefresh: true }},
+          ],
+        });
+      }
+
     }
   };
 
