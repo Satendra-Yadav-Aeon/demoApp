@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import MapView, { Circle, Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { getDistance } from 'geolib';
 import Colors from '../assets/colors/colors';
 
 const GeofenceMap = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   const {
     checkinLat,
     checkinLong,
@@ -80,6 +81,10 @@ const GeofenceMap = () => {
 
   return (
     <View style={styles.container}>
+      {/* Close Button */}
+      <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
+        <Text style={styles.closeButtonText}>✕</Text>
+      </TouchableOpacity>
       <MapView style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={initialRegion}>
         {/* Check-in marker */}
         <Marker coordinate={checkinLocation} title="Check-In Location" pinColor="green" />
@@ -126,7 +131,7 @@ const GeofenceMap = () => {
             {midPoint(checkinLocation, geofenceLocation) && (
               <Marker coordinate={midPoint(checkinLocation, geofenceLocation)}>
                 <View style={styles.distanceLabel}>
-                  <Text style={styles.distanceText}>
+                  <Text style={styles.distanceText} adjustsFontSizeToFit={true}>
                     {checkinToGeofenceKm.toFixed(2)} km
                   </Text>
                 </View>
@@ -136,7 +141,7 @@ const GeofenceMap = () => {
             {hasCheckout && midPoint(checkoutLocation, geofenceLocation) && (
               <Marker coordinate={midPoint(checkoutLocation, geofenceLocation)}>
                 <View style={styles.distanceLabel}>
-                  <Text style={styles.distanceText}>
+                  <Text style={styles.distanceText} adjustsFontSizeToFit={true}>
                     {checkoutToGeofenceKm.toFixed(2)} km
                   </Text>
                 </View>
@@ -171,5 +176,21 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: Colors.black,
     fontWeight: 'bold',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
+    backgroundColor: Colors.red_1,
+    borderRadius: 20,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 101,
+  },
+  closeButtonText: {
+    color: Colors.white,
+    fontSize: 24,
   },
 });

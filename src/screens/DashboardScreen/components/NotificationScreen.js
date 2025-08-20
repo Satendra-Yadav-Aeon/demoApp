@@ -51,10 +51,10 @@ const NotificationScreen = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={MyImages.goBack} style={styles.goBackIcon}/>
         </TouchableOpacity>
-        <Text style={styles.heading}>{t(NOTIFICATION_CONSTANT.NOTIFICATION_TITLE)}</Text>
+        <Text style={styles.heading} adjustsFontSizeToFit={true}>{t(NOTIFICATION_CONSTANT.NOTIFICATION_TITLE)}</Text>
       </View>
       <TouchableOpacity onPress={markAllAsRead} style={styles.button}>
-        <Text style={styles.buttonText}>{t(NOTIFICATION_CONSTANT.MARK_ALL_READ)}</Text>
+        <Text style={styles.buttonText} adjustsFontSizeToFit={true}>{t(NOTIFICATION_CONSTANT.MARK_ALL_READ)}</Text>
       </TouchableOpacity>
       {isArrayLength(notifications) ? (
         <FlatList

@@ -63,7 +63,7 @@ const AttendanceCountCard = () => {
   return (
     <View style={styles.container}>
         <TouchableOpacity style={styles.dateContainer} onPress={() => setShowPicker(true)}>
-            <Text style={styles.dateText}>{selectedDate}</Text>
+            <Text style={styles.dateText} adjustsFontSizeToFit={true}>{selectedDate}</Text>
             <Image source={MyImages.calendar} style={styles.calendarIcon}/>
         </TouchableOpacity>
         {showPicker && (
@@ -83,18 +83,18 @@ const AttendanceCountCard = () => {
         <View style={styles.cardContainer}>
         <View style={styles.card}>
             <Image source={MyImages.totalEmployees} style={styles.icon}/>
-            <Text style={styles.cardHeaderText}>{t(ATTENDANCE_COUNT_CARD_CONSTANT.TOTAL)}</Text>
-            <Text style={styles.cardDataText}>{adminAttendanceCount[0]?.totalEmpCnt}</Text>
+            <Text style={styles.cardHeaderText} adjustsFontSizeToFit={true}>{t(ATTENDANCE_COUNT_CARD_CONSTANT.TOTAL)}</Text>
+            <Text style={styles.cardDataText} adjustsFontSizeToFit={true}>{adminAttendanceCount[0]?.totalEmpCnt}</Text>
         </View>
         <View style={styles.card}>
             <Image source={MyImages.presentEmployees} style={styles.icon}/>
-            <Text style={styles.cardHeaderText}>{t(ATTENDANCE_COUNT_CARD_CONSTANT.PRESENT)}</Text>
-            <Text style={styles.cardDataText}>{adminAttendanceCount[0]?.presentEmpCnt}</Text>
+            <Text style={styles.cardHeaderText} adjustsFontSizeToFit={true}>{t(ATTENDANCE_COUNT_CARD_CONSTANT.PRESENT)}</Text>
+            <Text style={styles.cardDataText} adjustsFontSizeToFit={true}>{adminAttendanceCount[0]?.presentEmpCnt}</Text>
         </View>
         <View style={styles.card}>
             <Image source={MyImages.absentEmployees} style={styles.icon}/>
-            <Text style={styles.cardHeaderText}>{t(ATTENDANCE_COUNT_CARD_CONSTANT.ABSENT)}</Text>
-            <Text style={styles.cardDataText}>{adminAttendanceCount[0]?.absentEmpCnt}</Text>
+            <Text style={styles.cardHeaderText} adjustsFontSizeToFit={true}>{t(ATTENDANCE_COUNT_CARD_CONSTANT.ABSENT)}</Text>
+            <Text style={styles.cardDataText} adjustsFontSizeToFit={true}>{adminAttendanceCount[0]?.absentEmpCnt}</Text>
         </View>
         </View>
     </View>

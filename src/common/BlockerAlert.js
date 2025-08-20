@@ -59,7 +59,7 @@ const BlockerAlert = ({ visible, type }) => {
       <View style={styles.container}>
         <View style={styles.alertBox}>
           <Image source={icon} style={styles.image}/>
-          <Text style={styles.alertText}>
+          <Text style={styles.alertText} adjustsFontSizeToFit={true}>
             {message}
           </Text>
         </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   alertBox: {
     width: '100%',
