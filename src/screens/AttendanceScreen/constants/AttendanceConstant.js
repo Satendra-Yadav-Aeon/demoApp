@@ -67,3 +67,7 @@ export const MOCK_TIME_CONSTANT = {
     LABEL: 'MOCK_TIME_LABEL',
     MSG: 'MOCK_TIME_MSG'
 }
+
+export const INTERNET_CONSTANT = {
+  MSG: 'INTERNET_CONSTANT_MSG',
+};

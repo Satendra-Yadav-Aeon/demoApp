@@ -91,6 +91,7 @@ export const CLOSE_TXT = 'Close'
 export const BLOCK_ALERT_CONSTANT = {
     TIME_BLOCK: 'timeMock',
     LOCATION_BLOCK: 'locationMock',
+    INTERNET_BLOCK: 'internetBlock',
     DEFAULT_MSG: 'Something went wrong'
 
 }

@@ -3,7 +3,7 @@ import { View, Text, Modal, StyleSheet, Image, BackHandler, Platform } from 'rea
 import { useTranslation } from 'react-i18next';
 import { ANDROID_PLATFORM, BLOCK_ALERT_CONSTANT, SLIDE_ANIMATION } from '../constants/MainConstant';
 import Colors from '../assets/colors/colors';
-import { MOCK_LOCATION_CONSTANT, MOCK_TIME_CONSTANT } from '../screens/AttendanceScreen/constants/AttendanceConstant';
+import { INTERNET_CONSTANT, MOCK_LOCATION_CONSTANT, MOCK_TIME_CONSTANT } from '../screens/AttendanceScreen/constants/AttendanceConstant';
 
 const BlockerAlert = ({ visible, type }) => {
   const {t} = useTranslation();
@@ -32,6 +32,11 @@ const BlockerAlert = ({ visible, type }) => {
           icon: require('../assets/images/clock.png'),
           message:
             t(MOCK_TIME_CONSTANT.MSG)
+        };
+      case BLOCK_ALERT_CONSTANT.INTERNET_BLOCK:
+        return {
+          icon: require('../assets/images/internet.png'),
+          message: t(INTERNET_CONSTANT.MSG)
         };
       case BLOCK_ALERT_CONSTANT.LOCATION_BLOCK:
         return {
