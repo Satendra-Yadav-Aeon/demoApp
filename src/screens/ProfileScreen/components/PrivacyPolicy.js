@@ -24,7 +24,7 @@ export default PrivacyPolicy;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 0,
     backgroundColor: Colors.white,
     borderColor: Colors.bgColor,
     borderWidth: 10
