@@ -85,7 +85,7 @@ const EmployeeDashboard = () => {
           <Text style={styles.employeeName}>{employeeData?.empname}</Text>
           <Text style={styles.employeeEmail}>{employeeData?.rolename}</Text>
         </View>
-        <EmployeeShowAttendance checkIn={firstCheckIn} checkOut={lastCheckOut} employeeDetails={employeeDetails}/>
+        <EmployeeShowAttendance checkIn={firstCheckIn} checkOut={lastCheckOut} employeeDetails={employeeDetails} empAttendance={empAttendance}/>
       </View>
       <View style={styles.secondHalf}>
         <EmployeeCategory role={ROLES.EMPLOYEE}/>

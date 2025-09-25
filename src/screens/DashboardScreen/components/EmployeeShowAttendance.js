@@ -13,7 +13,7 @@ import { getTodayFormatted } from '../../../utils/DateUtils';
 
 const { screenWidth, screenHeight } = ScreenDimensions;
 
-const EmployeeShowAttendance = ({checkIn, checkOut, employeeDetails}) => {
+const EmployeeShowAttendance = ({checkIn, checkOut, employeeDetails, empAttendance}) => {
   const navigation = useNavigation()
   const {t} = useTranslation();
   const [isCheckIn, setIsCheckIn] = useState(true);
@@ -38,12 +38,14 @@ const EmployeeShowAttendance = ({checkIn, checkOut, employeeDetails}) => {
         await setAsyncItem(checkInKey, 'true');
         await setAsyncItem(dateKey, today);
         setIsCheckIn(true);
+      } else if (empAttendance[0].inOut === 1){
+        setIsCheckIn(false)
       } else {
         setIsCheckIn(storedCheckIn === 'true');
       }
     };
     loadState();
-  }, []);
+  }, [empAttendance]);
 
   const handleCheckPress = () => {
     navigation.navigate(SCREENS.SET_EMPLOYEE_ATTENDANCE, {
