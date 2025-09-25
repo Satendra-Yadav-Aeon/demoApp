@@ -1,24 +1,67 @@
-import { PermissionsAndroid, Platform, Alert, Linking } from 'react-native';
+import { PermissionsAndroid, Platform, Alert, Linking, BackHandler } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
-import { ANDROID_PLATFORM, MAP_CONSTANT } from '../constants/MainConstant';
+import { ANDROID_PLATFORM, LOCATION_BASED_CONSTANT, MAP_CONSTANT } from '../constants/MainConstant';
 import { ASYNC_CONSTANT } from '../constants/AsyncConstant';
 import { setAsyncItem } from './AsyncStorage';
 
-export const requestLocationPermission = async () => {
+export const requestLocationPermission = async (t) => {
   let granted;
   if (Platform.OS === ANDROID_PLATFORM) {
-      granted = await PermissionsAndroid.request(
+    // First check if permission already granted
+    const alreadyGranted = await PermissionsAndroid.check(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
     );
+
+    if (alreadyGranted) {
+      granted = PermissionsAndroid.RESULTS.GRANTED;
+    } else {
+      granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+      );
+    }
     // console.log('===requestLocationPermission====>granted>>>>', granted);
     if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-      Alert.alert(MAP_CONSTANT.LOCATION_PERMISSSION_DENIED);
+      if (granted === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
+        // User chose "Don't ask again"
+        Alert.alert(
+          t(LOCATION_BASED_CONSTANT.LABEL_1),
+          t(LOCATION_BASED_CONSTANT.LABEL_1_MSG),
+          [
+            { text: 'Open Settings', onPress: () => Linking.openSettings() },
+            { text: 'Exit App', onPress: () => BackHandler.exitApp() },
+          ],
+          { cancelable: false }
+        );
+      } else {
+        // User denied but didn't tick "Don't ask again"
+        Alert.alert(
+          t(LOCATION_BASED_CONSTANT.LABEL_2),
+          t(LOCATION_BASED_CONSTANT.LABEL_2_MSG),
+          [
+            { text: 'Try Again', onPress: () => requestLocationPermission() },
+            { text: 'Exit App', onPress: () => BackHandler.exitApp() },
+          ],
+          { cancelable: false }
+        );
+      }
       return;
     }
-    // return granted;
-  }else{
-    // iOS always "granted" after requestAuthorization if user allows it
-    Geolocation.requestAuthorization();
+  } else{
+    // iOS
+    Geolocation.requestAuthorization('whenInUse').then(auth => {
+      if (auth === 'denied' || auth === 'restricted') {
+        Alert.alert(
+          t(LOCATION_BASED_CONSTANT.LABEL_3),
+          t(LOCATION_BASED_CONSTANT.LABEL_3_MSG),
+          [
+            { text: 'Open Settings', onPress: () => Linking.openSettings() },
+            { text: 'Exit App', onPress: () => BackHandler.exitApp() },
+          ],
+          { cancelable: false }
+        );
+      }
+    });
+
     granted = 'ios_auto';
   }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Alert, Image, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Alert, Image, TouchableOpacity, Text, ActivityIndicator, PermissionsAndroid } from 'react-native';
 import { launchCamera } from 'react-native-image-picker';
 import moment from 'moment';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -18,7 +18,8 @@ import imageNameUtils from '../../../utils/imageNameUtils';
 import { useMarkAttendanceAPI } from '../hooks/useMarkAttendanceAPI';
 import { useSaveBackgroundLocation } from '../../DashboardScreen/hooks/useSaveBackgroundLocation';
 import { isDeviceTimeTampered } from '../../../utils/trustedTime';
-import { LARGE_LOADER } from '../../../constants/MainConstant';
+import { LARGE_LOADER, LOCATION_BASED_CONSTANT } from '../../../constants/MainConstant';
+import { requestLocationPermission } from '../../../utils/requestLocationPermission';
 
 const { screenHeight, screenWidth } = ScreenDimensions;
 
@@ -205,6 +206,36 @@ const SetEmployeeAttendance = () => {
     try {
       // Start loader instantly
       setLoading(true);
+
+      // Step 1: Ensure location permission is granted
+    const permission = await requestLocationPermission(t); 
+
+    if (permission !== 'ios_auto' && permission !== PermissionsAndroid.RESULTS.GRANTED) {
+      setLoading(false);
+      Alert.alert(
+        t(LOCATION_BASED_CONSTANT.LABEL_4),
+        t(LOCATION_BASED_CONSTANT.LABEL_4_MSG),
+        [{ text: 'OK' }],
+        { cancelable: false }
+      );
+      return; //Stop flow
+    }
+
+    // Step 2: Fetch latest location after permission
+    const userLat = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LAT)) || null;
+    const userLong = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LONG)) || null;
+
+    if (!userLat || !userLong) {
+      setLoading(false);
+      Alert.alert(
+        t(LOCATION_BASED_CONSTANT.LABEL_5),
+        t(LOCATION_BASED_CONSTANT.LABEL_5_MSG)
+      );
+      return; //Stop flow
+    }
+
+    setLat(userLat);
+    setLong(userLong);
 
       // Run both checks in parallel
       const [timeTampered, mockResult] = await Promise.all([

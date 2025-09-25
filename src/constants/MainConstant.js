@@ -95,3 +95,15 @@ export const BLOCK_ALERT_CONSTANT = {
     DEFAULT_MSG: 'Something went wrong'
 
 }
+export const LOCATION_BASED_CONSTANT = {
+    LABEL_1: 'LABEL_1',
+    LABEL_1_MSG: 'LABEL_1_MSG',
+    LABEL_2: 'LABEL_2',
+    LABEL_2_MSG: 'LABEL_2_MSG',
+    LABEL_3: 'LABEL_3',
+    LABEL_3_MSG: 'LABEL_3_MSG',
+    LABEL_4: 'LABEL_4',
+    LABEL_4_MSG: 'LABEL_4_MSG',
+    LABEL_5: 'LABEL_5',
+    LABEL_5_MSG: 'LABEL_5_MSG'
+}
