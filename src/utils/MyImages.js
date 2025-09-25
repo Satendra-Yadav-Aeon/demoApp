@@ -37,7 +37,8 @@ const MyImages = {
     clock: require('../assets/images/clock.png'),
     location: require('../assets/images/location.png'),
     information: require('../assets/images/information.png'),
-    internet: require('../assets/images/internet.png')
+    internet: require('../assets/images/internet.png'),
+    camera: require('../assets/images/camera.png')
 }
 
 export default MyImages;

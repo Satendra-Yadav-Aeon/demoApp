@@ -341,7 +341,7 @@ const SetEmployeeAttendance = () => {
           <Image source={MyImages.goBack} style={styles.goBackIcon} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleCameraLaunch()}>
-          <Image source={MyImages.goBack} style={styles.goForwardIcon} />
+          <Image source={MyImages.camera} style={styles.cameraIcon} />
         </TouchableOpacity>
       </View>
       <View style={styles.controls}>
@@ -398,11 +398,10 @@ const styles = StyleSheet.create({
     height: 40,
     tintColor: Colors.red,
   },
-  goForwardIcon: {
+  cameraIcon: {
     width: 40,
     height: 40,
     tintColor: Colors.red,
-    transform: [{ rotate: '180deg' }],
   },
   checkButtonContainer: {
     position: 'absolute',
