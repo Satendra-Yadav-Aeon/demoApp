@@ -139,12 +139,15 @@ const SetEmployeeAttendance = () => {
   };
 
   const handleCameraLaunch = () => {
-    if (!lat || !long) {
-      Alert.alert(t(SET_EMPLOYEE_ATTENDANCE.LOCATION_NOT_FOUND));
-      return;
-    }
     if (!cameraPermission) {
       Alert.alert(t(SET_EMPLOYEE_ATTENDANCE.CAMERA_PERMISSION_REQUIRED));
+      return;
+    }
+    if (!lat || !long) {
+      Alert.alert(
+        t(LOCATION_BASED_CONSTANT.LABEL_5),
+        t(LOCATION_BASED_CONSTANT.LABEL_5_MSG)
+      );
       return;
     }
     captureAndStoreData();
@@ -208,34 +211,38 @@ const SetEmployeeAttendance = () => {
       setLoading(true);
 
       // Step 1: Ensure location permission is granted
-    const permission = await requestLocationPermission(t); 
+      const permission = await requestLocationPermission(t); 
 
-    if (permission !== 'ios_auto' && permission !== PermissionsAndroid.RESULTS.GRANTED) {
-      setLoading(false);
-      Alert.alert(
-        t(LOCATION_BASED_CONSTANT.LABEL_4),
-        t(LOCATION_BASED_CONSTANT.LABEL_4_MSG),
-        [{ text: 'OK' }],
-        { cancelable: false }
-      );
-      return; //Stop flow
-    }
+      if (permission !== 'ios_auto' && permission !== PermissionsAndroid.RESULTS.GRANTED) {
+        setLoading(false);
+        Alert.alert(
+          t(LOCATION_BASED_CONSTANT.LABEL_4),
+          t(LOCATION_BASED_CONSTANT.LABEL_4_MSG),
+          [{ text: 'OK' }],
+          { cancelable: false }
+        );
+        return; //Stop flow
+      }
 
-    // Step 2: Fetch latest location after permission
-    const userLat = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LAT)) || null;
-    const userLong = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LONG)) || null;
+      // Step 2: Fetch latest location after permission
+      const userLat = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LAT)) || null;
+      const userLong = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LONG)) || null;
 
-    if (!userLat || !userLong) {
-      setLoading(false);
-      Alert.alert(
-        t(LOCATION_BASED_CONSTANT.LABEL_5),
-        t(LOCATION_BASED_CONSTANT.LABEL_5_MSG)
-      );
-      return; //Stop flow
-    }
+      if (!userLat || !userLong) {
+        setLoading(false);
+        Alert.alert(
+          t(LOCATION_BASED_CONSTANT.LABEL_5),
+          t(LOCATION_BASED_CONSTANT.LABEL_5_MSG)
+        );
+        return; //Stop flow
+      }
 
-    setLat(userLat);
-    setLong(userLong);
+      // Set state but keep loader on until React flushes updates
+      setLat(userLat);
+      setLong(userLong);
+
+      // Wait one render cycle to ensure state is applied
+      await new Promise(resolve => requestAnimationFrame(resolve));
 
       // Run both checks in parallel
       const [timeTampered, mockResult] = await Promise.all([
