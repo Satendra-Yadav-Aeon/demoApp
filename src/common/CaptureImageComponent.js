@@ -3,21 +3,34 @@ import { View, StyleSheet, Alert, Image, TouchableOpacity } from 'react-native';
 import { launchCamera } from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next';
 import ScreenDimensions from '../utils/DimensionUtils';
 import { ASYNC_CONSTANT } from '../constants/AsyncConstant';
 import MyImages from '../utils/MyImages';
 import Colors from '../assets/colors/colors';
 import { setAsyncItem } from '../utils/AsyncStorage';
+import { CAMERA_CONSTANT, SET_EMPLOYEE_ATTENDANCE } from '../screens/AttendanceScreen/constants/AttendanceConstant';
+import { requestCameraPermission } from '../utils/CameraPermission';
 
 const { screenHeight, screenWidth } = ScreenDimensions;
 
 const CaptureImageComponent = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation()
   const route = useRoute();
   const { employeeData, mode, task } = route.params || {};
   const [imageUri, setImageUri] = useState(null);
 
-  const handleCameraLaunch = () => {
+  const handleCameraLaunch = async () => {
+    const permission = await requestCameraPermission(t);
+    if (!permission) {
+      Alert.alert(t(SET_EMPLOYEE_ATTENDANCE.CAMERA_PERMISSION_REQUIRED));
+      return;
+    }
+    captureAndStoreData();
+  };
+
+  const captureAndStoreData = async () => {
     const options = {
       mediaType: 'photo',
       includeBase64: false,
@@ -26,51 +39,45 @@ const CaptureImageComponent = () => {
     };
 
     launchCamera(options, async (response) => {
-      console.log('Camera response:', response);
-
       if (response.didCancel) {
-        Alert.alert('Camera Cancelled', 'You cancelled taking the photo.');
-      } else if (response.errorCode) {
-        Alert.alert('Camera Error', response.errorMessage || 'An error occurred while opening the camera.');
-      } else {
-        let imageUri =
+        Alert.alert(t(CAMERA_CONSTANT.CANCEL_LABEL), t(CAMERA_CONSTANT.CANCEL_MSG));
+        return;
+      }
+
+      if (response.errorCode) {
+        Alert.alert(t(CAMERA_CONSTANT.CAMERA_ERROR), response.errorMessage || t(CAMERA_CONSTANT.UNKNOWN_ERROR_MSG));
+        return;
+      }
+
+      let imageUri =
           response.assets && response.assets.length > 0
             ? response.assets[0].uri
             : null;
+      if (!imageUri) {
+        Alert.alert(t(CAMERA_CONSTANT.ERROR_TEXT), t(CAMERA_CONSTANT.ERROR_MSG));
+        return;
+      }
 
-        if (imageUri) {
-          // console.log('===launchCamera===>>imageUri>>>',imageUri);
-          
-          try {
-            const resizedImage = await ImageResizer.createResizedImage(
-              imageUri,
-              800,
-              600,
-              'JPEG',
-              80,
-              0
-            );
+      try {
+        const resizedImage = await ImageResizer.createResizedImage(
+          imageUri,
+          800,
+          600,
+          'JPEG',
+          80,
+          0
+        );
 
-            setImageUri(resizedImage.uri);
-            // const key = `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`;
-            const key =
+        // console.log("Setting imageUri:", resizedImage.uri);
+        setImageUri(resizedImage.uri);
+        const key =
               mode === 'task_mode'
                 ? `${ASYNC_CONSTANT.TASK_IMGAE}_${task?.taskId}`
                 : `${ASYNC_CONSTANT.PROFILE_IMAGE}_${employeeData?.empid}`;
 
             await setAsyncItem(key, resizedImage.uri);
-
-            // Give some time to ensure image is saved
-            // setTimeout(() => {
-            //   navigation.goBack();
-            // }, 300);
-          } catch (err) {
-            console.error('Error resizing image:', err);
-            Alert.alert('Resize Error', 'Failed to compress the image.');
-          }
-        } else {
-          Alert.alert('Image Error', 'No image URI found.');
-        }
+      } catch (error) {
+        // console.log('====launchCamera===>>>error>>>',error);
       }
     });
   };
@@ -92,7 +99,6 @@ const CaptureImageComponent = () => {
 
       <View style={styles.controls}>
         {imageUri && <Image source={{ uri: imageUri }} style={styles.preview} />}
-        {/* <TouchableOpacity onPress={handleCameraLaunch} style={styles.captureIcon} /> */}
       </View>
     </View>
   );

@@ -231,5 +231,11 @@
     "LABEL_4": "Location Required",
     "LABEL_4_MSG": "You must enable location permission to mark attendance.",
     "LABEL_5": "Location Not Found",
-    "LABEL_5_MSG": "Unable to fetch your current location. Please try again."
+    "LABEL_5_MSG": "Unable to fetch your current location. Please try again.",
+    "CAMERA_LABEL_1": "Camera Permission Required",
+    "CAMERA_LABEL_1_MSG": "Please allow camera access from settings to continue.",
+    "CAMERA_LABEL_2": "Camera Permission Denied",
+    "CAMERA_LABEL_2_MSG": "Camera access is needed to take attendance photo."
+
+    
 }

@@ -20,6 +20,7 @@ import { useSaveBackgroundLocation } from '../../DashboardScreen/hooks/useSaveBa
 import { isDeviceTimeTampered } from '../../../utils/trustedTime';
 import { LARGE_LOADER, LOCATION_BASED_CONSTANT } from '../../../constants/MainConstant';
 import { requestLocationPermission } from '../../../utils/requestLocationPermission';
+import { requestCameraPermission } from '../../../utils/CameraPermission';
 
 const { screenHeight, screenWidth } = ScreenDimensions;
 
@@ -84,17 +85,10 @@ const SetEmployeeAttendance = () => {
   }, []);
 
   useEffect(() => {
-    if(lat && long){
-      handleCameraLaunch();
-    }
-  }, [lat, long]);
+    handleCameraLaunch();
+  }, []);
 
   const captureAndStoreData = async () => {
-    if (!lat || !long) {
-      Alert.alert(t(SET_EMPLOYEE_ATTENDANCE.DENIED_LOCATION));
-      return;
-    }
-
     const options = {
       mediaType: 'photo',
       includeBase64: false,
@@ -138,16 +132,10 @@ const SetEmployeeAttendance = () => {
     });
   };
 
-  const handleCameraLaunch = () => {
-    if (!cameraPermission) {
+  const handleCameraLaunch = async () => {
+    const permission = await requestCameraPermission(t);
+    if (!permission) {
       Alert.alert(t(SET_EMPLOYEE_ATTENDANCE.CAMERA_PERMISSION_REQUIRED));
-      return;
-    }
-    if (!lat || !long) {
-      Alert.alert(
-        t(LOCATION_BASED_CONSTANT.LABEL_5),
-        t(LOCATION_BASED_CONSTANT.LABEL_5_MSG)
-      );
       return;
     }
     captureAndStoreData();
@@ -225,8 +213,30 @@ const SetEmployeeAttendance = () => {
       }
 
       // Step 2: Fetch latest location after permission
-      const userLat = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LAT)) || null;
-      const userLong = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LONG)) || null;
+      let userLat = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LAT)) || null;
+      let userLong = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LONG)) || null;
+
+      if (!userLat || !userLong) {
+        // Try fetching again (keep loader ON)
+        await new Promise((resolve, reject) => {
+          Geolocation.getCurrentPosition(
+            async position => {
+              const { latitude, longitude } = position.coords;
+              await setAsyncItem(ASYNC_CONSTANT.USER_LAT, latitude);
+              await setAsyncItem(ASYNC_CONSTANT.USER_LONG, longitude);
+              userLat = latitude;
+              userLong = longitude;
+              resolve();
+            },
+            error => {
+              reject(error);
+            },
+            { enableHighAccuracy: false, timeout: 20000, maximumAge: 10000 }
+          );
+        }).catch(err => {
+          // console.error('Geolocation retry failed:', err);
+        });
+      }
 
       if (!userLat || !userLong) {
         setLoading(false);
@@ -234,15 +244,12 @@ const SetEmployeeAttendance = () => {
           t(LOCATION_BASED_CONSTANT.LABEL_5),
           t(LOCATION_BASED_CONSTANT.LABEL_5_MSG)
         );
-        return; //Stop flow
+        return; // Stop flow
       }
 
-      // Set state but keep loader on until React flushes updates
+      // now set coordinates
       setLat(userLat);
       setLong(userLong);
-
-      // Wait one render cycle to ensure state is applied
-      await new Promise(resolve => requestAnimationFrame(resolve));
 
       // Run both checks in parallel
       const [timeTampered, mockResult] = await Promise.all([
