@@ -97,14 +97,14 @@ const MarkAttendanceEmployeeCard = ({ employee }) => {
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.ROLES)}</Text>
         <Text style={styles.dataText}>{employee?.roleName}</Text>
       </View>
-      <View style={styles.dataRow}>
+      {/* <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.JOINING_DATE)}</Text>
         <Text style={styles.dataText}>{employee?.doj}</Text>
-      </View>
-      <View style={styles.dataRow}>
+      </View> */}
+      {/* <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.ADDRESS)}</Text>
         <Text style={styles.dataText}>{employee?.address}</Text>
-      </View>
+      </View> */}
       <TouchableOpacity style={styles.setLocationButton} onPress={handleCheckPress}>
         <Text style={styles.setLocationText}>{isCheckIn ? t(CHECK_IN_LABEL) : t(CHECK_OUT_LABEL)}</Text>
       </TouchableOpacity>

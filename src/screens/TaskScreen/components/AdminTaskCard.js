@@ -44,10 +44,10 @@ const AdminTaskCard = ({ employee }) => {
           <Image source={MyImages.profile} style={styles.profileIcon}/>
         )}
       </View>
-      <View style={styles.dataRow}>
+      {/* <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.MOBILE)}</Text>
         <Text style={styles.dataText}>{employee?.mobileno}</Text>
-      </View>
+      </View> */}
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.ROLES)}</Text>
         <Text style={styles.dataText}>{employee?.rolename}</Text>
@@ -56,14 +56,14 @@ const AdminTaskCard = ({ employee }) => {
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.REPORTING_MANAGER)}</Text>
         <Text style={styles.dataText}>{employee?.repomanager}</Text>
       </View>
-      <View style={styles.dataRow}>
+      {/* <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.JOINING_DATE)}</Text>
         <Text style={styles.dataText}>{formatDate(employee?.joiningdate)}</Text>
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.headerText}>{t(MANAGE_EMPLOYEE_CONSTANT.ADDRESS)}</Text>
         <Text style={styles.dataText}>{employee?.address}</Text>
-      </View>
+      </View> */}
       <TouchableOpacity style={styles.setLocationButton} onPress={handleTask}>
         <Text style={styles.setLocationText}>{t(CHECK_TASK)}</Text>
       </TouchableOpacity>

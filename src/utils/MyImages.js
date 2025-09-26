@@ -38,7 +38,8 @@ const MyImages = {
     location: require('../assets/images/location.png'),
     information: require('../assets/images/information.png'),
     internet: require('../assets/images/internet.png'),
-    camera: require('../assets/images/camera.png')
+    camera: require('../assets/images/camera.png'),
+    attend: require('../assets/images/attend.png'),
 }
 
 export default MyImages;

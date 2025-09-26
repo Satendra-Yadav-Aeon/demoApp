@@ -28,8 +28,9 @@ const EmployeeCategory = ({ role, ListFooterComponent}) => {
         ];
       case ROLES.SUPERVISOR:
         return [
-          { id: '1', title: t(CATERGORY_CONSTANT.MARK_ATTENDANCE), screen: SCREENS.SUPERVISOR_ATTENDANCE, icon: MyImages.attendance },
+          { id: '1', title: t(CATERGORY_CONSTANT.MARK_ATTENDANCE), screen: SCREENS.SUPERVISOR_ATTENDANCE, icon: MyImages.attend },
           { id: '2', title: t(CATERGORY_CONSTANT.REPORTS), screen: SCREENS.REPORT, icon: MyImages.report },
+          { id: '3', title: t(CATERGORY_CONSTANT.MY_ATTENDANCE), screen: SCREENS.EMPLOYEE_ATTENDANCE, icon: MyImages.attendance },
         ];  
       case ROLES.EMPLOYEE:
         return [
