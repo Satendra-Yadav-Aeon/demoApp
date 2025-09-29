@@ -40,7 +40,9 @@ const MarkAttendanceEmployeeCard = ({ employee }) => {
         await setAsyncItem(checkInKey, 'true');
         await setAsyncItem(dateKey, today);
         setIsCheckIn(true);
-      } else {
+      } else if (employee.attendance[0].inOut === 1) {
+        setIsCheckIn(false);
+      }else {
         setIsCheckIn(storedCheckIn === 'true');
       }
     };
