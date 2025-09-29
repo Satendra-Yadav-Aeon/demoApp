@@ -1,13 +1,14 @@
-import { PermissionsAndroid, Platform, Alert, Linking, BackHandler } from 'react-native';
+import { PermissionsAndroid, Platform, Alert, Linking } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
-import { ANDROID_PLATFORM, LOCATION_BASED_CONSTANT, MAP_CONSTANT } from '../constants/MainConstant';
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { ASYNC_CONSTANT } from '../constants/AsyncConstant';
 import { setAsyncItem } from './AsyncStorage';
+import { ANDROID_PLATFORM, LOCATION_BASED_CONSTANT, MAP_CONSTANT } from '../constants/MainConstant';
 
 export const requestLocationPermission = async (t) => {
   let granted;
   if (Platform.OS === ANDROID_PLATFORM) {
-    // First check if permission already granted
+    // ANDROID FLOW
     const alreadyGranted = await PermissionsAndroid.check(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
     );
@@ -19,61 +20,72 @@ export const requestLocationPermission = async (t) => {
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
       );
     }
-    // console.log('===requestLocationPermission====>granted>>>>', granted);
+
     if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
       if (granted === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
-        // User chose "Don't ask again"
         Alert.alert(
           t(LOCATION_BASED_CONSTANT.LABEL_1),
           t(LOCATION_BASED_CONSTANT.LABEL_1_MSG),
           [
             { text: 'Open Settings', onPress: () => Linking.openSettings() },
-            { text: 'Exit App', onPress: () => BackHandler.exitApp() },
-          ],
-          { cancelable: false }
+            { text: 'Cancel', style: 'cancel' },
+          ]
         );
       } else {
-        // User denied but didn't tick "Don't ask again"
         Alert.alert(
           t(LOCATION_BASED_CONSTANT.LABEL_2),
           t(LOCATION_BASED_CONSTANT.LABEL_2_MSG),
           [
-            { text: 'Try Again', onPress: () => requestLocationPermission() },
-            { text: 'Exit App', onPress: () => BackHandler.exitApp() },
-          ],
-          { cancelable: false }
+            { text: 'Try Again', onPress: () => requestLocationPermission(t) },
+            { text: 'Cancel', style: 'cancel' },
+          ]
         );
       }
-      return;
+      return false;
     }
-  } else{
-    // iOS
-    Geolocation.requestAuthorization('whenInUse').then(auth => {
-      if (auth === 'denied' || auth === 'restricted') {
+  } else {
+    // iOS FLOW
+    const status = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+
+    if (status === RESULTS.GRANTED) {
+      granted = 'ios_auto';
+    } else if (status === RESULTS.DENIED) {
+      const reqStatus = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+      if (reqStatus === RESULTS.GRANTED) {
+        granted = 'ios_auto';
+      } else {
         Alert.alert(
-          t(LOCATION_BASED_CONSTANT.LABEL_3),
-          t(LOCATION_BASED_CONSTANT.LABEL_3_MSG),
+          t(LOCATION_BASED_CONSTANT.LABEL_1),
+          t(LOCATION_BASED_CONSTANT.LABEL_1_MSG),
           [
             { text: 'Open Settings', onPress: () => Linking.openSettings() },
-            { text: 'Exit App', onPress: () => BackHandler.exitApp() },
-          ],
-          { cancelable: false }
+            { text: 'Cancel', style: 'cancel' },
+          ]
         );
+        return false;
       }
-    });
-
-    granted = 'ios_auto';
+    } else if (status === RESULTS.BLOCKED) {
+      Alert.alert(
+        t(LOCATION_BASED_CONSTANT.LABEL_2),
+        t(LOCATION_BASED_CONSTANT.LABEL_2_MSG),
+        [
+          { text: 'Open Settings', onPress: () => Linking.openSettings() },
+          { text: 'Cancel', style: 'cancel' },
+        ]
+      );
+      return false;
+    }
   }
 
-
+  // === Common part: Fetch actual location ===
   try {
     Geolocation.getCurrentPosition(
-      async position => {
+      async (position) => {
         const { latitude, longitude } = position.coords;
         await setAsyncItem(ASYNC_CONSTANT.USER_LAT, latitude);
         await setAsyncItem(ASYNC_CONSTANT.USER_LONG, longitude);
       },
-      error => {
+      (error) => {
         if (error.code === 2 && error.message.includes(MAP_CONSTANT.NO_PROVIDER)) {
           Alert.alert(
             MAP_CONSTANT.ENABLE_LOCATION,
@@ -85,7 +97,11 @@ export const requestLocationPermission = async (t) => {
           );
         }
       },
-      { enableHighAccuracy: false, timeout: 30000, maximumAge: 10000 }
+      {
+        enableHighAccuracy: true,   // Required for iOS
+        timeout: 20000,
+        maximumAge: 10000,
+      }
     );
   } catch (err) {
     // console.error('Unexpected geolocation error:', err);

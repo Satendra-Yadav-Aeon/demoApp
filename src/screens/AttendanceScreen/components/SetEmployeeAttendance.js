@@ -203,12 +203,6 @@ const SetEmployeeAttendance = () => {
 
       if (permission !== 'ios_auto' && permission !== PermissionsAndroid.RESULTS.GRANTED) {
         setLoading(false);
-        Alert.alert(
-          t(LOCATION_BASED_CONSTANT.LABEL_4),
-          t(LOCATION_BASED_CONSTANT.LABEL_4_MSG),
-          [{ text: 'OK' }],
-          { cancelable: false }
-        );
         return; //Stop flow
       }
 

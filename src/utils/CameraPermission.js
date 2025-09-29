@@ -1,13 +1,12 @@
-import { PermissionsAndroid, Platform, Alert, Linking, BackHandler } from 'react-native';
+import { PermissionsAndroid, Platform, Alert, Linking } from 'react-native';
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { CAMERA_BASED_CONSTANT } from '../constants/MainConstant';
 
 export const requestCameraPermission = async (t) => {
-  let granted;
-
   if (Platform.OS === 'android') {
-    // Check if already granted
     const alreadyGranted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA);
 
+    let granted;
     if (alreadyGranted) {
       granted = PermissionsAndroid.RESULTS.GRANTED;
     } else {
@@ -16,34 +15,56 @@ export const requestCameraPermission = async (t) => {
 
     if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
       if (granted === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
-        // User chose "Don't ask again"
         Alert.alert(
           t(CAMERA_BASED_CONSTANT.CAMERA_LABEL_1),
           t(CAMERA_BASED_CONSTANT.CAMERA_LABEL_1_MSG),
           [
             { text: 'Open Settings', onPress: () => Linking.openSettings() },
-            { text: 'Exit App', onPress: () => BackHandler.exitApp() }
+            { text: "Cancel", style: "cancel" }
           ],
           { cancelable: false }
         );
       } else {
-        // User denied but not permanently
         Alert.alert(
           t(CAMERA_BASED_CONSTANT.CAMERA_LABEL_2),
           t(CAMERA_BASED_CONSTANT.CAMERA_LABEL_2_MSG),
           [
             { text: 'Try Again', onPress: () => requestCameraPermission(t) },
-            { text: 'Exit App', onPress: () => BackHandler.exitApp() }
+            { text: "Cancel", style: "cancel" }
           ],
           { cancelable: false }
         );
       }
       return false;
     }
+    return true;
   } else {
-    // iOS (handled by system dialog automatically)
-    granted = true;
-  }
+    // iOS logic
+    const status = await check(PERMISSIONS.IOS.CAMERA);
+    
+    if (status === RESULTS.GRANTED) {
+      return true;
+    }
 
-  return true;
+    if (status === RESULTS.DENIED) {
+      // First time → system dialog
+      const reqStatus = await request(PERMISSIONS.IOS.CAMERA);
+      return reqStatus === RESULTS.GRANTED;
+    }
+
+    if (status === RESULTS.BLOCKED) {
+      Alert.alert(
+        t(CAMERA_BASED_CONSTANT.CAMERA_LABEL_1),
+        t(CAMERA_BASED_CONSTANT.CAMERA_LABEL_1_MSG),
+        [
+          { text: 'Open Settings', onPress: () => Linking.openSettings() },
+          { text: "Cancel", style: "cancel" }
+        ],
+        { cancelable: false }
+      );
+      return false;
+    }
+
+    return false;
+  }
 };
