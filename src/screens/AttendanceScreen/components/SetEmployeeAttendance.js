@@ -7,6 +7,7 @@ import ImageResizer from 'react-native-image-resizer';
 import { useTranslation } from 'react-i18next';
 import BackgroundService from 'react-native-background-actions';
 import { isMockingLocation } from 'react-native-turbo-mock-location-detector'
+import Geolocation from '@react-native-community/geolocation';
 import Colors from '../../../assets/colors/colors';
 import ScreenDimensions from '../../../utils/DimensionUtils';
 import MyImages from '../../../utils/MyImages';
@@ -193,6 +194,32 @@ const SetEmployeeAttendance = () => {
       },
   };
 
+  const fetchLocation = async () => {
+    try {
+      // First attempt: high accuracy
+      return await new Promise((resolve, reject) => {
+        Geolocation.getCurrentPosition(
+          pos => resolve(pos),
+          err => reject(err),
+          { enableHighAccuracy: true, timeout: 20000, maximumAge: 60000 }
+        );
+      });
+    } catch (err) {
+      if (err.code === 3) { // TIMEOUT
+        // console.log("High accuracy timed out, retrying with low accuracy...");
+        // Retry with low accuracy (network)
+        return await new Promise((resolve, reject) => {
+          Geolocation.getCurrentPosition(
+            pos => resolve(pos),
+            err2 => reject(err2),
+            { enableHighAccuracy: false, timeout: 15000, maximumAge: 60000 }
+          );
+        });
+      }
+      throw err; // rethrow if other error
+    }
+  } 
+
   const handleMarkAttendacne = async () => {
     try {
       // Start loader instantly
@@ -211,36 +238,21 @@ const SetEmployeeAttendance = () => {
       let userLong = parseFloat(await getAsyncItem(ASYNC_CONSTANT.USER_LONG)) || null;
 
       if (!userLat || !userLong) {
-        // Try fetching again (keep loader ON)
-        await new Promise((resolve, reject) => {
-          Geolocation.getCurrentPosition(
-            async position => {
-              const { latitude, longitude } = position.coords;
-              await setAsyncItem(ASYNC_CONSTANT.USER_LAT, latitude);
-              await setAsyncItem(ASYNC_CONSTANT.USER_LONG, longitude);
-              userLat = latitude;
-              userLong = longitude;
-              resolve();
-            },
-            error => {
-              reject(error);
-            },
-            { enableHighAccuracy: false, timeout: 20000, maximumAge: 10000 }
+        try {
+          const position = await fetchLocation();
+          userLat = position.coords.latitude;
+          userLong = position.coords.longitude;
+          await setAsyncItem(ASYNC_CONSTANT.USER_LAT, userLat);
+          await setAsyncItem(ASYNC_CONSTANT.USER_LONG, userLong);
+        } catch (error) {
+          setLoading(false);
+          Alert.alert(
+            t(LOCATION_BASED_CONSTANT.LABEL_5),
+            t(LOCATION_BASED_CONSTANT.LABEL_5_MSG)
           );
-        }).catch(err => {
-          // console.error('Geolocation retry failed:', err);
-        });
+          return;
+        }
       }
-
-      if (!userLat || !userLong) {
-        setLoading(false);
-        Alert.alert(
-          t(LOCATION_BASED_CONSTANT.LABEL_5),
-          t(LOCATION_BASED_CONSTANT.LABEL_5_MSG)
-        );
-        return; // Stop flow
-      }
-
       // now set coordinates
       setLat(userLat);
       setLong(userLong);

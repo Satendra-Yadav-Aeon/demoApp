@@ -55,7 +55,7 @@ const EmployeeCategory = ({ role, ListFooterComponent}) => {
 
 
   return (
-    <View style={[styles.container, (role === ROLES.EMPLOYEE || role === ROLES.SUPERVISOR) && { top: screenHeight * 0.15 }]}>
+    <View style={[styles.container, (role === ROLES.EMPLOYEE || role === ROLES.SUPERVISOR) && { top: screenHeight * 0.15, paddingBottom: 150 }]}>
       <Text style={styles.title} adjustsFontSizeToFit={true}>{t(CATEGORY_TITLE)}</Text>
       <FlatList
         data={categories}
