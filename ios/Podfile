@@ -4,6 +4,8 @@ require Pod::Executable.execute_command('node', ['-p',
     "react-native/scripts/react_native_pods.rb",
     {paths: [process.argv[1]]},
   )', __dir__]).strip
+
+# react-native-permissions setup
 require_relative '../node_modules/react-native-permissions/scripts/setup.rb'
 
 platform :ios, min_ios_version_supported
@@ -25,27 +27,42 @@ target 'attendrix' do
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # An absolute path to your application root.
+    # Absolute path to app root
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+
   setup_permissions([
-  'Camera',
-  'LocationAccuracy',
-  'LocationAlways',
-  'LocationWhenInUse',
-  'MediaLibrary',
-  'Microphone',
-  'PhotoLibrary',
-  'PhotoLibraryAddOnly',
-])
+    'Camera',
+    'LocationAccuracy',
+    'LocationAlways',
+    'LocationWhenInUse',
+    'MediaLibrary',
+    'Microphone',
+    'PhotoLibrary',
+    'PhotoLibraryAddOnly',
+  ])
 
   post_install do |installer|
-    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
       installer,
       config[:reactNativePath],
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # Fix duplicate React-Core_privacy.bundle issue
+    installer.pods_project.targets.each do |target|
+      if target.name.include?("React-Core")
+        target.build_phases.each do |phase|
+          if phase.respond_to?(:name) && phase.name == 'Copy Bundle Resources'
+            phase.files.each do |file|
+              if file.display_name == "React-Core_privacy.bundle"
+                phase.remove_file_reference(file.file_ref)
+              end
+            end
+          end
+        end
+      end
+    end
   end
 end

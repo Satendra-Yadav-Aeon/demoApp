@@ -26,6 +26,8 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>43.242.212.12</key>
@@ -41,6 +43,8 @@
 	<string>This app needs access to your camera to capture photos or scan codes.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>We need your location to show the map</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app requires location access even in background for admin to access employee's location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to show the map</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -49,8 +53,8 @@
 	<string>We need access to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs access to your photo library to select images.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app requires location access even in background for admin to access employee's location.</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This app does not access your Apple Music or media library. Any references are due to third-party libraries.</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchScreen</key>
