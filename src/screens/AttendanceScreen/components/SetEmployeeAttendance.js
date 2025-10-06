@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Alert, Image, TouchableOpacity, Text, ActivityIndicator, PermissionsAndroid } from 'react-native';
+import { View, StyleSheet, Alert, Image, TouchableOpacity, Text, ActivityIndicator, PermissionsAndroid, Platform } from 'react-native';
 import { launchCamera } from 'react-native-image-picker';
 import moment from 'moment';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -19,7 +19,7 @@ import imageNameUtils from '../../../utils/imageNameUtils';
 import { useMarkAttendanceAPI } from '../hooks/useMarkAttendanceAPI';
 import { useSaveBackgroundLocation } from '../../DashboardScreen/hooks/useSaveBackgroundLocation';
 import { isDeviceTimeTampered } from '../../../utils/trustedTime';
-import { LARGE_LOADER, LOCATION_BASED_CONSTANT } from '../../../constants/MainConstant';
+import { ANDROID_PLATFORM, LARGE_LOADER, LOCATION_BASED_CONSTANT } from '../../../constants/MainConstant';
 import { requestLocationPermission } from '../../../utils/requestLocationPermission';
 import { requestCameraPermission } from '../../../utils/CameraPermission';
 
@@ -264,7 +264,7 @@ const SetEmployeeAttendance = () => {
       ]);
 
       // Stop loader BEFORE showing any alert so alert shows instantly
-      if (timeTampered) {
+      if (Platform.OS === ANDROID_PLATFORM &&  timeTampered) {
         setLoading(false);
         Alert.alert(
           t(MOCK_TIME_CONSTANT.LABEL),
