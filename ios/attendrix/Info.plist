@@ -40,21 +40,17 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>This app needs access to your camera to capture photos or scan codes.</string>
+	<string>Attendrix uses your camera to capture check-in/out photos, task images, and profile pictures.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>We need your location to show the map</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app requires location access even in background for admin to access employee's location.</string>
+  <string>Attendrix needs background location access to track your working location for attendance purposes during check-in and check-out.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need your location to show the map</string>
+	<string>Attendrix uses your location to mark attendance, verify work location, and show your check-in/out location to the admin.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>This app needs access to your microphone to record audio.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>We need access to save photos</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app needs access to your photo library to select images.</string>
+	<string>Attendrix may request microphone access if required by certain features or third-party libraries.</string>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>This app does not access your Apple Music or media library. Any references are due to third-party libraries.</string>
+	<string>Attendrix may request access to your media library if required by certain features or third-party libraries.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Attendrix allows you to choose existing photos from your library if required for attendance or work reports.</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchScreen</key>

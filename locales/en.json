@@ -225,7 +225,7 @@
     "LABEL_1": "Permission Required",
     "LABEL_1_MSG": "Location access is mandatory. Please enable it from Settings.",
     "LABEL_2": "Location permission not granted",
-    "LABEL_2_MSG": "Location access is mandatory for using this app.",
+    "LABEL_2_MSG": "Location access is mandatory for marking the attendance.",
     "LABEL_3": "Location Required",
     "LABEL_3_MSG": "Please enable location from Settings to continue.",
     "LABEL_4": "Location Required",

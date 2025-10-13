@@ -275,7 +275,7 @@ const SetEmployeeAttendance = () => {
         return;
       }
 
-      if (mockResult?.isLocationMocked) {
+      if (Platform.OS === ANDROID_PLATFORM && mockResult?.isLocationMocked) {
         setLoading(false);
         Alert.alert(
           t(MOCK_LOCATION_CONSTANT.LABEL),
