@@ -4,7 +4,6 @@ const MyImages = {
     hide: require('../assets/images/hide.png'),
     goBack: require('../assets/images/back-button.png'),
     setting: require('../assets/images/settings.png'),
-    goFurther: require('../assets/images/fast-forward.png'),
     checkIn: require('../assets/images/check-in.png'),
     checkOut: require('../assets/images/exit.png'),
     attendance: require('../assets/images/attendance.png'),
